@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="8" skipped="0" tests="8" time="3.087" timestamp="2026-10-04T11:08:56.987698+05:00" hostname="DESKTOP-P16JVIG"><testcase classname="tests.test_domain_contracts" name="test_deprecated_copy_revalidates_scalar_updates" time="0.011"><failure message="Failed: DID NOT RAISE ValidationError">tests\test_domain_contracts.py:152: in test_deprecated_copy_revalidates_scalar_updates
+    with pytest.raises(ValidationError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValidationError</failure></testcase><testcase classname="tests.test_domain_contracts" name="test_deprecated_copy_keeps_nested_replacements_frozen" time="0.002"><failure message="AssertionError: assert ['original', 'caller change'] == ('original',)&#10;  &#10;  Left contains one more item: 'caller change'&#10;  Use -v to get more diff">tests\test_domain_contracts.py:160: in test_deprecated_copy_keeps_nested_replacements_frozen
+    assert copied.coverage_flags["labels"] == ("original",)
+E   AssertionError: assert ['original', 'caller change'] == ('original',)
+E     
+E     Left contains one more item: 'caller change'
+E     Use -v to get more diff</failure></testcase><testcase classname="tests.test_domain_contracts" name="test_observer_payloads_have_local_size_and_width_budgets[&lt;lambda&gt;0]" time="0.002"><failure message="Failed: DID NOT RAISE ValidationError">tests\test_domain_contracts.py:175: in test_observer_payloads_have_local_size_and_width_budgets
+    with pytest.raises(ValidationError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValidationError</failure></testcase><testcase classname="tests.test_domain_contracts" name="test_observer_payloads_have_local_size_and_width_budgets[&lt;lambda&gt;1]" time="0.002"><failure message="Failed: DID NOT RAISE ValidationError">tests\test_domain_contracts.py:175: in test_observer_payloads_have_local_size_and_width_budgets
+    with pytest.raises(ValidationError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValidationError</failure></testcase><testcase classname="tests.test_domain_contracts" name="test_observer_payloads_have_local_size_and_width_budgets[&lt;lambda&gt;2]" time="0.002"><failure message="Failed: DID NOT RAISE ValidationError">tests\test_domain_contracts.py:175: in test_observer_payloads_have_local_size_and_width_budgets
+    with pytest.raises(ValidationError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValidationError</failure></testcase><testcase classname="tests.test_domain_contracts" name="test_observer_payloads_have_local_size_and_width_budgets[&lt;lambda&gt;3]" time="0.002"><failure message="Failed: DID NOT RAISE ValidationError">tests\test_domain_contracts.py:175: in test_observer_payloads_have_local_size_and_width_budgets
+    with pytest.raises(ValidationError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValidationError</failure></testcase><testcase classname="tests.test_domain_contracts" name="test_observer_payloads_have_local_size_and_width_budgets[&lt;lambda&gt;4]" time="0.002"><failure message="Failed: DID NOT RAISE ValidationError">tests\test_domain_contracts.py:175: in test_observer_payloads_have_local_size_and_width_budgets
+    with pytest.raises(ValidationError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValidationError</failure></testcase><testcase classname="tests.test_domain_contracts" name="test_observer_payloads_have_local_size_and_width_budgets[&lt;lambda&gt;5]" time="0.008"><failure message="Failed: DID NOT RAISE ValidationError">tests\test_domain_contracts.py:175: in test_observer_payloads_have_local_size_and_width_budgets
+    with pytest.raises(ValidationError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValidationError</failure></testcase></testsuite></testsuites>

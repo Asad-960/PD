@@ -1,0 +1,29 @@
+{
+  "canvas-still": {
+    "width": 786,
+    "height": 566,
+    "anatomy_pixel_fraction": 0.0689
+  },
+  "canvas-moving": {
+    "width": 786,
+    "height": 566,
+    "anatomy_pixel_fraction": 0.0689
+  },
+  "canvas-mobile": {
+    "width": 350,
+    "height": 536,
+    "anatomy_pixel_fraction": 0.1439
+  },
+  "canvas-mobile-375": {
+    "width": 345,
+    "height": 471,
+    "anatomy_pixel_fraction": 0.1302
+  },
+  "canvas-wide": {
+    "width": 1036,
+    "height": 631,
+    "anatomy_pixel_fraction": 0.0579
+  },
+  "motion_mean_difference": 0.03506220459933405,
+  "pdf_pages": 4
+}

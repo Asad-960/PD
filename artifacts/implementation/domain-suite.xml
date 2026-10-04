@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="10" skipped="0" tests="148" time="7.961" timestamp="2026-10-04T10:58:58.050034+05:00" hostname="DESKTOP-P16JVIG"><testcase classname="tests.test_coverage_and_contracts" name="test_coverage_gate_metric_evaluation" time="0.006" /><testcase classname="tests.test_coverage_and_contracts" name="test_coverage_gate_condition_evaluation" time="0.003" /><testcase classname="tests.test_coverage_and_contracts" name="test_coverage_gate_intervention_evaluation" time="0.003" /><testcase classname="tests.test_coverage_and_contracts" name="test_coverage_gate_validate_scenario_missing_measurements" time="0.003" /><testcase classname="tests.test_coverage_and_contracts" name="test_baseline_measurement_rule5_missingness" time="0.002" /><testcase classname="tests.test_coverage_and_contracts" name="test_patient_profile_validation" time="0.002" /><testcase classname="tests.test_coverage_and_contracts" name="test_intervention_contract" time="0.002" /><testcase classname="tests.test_coverage_and_contracts" name="test_simulation_config_contract" time="0.002" /><testcase classname="tests.test_coverage_and_contracts" name="test_physiology_snapshot_contract" time="0.002" /><testcase classname="tests.test_coverage_and_contracts" name="test_agent_finding_contract" time="0.002" /><testcase classname="tests.test_coverage_and_contracts" name="test_run_event_contract" time="0.002" /><testcase classname="tests.test_coverage_and_contracts" name="test_checkpoint_contract" time="0.002" /><testcase classname="tests.test_coverage_and_contracts" name="test_review_record_contract" time="0.002" /><testcase classname="tests.test_coverage_and_contracts" name="test_json_schema_generation_for_all_models" time="0.025" /><testcase classname="tests.test_domain_contracts" name="test_observer_snapshot_blocks_nested_mutation[&lt;lambda&gt;0]" time="0.003" /><testcase classname="tests.test_domain_contracts" name="test_observer_snapshot_blocks_nested_mutation[&lt;lambda&gt;1]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_observer_snapshot_blocks_nested_mutation[&lt;lambda&gt;2]" time="0.003" /><testcase classname="tests.test_domain_contracts" name="test_observer_snapshot_blocks_nested_mutation[&lt;lambda&gt;3]" time="0.001" /><testcase classname="tests.test_domain_contracts" name="test_observer_snapshot_blocks_nested_mutation[&lt;lambda&gt;4]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_profile_and_config_are_deeply_frozen" time="0.001" /><testcase classname="tests.test_domain_contracts" name="test_detached_input_dump_and_json_round_trip" time="0.006" /><testcase classname="tests.test_domain_contracts" name="test_invalid_quantity_value_cannot_escape_validation[nan]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_invalid_quantity_value_cannot_escape_validation[inf]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_invalid_quantity_value_cannot_escape_validation[-inf]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_invalid_quantity_value_cannot_escape_validation[True]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_invalid_quantity_value_cannot_escape_validation[90]" time="0.001" /><testcase classname="tests.test_domain_contracts" name="test_invalid_quantity_value_cannot_escape_validation[banana]" time="0.001" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[nan-&lt;lambda&gt;0]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[nan-&lt;lambda&gt;1]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[nan-&lt;lambda&gt;2]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[nan-&lt;lambda&gt;3]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[nan-&lt;lambda&gt;4]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[nan-&lt;lambda&gt;5]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[nan-&lt;lambda&gt;6]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[nan-&lt;lambda&gt;7]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[inf-&lt;lambda&gt;0]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[inf-&lt;lambda&gt;1]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[inf-&lt;lambda&gt;2]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[inf-&lt;lambda&gt;3]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[inf-&lt;lambda&gt;4]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[inf-&lt;lambda&gt;5]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[inf-&lt;lambda&gt;6]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[inf-&lt;lambda&gt;7]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[True-&lt;lambda&gt;0]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[True-&lt;lambda&gt;1]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[True-&lt;lambda&gt;2]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[True-&lt;lambda&gt;3]" time="0.001" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[True-&lt;lambda&gt;4]" time="0.001" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[True-&lt;lambda&gt;5]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[True-&lt;lambda&gt;6]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[True-&lt;lambda&gt;7]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[10-&lt;lambda&gt;0]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[10-&lt;lambda&gt;1]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[10-&lt;lambda&gt;2]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[10-&lt;lambda&gt;3]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[10-&lt;lambda&gt;4]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[10-&lt;lambda&gt;5]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[10-&lt;lambda&gt;6]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_numeric_inputs_are_finite_and_not_coerced[10-&lt;lambda&gt;7]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_snapshot_metadata_requires_json_values[bad0]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_snapshot_metadata_requires_json_values[bad1]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_snapshot_metadata_requires_json_values[bad2]" time="0.003" /><testcase classname="tests.test_domain_contracts" name="test_snapshot_metadata_requires_json_values[bad3]" time="0.003" /><testcase classname="tests.test_domain_contracts" name="test_extra_fields_bad_capabilities_and_untyped_quantities_are_rejected" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_copy_updates_are_revalidated" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_baseline_missingness_and_key_identity" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_units_and_known_action_routes_are_checked[changes0]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_units_and_known_action_routes_are_checked[changes1]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_units_and_known_action_routes_are_checked[changes2]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_units_and_known_action_routes_are_checked[changes3]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_units_and_known_action_routes_are_checked[changes4]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_units_and_known_action_routes_are_checked[changes5]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_local_run_resource_bounds[changes0]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_local_run_resource_bounds[changes1]" time="0.001" /><testcase classname="tests.test_domain_contracts" name="test_local_run_resource_bounds[changes2]" time="0.002" /><testcase classname="tests.test_domain_contracts" name="test_invalid_schedule_rejected_before_creating_a_run[actions0]" time="0.010" /><testcase classname="tests.test_domain_contracts" name="test_invalid_schedule_rejected_before_creating_a_run[actions1]" time="0.009" /><testcase classname="tests.test_domain_contracts" name="test_invalid_schedule_rejected_before_creating_a_run[actions2]" time="0.016" /><testcase classname="tests.test_domain_contracts" name="test_database_and_event_payload_round_trip_frozen_snapshot" time="0.051" /><testcase classname="tests.test_engine_worker_boundary" name="test_default_quantity_cannot_claim_unverified_pulse_output" time="0.002" /><testcase classname="tests.test_engine_worker_boundary" name="test_persisted_config_identifies_actual_adapter" time="0.010"><failure message="TypeError: Object of type ImmutableMap is not JSON serializable">tests\test_engine_worker_boundary.py:39: in test_persisted_config_identifies_actual_adapter
+    owner.run()
+simulation\worker.py:115: in run
+    self._run_impl()
+simulation\worker.py:164: in _run_impl
+    if not self.engine.initialize(profile_dump, self.config.assumptions):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+simulation\adapter.py:94: in initialize
+    copied_assumptions = json.loads(_canonical(assumptions or {}))
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+simulation\adapter.py:36: in _canonical
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\__init__.py:238: in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:200: in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:258: in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:180: in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+E   TypeError: Object of type ImmutableMap is not JSON serializable</failure></testcase><testcase classname="tests.test_engine_worker_boundary" name="test_explicit_request_for_other_engine_cannot_silently_fall_back" time="0.007" /><testcase classname="tests.test_engine_worker_boundary" name="test_rejected_initialization_is_failed_not_successful" time="0.009"><failure message="TypeError: Object of type ImmutableMap is not JSON serializable">tests\test_engine_worker_boundary.py:62: in test_rejected_initialization_is_failed_not_successful
+    owner.run()
+simulation\worker.py:115: in run
+    self._run_impl()
+simulation\worker.py:164: in _run_impl
+    if not self.engine.initialize(profile_dump, self.config.assumptions):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_engine_worker_boundary.py:58: in initialize
+    super().initialize(*args)
+simulation\adapter.py:94: in initialize
+    copied_assumptions = json.loads(_canonical(assumptions or {}))
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+simulation\adapter.py:36: in _canonical
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\__init__.py:238: in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:200: in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:258: in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:180: in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+E   TypeError: Object of type ImmutableMap is not JSON serializable</failure></testcase><testcase classname="tests.test_engine_worker_boundary" name="test_rejected_advance_cannot_be_recorded_as_completion" time="0.009"><failure message="TypeError: Object of type ImmutableMap is not JSON serializable">tests\test_engine_worker_boundary.py:72: in test_rejected_advance_cannot_be_recorded_as_completion
+    worker(writer, engine=Rejecting()).run()
+simulation\worker.py:115: in run
+    self._run_impl()
+simulation\worker.py:164: in _run_impl
+    if not self.engine.initialize(profile_dump, self.config.assumptions):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+simulation\adapter.py:94: in initialize
+    copied_assumptions = json.loads(_canonical(assumptions or {}))
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+simulation\adapter.py:36: in _canonical
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\__init__.py:238: in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:200: in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:258: in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:180: in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+E   TypeError: Object of type ImmutableMap is not JSON serializable</failure></testcase><testcase classname="tests.test_engine_worker_boundary" name="test_rejected_action_cannot_emit_applied_event" time="0.008"><failure message="TypeError: Object of type ImmutableMap is not JSON serializable">tests\test_engine_worker_boundary.py:82: in test_rejected_action_cannot_emit_applied_event
+    worker(writer, engine=Rejecting(), interventions=[saline()]).run()
+simulation\worker.py:115: in run
+    self._run_impl()
+simulation\worker.py:164: in _run_impl
+    if not self.engine.initialize(profile_dump, self.config.assumptions):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+simulation\adapter.py:94: in initialize
+    copied_assumptions = json.loads(_canonical(assumptions or {}))
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+simulation\adapter.py:36: in _canonical
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\__init__.py:238: in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:200: in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:258: in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:180: in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+E   TypeError: Object of type ImmutableMap is not JSON serializable</failure></testcase><testcase classname="tests.test_engine_worker_boundary" name="test_unsupported_action_is_blocked_by_preflight" time="0.007" /><testcase classname="tests.test_engine_worker_boundary" name="test_numerical_invalidity_survives_boundary_and_fails_run" time="0.007"><failure message="TypeError: Object of type ImmutableMap is not JSON serializable">tests\test_engine_worker_boundary.py:102: in test_numerical_invalidity_survives_boundary_and_fails_run
+    worker(writer, engine=Invalid()).run()
+simulation\worker.py:115: in run
+    self._run_impl()
+simulation\worker.py:164: in _run_impl
+    if not self.engine.initialize(profile_dump, self.config.assumptions):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+simulation\adapter.py:94: in initialize
+    copied_assumptions = json.loads(_canonical(assumptions or {}))
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+simulation\adapter.py:36: in _canonical
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\__init__.py:238: in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:200: in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:258: in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:180: in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+E   TypeError: Object of type ImmutableMap is not JSON serializable</failure></testcase><testcase classname="tests.test_environment" name="test_python_version" time="0.002" /><testcase classname="tests.test_environment" name="test_fastapi_available" time="0.001" /><testcase classname="tests.test_environment" name="test_pydantic_v2_available" time="0.001" /><testcase classname="tests.test_environment" name="test_hardware_memory_budget" time="0.002" /><testcase classname="tests.test_evidence_engine" name="test_positive_evidence_rule" time="0.004" /><testcase classname="tests.test_evidence_engine" name="test_negative_evidence_rule" time="0.004" /><testcase classname="tests.test_evidence_engine" name="test_missing_data_evidence_rule" time="0.003" /><testcase classname="tests.test_evidence_engine" name="test_draft_rule_guardrail" time="0.003" /><testcase classname="tests.test_feasibility" name="test_capability_manifest_structure" time="0.003" /><testcase classname="tests.test_feasibility" name="test_engine_initialization_and_baseline" time="0.006" /><testcase classname="tests.test_feasibility" name="test_engine_advance_and_snapshot" time="0.005" /><testcase classname="tests.test_feasibility" name="test_engine_serialize_and_restore" time="0.008" /><testcase classname="tests.test_feasibility" name="test_anti_fabrication_rule_for_evidence_only" time="0.004" /><testcase classname="tests.test_illustrative_engine" name="test_numerical_provenance_is_illustrative" time="0.004" /><testcase classname="tests.test_illustrative_engine" name="test_zero_dose_is_noop" time="0.003" /><testcase classname="tests.test_illustrative_engine" name="test_bolus_uses_dose_without_inventing_organ_responses" time="0.003" /><testcase classname="tests.test_illustrative_engine" name="test_infusion_uses_duration_and_stops" time="0.003" /><testcase classname="tests.test_illustrative_engine" name="test_fluid_unit_conversion_is_explicit" time="0.003" /><testcase classname="tests.test_illustrative_engine" name="test_typed_dehydration_removes_only_requested_volume" time="0.003" /><testcase classname="tests.test_illustrative_engine" name="test_output_interval_split_does_not_change_state" time="0.005" /><testcase classname="tests.test_illustrative_engine" name="test_invalid_fluid_action_is_rejected_without_mutation[change0]" time="0.003" /><testcase classname="tests.test_illustrative_engine" name="test_invalid_fluid_action_is_rejected_without_mutation[change1]" time="0.003" /><testcase classname="tests.test_illustrative_engine" name="test_invalid_fluid_action_is_rejected_without_mutation[change2]" time="0.005" /><testcase classname="tests.test_illustrative_engine" name="test_invalid_fluid_action_is_rejected_without_mutation[change3]" time="0.005" /><testcase classname="tests.test_illustrative_engine" name="test_invalid_fluid_action_is_rejected_without_mutation[change4]" time="0.005" /><testcase classname="tests.test_illustrative_engine" name="test_invalid_fluid_action_is_rejected_without_mutation[change5]" time="0.004" /><testcase classname="tests.test_illustrative_engine" name="test_invalid_fluid_action_is_rejected_without_mutation[change6]" time="0.003" /><testcase classname="tests.test_illustrative_engine" name="test_excessive_dehydration_is_rejected_atomically" time="0.003" /><testcase classname="tests.test_illustrative_engine" name="test_invalid_advance_is_rejected_without_mutation[inf]" time="0.004" /><testcase classname="tests.test_illustrative_engine" name="test_invalid_advance_is_rejected_without_mutation[nan]" time="0.004" /><testcase classname="tests.test_illustrative_engine" name="test_invalid_advance_is_rejected_without_mutation[-1]" time="0.004" /><testcase classname="tests.test_illustrative_engine" name="test_ckd_diabetes_are_context_not_synthetic_measured_labs" time="0.004" /><testcase classname="tests.test_illustrative_engine" name="test_patient_reinitialization_clears_all_prior_state" time="0.007" /><testcase classname="tests.test_illustrative_engine" name="test_ignored_measured_baseline_is_explicit" time="0.004" /><testcase classname="tests.test_illustrative_engine" name="test_medication_never_changes_numerical_values[ibuprofen-True]" time="0.004" /><testcase classname="tests.test_illustrative_engine" name="test_medication_never_changes_numerical_values[morphine-True]" time="0.004" /><testcase classname="tests.test_illustrative_engine" name="test_medication_never_changes_numerical_values[fentanyl-False]" time="0.005" /><testcase classname="tests.test_illustrative_engine" name="test_medication_never_changes_numerical_values[Opioid_Bolus-False]" time="0.005" /><testcase classname="tests.test_illustrative_engine" name="test_exact_ids_prevent_substring_capability_escape[fake_ibuprofen]" time="0.006" /><testcase classname="tests.test_illustrative_engine" name="test_exact_ids_prevent_substring_capability_escape[saline_unvalidated_blend]" time="0.004" /><testcase classname="tests.test_illustrative_engine" name="test_exact_ids_prevent_substring_capability_escape[norepinephrine]" time="0.005" /><testcase classname="tests.test_illustrative_engine" name="test_capability_and_mode_survive_strict_manifest_round_trip" time="0.006" /><testcase classname="tests.test_illustrative_engine" name="test_advertised_numerical_metrics_match_actual_snapshot" time="0.005" /><testcase classname="tests.test_illustrative_engine" name="test_condition_display_does_not_misidentify_renal_stenosis_as_ckd" time="0.004" /><testcase classname="tests.test_illustrative_engine" name="test_positive_duration_requires_finite_representable_completion[1e+16-1]" time="0.005" /><testcase classname="tests.test_illustrative_engine" name="test_positive_duration_requires_finite_representable_completion[1e+308-1e+308]" time="0.005" /><testcase classname="tests.test_illustrative_engine" name="test_positive_advance_cannot_silently_fail_to_move_clock" time="0.005" /><testcase classname="tests.test_illustrative_engine" name="test_checkpoint_is_canonical_and_rejects_modified_or_incompatible_state" time="0.012" /><testcase classname="tests.test_illustrative_engine" name="test_successful_illustrative_lifecycle_does_not_verify_real_physiology" time="0.694" /><testcase classname="tests.test_persistence_and_events" name="test_sqlite_wal_mode_and_pragmas" time="0.040" /><testcase classname="tests.test_persistence_and_events" name="test_foreign_key_constraint_enforcement" time="0.041" /><testcase classname="tests.test_persistence_and_events" name="test_create_run_and_retrieve_patient" time="0.035" /><testcase classname="tests.test_persistence_and_events" name="test_monotonically_sequenced_events_and_catchup" time="0.036" /><testcase classname="tests.test_persistence_and_events" name="test_rapid_concurrent_writes" time="0.076" /><testcase classname="tests.test_persistence_and_events" name="test_checkpoint_persistence_and_restore" time="0.038" /><testcase classname="tests.test_persistence_and_events" name="test_findings_and_review_persistence" time="0.041" /><testcase classname="tests.test_simulation_worker" name="test_lifecycle_and_sequencing" time="0.011"><failure message="TypeError: Object of type ImmutableMap is not JSON serializable">tests\test_simulation_worker.py:46: in test_lifecycle_and_sequencing
+    worker.run()
+simulation\worker.py:115: in run
+    self._run_impl()
+simulation\worker.py:164: in _run_impl
+    if not self.engine.initialize(profile_dump, self.config.assumptions):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+simulation\adapter.py:94: in initialize
+    copied_assumptions = json.loads(_canonical(assumptions or {}))
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+simulation\adapter.py:36: in _canonical
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\__init__.py:238: in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:200: in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:258: in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:180: in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+E   TypeError: Object of type ImmutableMap is not JSON serializable</failure></testcase><testcase classname="tests.test_simulation_worker" name="test_interval_splitting" time="0.008"><failure message="TypeError: Object of type ImmutableMap is not JSON serializable">tests\test_simulation_worker.py:90: in test_interval_splitting
+    worker.run()
+simulation\worker.py:115: in run
+    self._run_impl()
+simulation\worker.py:164: in _run_impl
+    if not self.engine.initialize(profile_dump, self.config.assumptions):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+simulation\adapter.py:94: in initialize
+    copied_assumptions = json.loads(_canonical(assumptions or {}))
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+simulation\adapter.py:36: in _canonical
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\__init__.py:238: in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:200: in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:258: in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:180: in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+E   TypeError: Object of type ImmutableMap is not JSON serializable</failure></testcase><testcase classname="tests.test_simulation_worker" name="test_pre_intervention_checkpoint_verification" time="0.009"><failure message="TypeError: Object of type ImmutableMap is not JSON serializable">tests\test_simulation_worker.py:141: in test_pre_intervention_checkpoint_verification
+    worker.run()
+simulation\worker.py:115: in run
+    self._run_impl()
+simulation\worker.py:164: in _run_impl
+    if not self.engine.initialize(profile_dump, self.config.assumptions):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+simulation\adapter.py:94: in initialize
+    copied_assumptions = json.loads(_canonical(assumptions or {}))
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+simulation\adapter.py:36: in _canonical
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\__init__.py:238: in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:200: in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:258: in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:180: in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+E   TypeError: Object of type ImmutableMap is not JSON serializable</failure></testcase><testcase classname="tests.test_simulation_worker" name="test_pause_and_resume" time="0.210"><failure message="AssertionError: assert 'failed' == 'completed'&#10;  &#10;  - completed&#10;  + failed">tests\test_simulation_worker.py:190: in test_pause_and_resume
+    assert run_status["status"] == "completed"
+E   AssertionError: assert 'failed' == 'completed'
+E     
+E     - completed
+E     + failed</failure></testcase><testcase classname="tests.test_simulation_worker" name="test_anti_fabrication_check_inside_worker" time="0.012"><failure message="TypeError: Object of type ImmutableMap is not JSON serializable">tests\test_simulation_worker.py:223: in test_anti_fabrication_check_inside_worker
+    worker.run()
+simulation\worker.py:115: in run
+    self._run_impl()
+simulation\worker.py:164: in _run_impl
+    if not self.engine.initialize(profile_dump, self.config.assumptions):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+simulation\adapter.py:94: in initialize
+    copied_assumptions = json.loads(_canonical(assumptions or {}))
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+simulation\adapter.py:36: in _canonical
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\__init__.py:238: in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:200: in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:258: in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:180: in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+E   TypeError: Object of type ImmutableMap is not JSON serializable</failure></testcase></testsuite></testsuites>

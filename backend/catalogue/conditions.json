@@ -1,0 +1,4001 @@
+{
+  "version": "2026-10-04.1",
+  "source_status": "supplied_design_references_not_clinical_validation",
+  "documents": [
+    {
+      "name": "Document1.pdf",
+      "sha256": "27a2c80e24968f1f0ca2062b65834438421671ccddb8c3970d98be2bbf899df3"
+    },
+    {
+      "name": "Hepatic_Agent_Data_Report (1) (1).docx",
+      "sha256": "7531c3eb6aa785eb2ac33fecf05ed4b53dd92d35b744fb3ad59eef75c453cc3d"
+    },
+    {
+      "name": "Renal_Agent_Framework.docx",
+      "sha256": "b826e264b22c41c7d4f162d7acfa6663d71fcfe0a200fa5192465eaeee7f263d"
+    },
+    {
+      "name": "Respiratory Agent Architecture.pdf",
+      "sha256": "6986bfbde3bca000df4a383f9b8f9fcfb91b8d1b8795ee20482b506da4a1536b"
+    }
+  ],
+  "conditions": [
+    {
+      "id": "acute_kidney_injury_prerenal",
+      "name": "Acute kidney injury - prerenal",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "acute_kidney_injury_prerenal",
+      "mechanism": "Reduced renal blood flow",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "aki_intrinsic_renal",
+      "name": "AKI - intrinsic renal",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "aki_intrinsic_renal",
+      "mechanism": "Direct nephron/glomerular/tubular injury",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "aki_postrenal",
+      "name": "AKI - postrenal",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "aki_postrenal",
+      "mechanism": "Urinary obstruction",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "ckd",
+      "name": "CKD",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "CKD",
+      "mechanism": "Persistent structural/function loss",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "G1",
+        "G2",
+        "G3a",
+        "G3b",
+        "G4",
+        "G5"
+      ]
+    },
+    {
+      "id": "kidney_failure",
+      "name": "Kidney failure",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "kidney_failure",
+      "mechanism": "Very advanced loss of renal function",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "diabetic_kidney_disease",
+      "name": "Diabetic kidney disease",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "diabetic_kidney_disease",
+      "mechanism": "Chronic hyperglycemic glomerular damage",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "hypertensive_nephropathy",
+      "name": "Hypertensive nephropathy",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "hypertensive_nephropathy",
+      "mechanism": "Chronic vascular/glomerular pressure injury",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "iga_nephropathy",
+      "name": "IgA nephropathy",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "iga_nephropathy",
+      "mechanism": "IgA immune deposition",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "fsgs",
+      "name": "FSGS",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "fsgs",
+      "mechanism": "Segmental glomerular scarring",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "membranous_nephropathy",
+      "name": "Membranous nephropathy",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "membranous_nephropathy",
+      "mechanism": "Immune-mediated GBM injury",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "minimal_change_disease",
+      "name": "Minimal change disease",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "minimal_change_disease",
+      "mechanism": "Podocyte dysfunction",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "postinfectious_glomerulonephritis",
+      "name": "Postinfectious glomerulonephritis",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "postinfectious_glomerulonephritis",
+      "mechanism": "Immune response after infection",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "rapidly_progressive_gn",
+      "name": "Rapidly progressive GN",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "rapidly_progressive_gn",
+      "mechanism": "Severe inflammatory glomerular injury",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "anti_gbm_disease",
+      "name": "Anti-GBM disease",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "anti_gbm_disease",
+      "mechanism": "Antibodies attack GBM",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        },
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 10"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "anca_associated_gn",
+      "name": "ANCA-associated GN",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "anca_associated_gn",
+      "mechanism": "Small-vessel autoimmune vasculitis",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "lupus_nephritis",
+      "name": "Lupus nephritis",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "lupus_nephritis",
+      "mechanism": "SLE immune-complex kidney injury",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "nephrotic_syndrome",
+      "name": "Nephrotic syndrome",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "nephrotic_syndrome",
+      "mechanism": "Severe glomerular protein leak",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "nephritic_syndrome",
+      "name": "Nephritic syndrome",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "nephritic_syndrome",
+      "mechanism": "Glomerular inflammation",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "acute_tubular_injury_necrosis",
+      "name": "Acute tubular injury/necrosis",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "acute_tubular_injury_necrosis",
+      "mechanism": "Ischemia or toxins",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "acute_interstitial_nephritis",
+      "name": "Acute interstitial nephritis",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "acute_interstitial_nephritis",
+      "mechanism": "Often drug/immune related",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "chronic_tubulointerstitial_nephritis",
+      "name": "Chronic tubulointerstitial nephritis",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "chronic_tubulointerstitial_nephritis",
+      "mechanism": "Chronic toxins, drugs, reflux, metabolic disorders",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "pyelonephritis",
+      "name": "Pyelonephritis",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "pyelonephritis",
+      "mechanism": "Usually ascending bacterial infection",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        },
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 9"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "complicated_pyelonephritis",
+      "name": "Complicated pyelonephritis",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "complicated_pyelonephritis",
+      "mechanism": "Infection + obstruction/comorbidity",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "renal_abscess",
+      "name": "Renal abscess",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "renal_abscess",
+      "mechanism": "Localized kidney infection",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "polycystic_kidney_disease",
+      "name": "Polycystic kidney disease",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "polycystic_kidney_disease",
+      "mechanism": "Genetic cyst formation",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "alport_syndrome",
+      "name": "Alport syndrome",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "alport_syndrome",
+      "mechanism": "Genetic basement-membrane disorder",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "fabry_related_nephropathy",
+      "name": "Fabry-related nephropathy",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "fabry_related_nephropathy",
+      "mechanism": "Lysosomal storage disorder",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "congenital_renal_dysplasia",
+      "name": "Congenital renal dysplasia",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "congenital_renal_dysplasia",
+      "mechanism": "Abnormal kidney development",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "renal_hypoplasia",
+      "name": "Renal hypoplasia",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "renal_hypoplasia",
+      "mechanism": "Small/underdeveloped kidneys",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "solitary_kidney",
+      "name": "Solitary kidney",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "solitary_kidney",
+      "mechanism": "Congenital/acquired",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "renal_artery_stenosis",
+      "name": "Renal artery stenosis",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "ChronicRenalStenosis",
+      "mechanism": "Reduced arterial supply",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "renal_artery_thrombosis",
+      "name": "Renal artery thrombosis",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "renal_artery_thrombosis",
+      "mechanism": "Acute arterial occlusion",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "renal_vein_thrombosis",
+      "name": "Renal vein thrombosis",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "renal_vein_thrombosis",
+      "mechanism": "Venous obstruction",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "renal_infarction",
+      "name": "Renal infarction",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "renal_infarction",
+      "mechanism": "Embolus/thrombosis",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "thrombotic_microangiopathy",
+      "name": "Thrombotic microangiopathy",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "thrombotic_microangiopathy",
+      "mechanism": "Small-vessel thrombosis",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "hemolytic_uremic_syndrome",
+      "name": "Hemolytic uremic syndrome",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "hemolytic_uremic_syndrome",
+      "mechanism": "Microangiopathic renal injury",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        },
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 11"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "renal_papillary_necrosis",
+      "name": "Renal papillary necrosis",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "renal_papillary_necrosis",
+      "mechanism": "Ischemia/toxins, diabetes, analgesics etc.",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "renal_cortical_necrosis",
+      "name": "Renal cortical necrosis",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "renal_cortical_necrosis",
+      "mechanism": "Severe ischemia/shock",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "nephrolithiasis",
+      "name": "Nephrolithiasis",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "nephrolithiasis",
+      "mechanism": "Urinary crystal/stone formation",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "obstructive_nephropathy",
+      "name": "Obstructive nephropathy",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "obstructive_nephropathy",
+      "mechanism": "Stone/tumor/prostate/stricture",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "hydronephrosis",
+      "name": "Hydronephrosis",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "hydronephrosis",
+      "mechanism": "Urine-flow obstruction",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "reflux_nephropathy",
+      "name": "Reflux nephropathy",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "reflux_nephropathy",
+      "mechanism": "Vesicoureteral reflux/scarring",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "renal_tubular_acidosis",
+      "name": "Renal tubular acidosis",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "renal_tubular_acidosis",
+      "mechanism": "Tubular acid-handling defect",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "fanconi_syndrome",
+      "name": "Fanconi syndrome",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "fanconi_syndrome",
+      "mechanism": "Proximal tubular dysfunction",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "nephrogenic_diabetes_insipidus",
+      "name": "Nephrogenic diabetes insipidus",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "nephrogenic_diabetes_insipidus",
+      "mechanism": "Kidney unresponsive to ADH",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "hyperoxaluria_nephropathy",
+      "name": "Hyperoxaluria nephropathy",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "hyperoxaluria_nephropathy",
+      "mechanism": "Oxalate deposition",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "urate_nephropathy",
+      "name": "Urate nephropathy",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "urate_nephropathy",
+      "mechanism": "Uric-acid crystal deposition",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "myeloma_cast_nephropathy",
+      "name": "Myeloma cast nephropathy",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "myeloma_cast_nephropathy",
+      "mechanism": "Light-chain tubular injury",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "amyloid_nephropathy",
+      "name": "Amyloid nephropathy",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "amyloid_nephropathy",
+      "mechanism": "Amyloid deposition",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "kidney_malignancy_affecting_function",
+      "name": "Kidney malignancy affecting function",
+      "organ": "renal",
+      "group": "Kidney conditions",
+      "canonical_id": "kidney_malignancy_affecting_function",
+      "mechanism": "Tumor/invasion/obstruction",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "chronic_hypertension",
+      "name": "Chronic hypertension",
+      "organ": "cardiovascular",
+      "group": "Circulatory contributors",
+      "canonical_id": "EssentialHypertension",
+      "mechanism": "Glomerular/vascular damage",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 5"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "malignant_severe_hypertension",
+      "name": "Malignant/severe hypertension",
+      "organ": "cardiovascular",
+      "group": "Circulatory contributors",
+      "canonical_id": "malignant_severe_hypertension",
+      "mechanism": "Acute vascular injury",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 5"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "heart_failure",
+      "name": "Heart failure",
+      "organ": "cardiovascular",
+      "group": "Circulatory contributors",
+      "canonical_id": "CHF",
+      "mechanism": "Renal perfusion \u2193 + venous congestion",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 5"
+        },
+        {
+          "document": "Document1.pdf",
+          "section": "Pages 1-2"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ],
+      "subtypes": [
+        "unknown",
+        "HFrEF",
+        "HFpEF",
+        "HFmrEF"
+      ]
+    },
+    {
+      "id": "cardiogenic_shock",
+      "name": "Cardiogenic shock",
+      "organ": "cardiovascular",
+      "group": "Circulatory contributors",
+      "canonical_id": "cardiogenic_shock",
+      "mechanism": "Cardiac output \u2193 severely",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 5"
+        },
+        {
+          "document": "Document1.pdf",
+          "section": "Pages 1-2"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "myocardial_infarction_with_low_output",
+      "name": "Myocardial infarction with low output",
+      "organ": "cardiovascular",
+      "group": "Circulatory contributors",
+      "canonical_id": "myocardial_infarction_with_low_output",
+      "mechanism": "Renal perfusion \u2193",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 5"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "cardiac_tamponade",
+      "name": "Cardiac tamponade",
+      "organ": "cardiovascular",
+      "group": "Circulatory contributors",
+      "canonical_id": "cardiac_tamponade",
+      "mechanism": "Cardiac output \u2193",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 5"
+        },
+        {
+          "document": "Document1.pdf",
+          "section": "Pages 1-2"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "severe_arrhythmia",
+      "name": "Severe arrhythmia",
+      "organ": "cardiovascular",
+      "group": "Circulatory contributors",
+      "canonical_id": "severe_arrhythmia",
+      "mechanism": "Output/perfusion \u2193",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 5"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "pulmonary_embolism_with_hemodynamic_compromise",
+      "name": "Pulmonary embolism with hemodynamic compromise",
+      "organ": "cardiovascular",
+      "group": "Circulatory contributors",
+      "canonical_id": "pulmonary_embolism_with_hemodynamic_compromise",
+      "mechanism": "Low output/venous pressure effects",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 5"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "pulmonary_hypertension_right_hf",
+      "name": "Pulmonary hypertension / right HF",
+      "organ": "cardiovascular",
+      "group": "Circulatory contributors",
+      "canonical_id": "pulmonary_hypertension_right_hf",
+      "mechanism": "Renal venous congestion",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 5"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "atherosclerosis",
+      "name": "Atherosclerosis",
+      "organ": "cardiovascular",
+      "group": "Circulatory contributors",
+      "canonical_id": "atherosclerosis",
+      "mechanism": "Renal artery narrowing/atheroembolism",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 5"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "aortic_disease_affecting_renal_arteries",
+      "name": "Aortic disease affecting renal arteries",
+      "organ": "cardiovascular",
+      "group": "Circulatory contributors",
+      "canonical_id": "aortic_disease_affecting_renal_arteries",
+      "mechanism": "Renal perfusion \u2193",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 5"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "diabetes_mellitus",
+      "name": "Diabetes mellitus",
+      "organ": "renal",
+      "group": "Metabolic contributors",
+      "canonical_id": "Type2DiabetesMellitus",
+      "mechanism": "Hyperglycemia damages glomeruli",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 6"
+        },
+        {
+          "document": "Respiratory Agent Architecture.pdf",
+          "section": "Pages 1-4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "diabetic_ketoacidosis",
+      "name": "Diabetic ketoacidosis",
+      "organ": "renal",
+      "group": "Metabolic contributors",
+      "canonical_id": "diabetic_ketoacidosis",
+      "mechanism": "Severe dehydration/hypoperfusion",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 6"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "hyperosmolar_hyperglycemic_state",
+      "name": "Hyperosmolar hyperglycemic state",
+      "organ": "renal",
+      "group": "Metabolic contributors",
+      "canonical_id": "hyperosmolar_hyperglycemic_state",
+      "mechanism": "Extreme osmotic diuresis/dehydration",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 6"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "hypercalcemia",
+      "name": "Hypercalcemia",
+      "organ": "renal",
+      "group": "Metabolic contributors",
+      "canonical_id": "hypercalcemia",
+      "mechanism": "Vasoconstriction + stones/tubular injury",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 6"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "hyperparathyroidism",
+      "name": "Hyperparathyroidism",
+      "organ": "renal",
+      "group": "Metabolic contributors",
+      "canonical_id": "hyperparathyroidism",
+      "mechanism": "Hypercalcemia/stones",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 6"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "gout_hyperuricemia",
+      "name": "Gout / hyperuricemia",
+      "organ": "renal",
+      "group": "Metabolic contributors",
+      "canonical_id": "gout_hyperuricemia",
+      "mechanism": "Urate stones/crystal disease",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 6"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "tumor_lysis_syndrome",
+      "name": "Tumor lysis syndrome",
+      "organ": "renal",
+      "group": "Metabolic contributors",
+      "canonical_id": "tumor_lysis_syndrome",
+      "mechanism": "Uric acid/phosphate precipitation",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 6"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "severe_obesity",
+      "name": "Severe obesity",
+      "organ": "renal",
+      "group": "Metabolic contributors",
+      "canonical_id": "severe_obesity",
+      "mechanism": "Hyperfiltration, HTN, diabetes, FSGS risk",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 6"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "metabolic_syndrome",
+      "name": "Metabolic syndrome",
+      "organ": "renal",
+      "group": "Metabolic contributors",
+      "canonical_id": "metabolic_syndrome",
+      "mechanism": "Diabetes/HTN/vascular injury",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 6"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "adrenal_insufficiency",
+      "name": "Adrenal insufficiency",
+      "organ": "renal",
+      "group": "Metabolic contributors",
+      "canonical_id": "adrenal_insufficiency",
+      "mechanism": "Hypotension/volume loss",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 6"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "severe_hypothyroidism",
+      "name": "Severe hypothyroidism",
+      "organ": "renal",
+      "group": "Metabolic contributors",
+      "canonical_id": "severe_hypothyroidism",
+      "mechanism": "Hemodynamic/GFR changes",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 6"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "rhabdomyolysis",
+      "name": "Rhabdomyolysis",
+      "organ": "renal",
+      "group": "Metabolic contributors",
+      "canonical_id": "rhabdomyolysis",
+      "mechanism": "Myoglobin tubular toxicity",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 6"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "decompensated_cirrhosis",
+      "name": "Decompensated cirrhosis",
+      "organ": "hepatic",
+      "group": "Liver and kidney conditions",
+      "canonical_id": "decompensated_cirrhosis",
+      "mechanism": "Effective arterial volume \u2193",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "Child-Pugh A",
+        "Child-Pugh B",
+        "Child-Pugh C"
+      ]
+    },
+    {
+      "id": "hepatorenal_syndrome",
+      "name": "Hepatorenal syndrome",
+      "organ": "hepatic",
+      "group": "Liver and kidney conditions",
+      "canonical_id": "hepatorenal_syndrome",
+      "mechanism": "Severe renal vasoconstriction in advanced liver disease",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 7"
+        },
+        {
+          "document": "Hepatic_Agent_Data_Report (1) (1).docx",
+          "section": "Sections 5-7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "acute_liver_failure",
+      "name": "Acute liver failure",
+      "organ": "hepatic",
+      "group": "Liver and kidney conditions",
+      "canonical_id": "acute_liver_failure",
+      "mechanism": "Hemodynamic/inflammatory abnormalities",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 7"
+        },
+        {
+          "document": "Hepatic_Agent_Data_Report (1) (1).docx",
+          "section": "Sections 5-7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "severe_ascites",
+      "name": "Severe ascites",
+      "organ": "hepatic",
+      "group": "Liver and kidney conditions",
+      "canonical_id": "severe_ascites",
+      "mechanism": "Altered effective circulating volume",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "hepatitis_b_associated_nephropathy",
+      "name": "Hepatitis B-associated nephropathy",
+      "organ": "hepatic",
+      "group": "Liver and kidney conditions",
+      "canonical_id": "hepatitis_b_associated_nephropathy",
+      "mechanism": "Immune-complex disease",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "hepatitis_c_associated_nephropathy",
+      "name": "Hepatitis C-associated nephropathy",
+      "organ": "hepatic",
+      "group": "Liver and kidney conditions",
+      "canonical_id": "hepatitis_c_associated_nephropathy",
+      "mechanism": "Immune/vasculitic glomerular damage",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "severe_hypoxemia",
+      "name": "Severe hypoxemia",
+      "organ": "respiratory",
+      "group": "Respiratory contributors",
+      "canonical_id": "severe_hypoxemia",
+      "mechanism": "Renal tissue oxygen delivery \u2193",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 8"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "respiratory_failure",
+      "name": "Respiratory failure",
+      "organ": "respiratory",
+      "group": "Respiratory contributors",
+      "canonical_id": "respiratory_failure",
+      "mechanism": "Hypoxia + hemodynamic disturbance",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 8"
+        },
+        {
+          "document": "Respiratory Agent Architecture.pdf",
+          "section": "Pages 1-4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "severe_copd_exacerbation",
+      "name": "Severe COPD exacerbation",
+      "organ": "respiratory",
+      "group": "Respiratory contributors",
+      "canonical_id": "severe_copd_exacerbation",
+      "mechanism": "Hypoxemia/hypercapnia/hemodynamics",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 8"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "ards",
+      "name": "ARDS",
+      "organ": "respiratory",
+      "group": "Respiratory contributors",
+      "canonical_id": "ards",
+      "mechanism": "Systemic inflammation + hypoxia",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 8"
+        },
+        {
+          "document": "Respiratory Agent Architecture.pdf",
+          "section": "Pages 1-4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "pulmonary_sepsis_pneumonia_with_shock",
+      "name": "Pulmonary sepsis / pneumonia with shock",
+      "organ": "respiratory",
+      "group": "Respiratory contributors",
+      "canonical_id": "pulmonary_sepsis_pneumonia_with_shock",
+      "mechanism": "Hypotension/inflammation",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 8"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "mechanical_ventilation_with_adverse_hemodynamics",
+      "name": "Mechanical ventilation with adverse hemodynamics",
+      "organ": "respiratory",
+      "group": "Respiratory contributors",
+      "canonical_id": "mechanical_ventilation_with_adverse_hemodynamics",
+      "mechanism": "Venous pressure/cardiac output changes",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 8"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "pulmonary_hemorrhage_in_anti_gbm_disease",
+      "name": "Pulmonary hemorrhage in anti-GBM disease",
+      "organ": "respiratory",
+      "group": "Respiratory contributors",
+      "canonical_id": "pulmonary_hemorrhage_in_anti_gbm_disease",
+      "mechanism": "Shared autoimmune disease affects lung + kidney",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 8"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "sepsis",
+      "name": "Sepsis",
+      "organ": "renal",
+      "group": "Infection and systemic illness",
+      "canonical_id": "sepsis",
+      "mechanism": "Vasodilation, inflammation, microcirculatory injury",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 9"
+        },
+        {
+          "document": "Respiratory Agent Architecture.pdf",
+          "section": "Pages 1-4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "septic_shock",
+      "name": "Septic shock",
+      "organ": "renal",
+      "group": "Infection and systemic illness",
+      "canonical_id": "septic_shock",
+      "mechanism": "Severe hypoperfusion",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 9"
+        },
+        {
+          "document": "Respiratory Agent Architecture.pdf",
+          "section": "Pages 1-4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "uti",
+      "name": "UTI",
+      "organ": "renal",
+      "group": "Infection and systemic illness",
+      "canonical_id": "uti",
+      "mechanism": "Usually lower urinary tract initially",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 9"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "pyelonephritis_sepsis",
+      "name": "Pyelonephritis + sepsis",
+      "organ": "renal",
+      "group": "Infection and systemic illness",
+      "canonical_id": "pyelonephritis_sepsis",
+      "mechanism": "Infection + organ dysfunction",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 9"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "endocarditis",
+      "name": "Endocarditis",
+      "organ": "renal",
+      "group": "Infection and systemic illness",
+      "canonical_id": "endocarditis",
+      "mechanism": "Immune GN / embolic disease",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 9"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "post_streptococcal_gn",
+      "name": "Post-streptococcal GN",
+      "organ": "renal",
+      "group": "Infection and systemic illness",
+      "canonical_id": "post_streptococcal_gn",
+      "mechanism": "Immune-complex injury",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 9"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "hiv_associated_nephropathy",
+      "name": "HIV-associated nephropathy",
+      "organ": "renal",
+      "group": "Infection and systemic illness",
+      "canonical_id": "hiv_associated_nephropathy",
+      "mechanism": "Glomerular injury",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 9"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "hbv_associated_gn",
+      "name": "HBV-associated GN",
+      "organ": "renal",
+      "group": "Infection and systemic illness",
+      "canonical_id": "hbv_associated_gn",
+      "mechanism": "Immune-mediated",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 9"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "hcv_associated_gn",
+      "name": "HCV-associated GN",
+      "organ": "renal",
+      "group": "Infection and systemic illness",
+      "canonical_id": "hcv_associated_gn",
+      "mechanism": "Immune-mediated",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 9"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "covid_severe_systemic_viral_illness",
+      "name": "COVID / severe systemic viral illness",
+      "organ": "renal",
+      "group": "Infection and systemic illness",
+      "canonical_id": "covid_severe_systemic_viral_illness",
+      "mechanism": "Inflammation/hemodynamic injury",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 9"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "systemic_lupus_erythematosus",
+      "name": "Systemic lupus erythematosus",
+      "organ": "renal",
+      "group": "Autoimmune contributors",
+      "canonical_id": "systemic_lupus_erythematosus",
+      "mechanism": "Lupus nephritis",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 10"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "anca_vasculitis",
+      "name": "ANCA vasculitis",
+      "organ": "renal",
+      "group": "Autoimmune contributors",
+      "canonical_id": "anca_vasculitis",
+      "mechanism": "Rapidly progressive GN",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 10"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "iga_vasculitis",
+      "name": "IgA vasculitis",
+      "organ": "renal",
+      "group": "Autoimmune contributors",
+      "canonical_id": "iga_vasculitis",
+      "mechanism": "IgA-mediated GN",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 10"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "systemic_sclerosis",
+      "name": "Systemic sclerosis",
+      "organ": "renal",
+      "group": "Autoimmune contributors",
+      "canonical_id": "systemic_sclerosis",
+      "mechanism": "Scleroderma renal crisis",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 10"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "rheumatoid_systemic_inflammatory_disease",
+      "name": "Rheumatoid / systemic inflammatory disease",
+      "organ": "renal",
+      "group": "Autoimmune contributors",
+      "canonical_id": "rheumatoid_systemic_inflammatory_disease",
+      "mechanism": "Amyloidosis/drug effects",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 10"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "sjogren_syndrome",
+      "name": "Sj\u00f6gren syndrome",
+      "organ": "renal",
+      "group": "Autoimmune contributors",
+      "canonical_id": "sjogren_syndrome",
+      "mechanism": "Tubulointerstitial nephritis/RTA",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 10"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "sarcoidosis",
+      "name": "Sarcoidosis",
+      "organ": "renal",
+      "group": "Autoimmune contributors",
+      "canonical_id": "sarcoidosis",
+      "mechanism": "Interstitial nephritis/hypercalcemia",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 10"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "antiphospholipid_syndrome",
+      "name": "Antiphospholipid syndrome",
+      "organ": "renal",
+      "group": "Autoimmune contributors",
+      "canonical_id": "antiphospholipid_syndrome",
+      "mechanism": "Renal vascular thrombosis",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 10"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "multiple_myeloma",
+      "name": "Multiple myeloma",
+      "organ": "renal",
+      "group": "Blood and systemic contributors",
+      "canonical_id": "multiple_myeloma",
+      "mechanism": "Light-chain/cast nephropathy",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 11"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "sickle_cell_disease",
+      "name": "Sickle-cell disease",
+      "organ": "renal",
+      "group": "Blood and systemic contributors",
+      "canonical_id": "sickle_cell_disease",
+      "mechanism": "Ischemia/hyperfiltration/papillary damage",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 11"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "ttp",
+      "name": "TTP",
+      "organ": "renal",
+      "group": "Blood and systemic contributors",
+      "canonical_id": "ttp",
+      "mechanism": "Microvascular thrombosis",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 11"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "dic",
+      "name": "DIC",
+      "organ": "renal",
+      "group": "Blood and systemic contributors",
+      "canonical_id": "dic",
+      "mechanism": "Renal microthrombosis + shock",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 11"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "severe_hemolysis",
+      "name": "Severe hemolysis",
+      "organ": "renal",
+      "group": "Blood and systemic contributors",
+      "canonical_id": "severe_hemolysis",
+      "mechanism": "Pigment-related tubular injury",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 11"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "leukemia_lymphoma",
+      "name": "Leukemia / lymphoma",
+      "organ": "renal",
+      "group": "Blood and systemic contributors",
+      "canonical_id": "leukemia_lymphoma",
+      "mechanism": "Infiltration/tumor lysis",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 11"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "mild_dehydration",
+      "name": "Mild dehydration",
+      "organ": "renal",
+      "group": "Volume and stress context",
+      "canonical_id": "mild_dehydration",
+      "mechanism": "Renal perfusion slightly \u2193",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 12"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "moderate_dehydration",
+      "name": "Moderate dehydration",
+      "organ": "renal",
+      "group": "Volume and stress context",
+      "canonical_id": "moderate_dehydration",
+      "mechanism": "GFR \u2193, RAAS \u2191",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 12"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "severe_dehydration",
+      "name": "Severe dehydration",
+      "organ": "renal",
+      "group": "Volume and stress context",
+      "canonical_id": "severe_dehydration",
+      "mechanism": "Prerenal AKI",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 12"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "vomiting",
+      "name": "Vomiting",
+      "organ": "renal",
+      "group": "Volume and stress context",
+      "canonical_id": "vomiting",
+      "mechanism": "Fluid/electrolyte loss",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 12"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "diarrhea",
+      "name": "Diarrhea",
+      "organ": "renal",
+      "group": "Volume and stress context",
+      "canonical_id": "diarrhea",
+      "mechanism": "Volume + bicarbonate/electrolyte loss",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 12"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "hemorrhage",
+      "name": "Hemorrhage",
+      "organ": "renal",
+      "group": "Volume and stress context",
+      "canonical_id": "hemorrhage",
+      "mechanism": "Circulating volume \u2193",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 12"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "major_burns",
+      "name": "Major burns",
+      "organ": "renal",
+      "group": "Volume and stress context",
+      "canonical_id": "major_burns",
+      "mechanism": "Fluid shifts",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 12"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "third_spacing",
+      "name": "Third-spacing",
+      "organ": "renal",
+      "group": "Volume and stress context",
+      "canonical_id": "third_spacing",
+      "mechanism": "Effective volume \u2193",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 12"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "overdiuresis",
+      "name": "Overdiuresis",
+      "organ": "renal",
+      "group": "Volume and stress context",
+      "canonical_id": "overdiuresis",
+      "mechanism": "Volume depletion",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 12"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "fluid_overload",
+      "name": "Fluid overload",
+      "organ": "renal",
+      "group": "Volume and stress context",
+      "canonical_id": "fluid_overload",
+      "mechanism": "Venous congestion",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 12"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "shock",
+      "name": "Shock",
+      "organ": "renal",
+      "group": "Volume and stress context",
+      "canonical_id": "shock",
+      "mechanism": "Severe renal hypoperfusion",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Renal_Agent_Framework.docx",
+          "section": "Table 12"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "hypertension",
+      "name": "Hypertension",
+      "organ": "cardiovascular",
+      "group": "Heart and circulation",
+      "canonical_id": "EssentialHypertension",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Document1.pdf",
+          "section": "Pages 1-2"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "coronary_artery_disease",
+      "name": "Coronary artery disease",
+      "organ": "cardiovascular",
+      "group": "Heart and circulation",
+      "canonical_id": "coronary_artery_disease",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Document1.pdf",
+          "section": "Pages 1-2"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "prior_myocardial_infarction",
+      "name": "Prior myocardial infarction",
+      "organ": "cardiovascular",
+      "group": "Heart and circulation",
+      "canonical_id": "prior_myocardial_infarction",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Document1.pdf",
+          "section": "Pages 1-2"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "prior_cabg",
+      "name": "Prior CABG",
+      "organ": "cardiovascular",
+      "group": "Heart and circulation",
+      "canonical_id": "prior_cabg",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Document1.pdf",
+          "section": "Pages 1-2"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "prior_pci_or_stents",
+      "name": "Prior PCI or stents",
+      "organ": "cardiovascular",
+      "group": "Heart and circulation",
+      "canonical_id": "prior_pci_or_stents",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Document1.pdf",
+          "section": "Pages 1-2"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "atrial_fibrillation",
+      "name": "Atrial fibrillation",
+      "organ": "cardiovascular",
+      "group": "Heart and circulation",
+      "canonical_id": "atrial_fibrillation",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Document1.pdf",
+          "section": "Pages 1-2"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "other_arrhythmia",
+      "name": "Other arrhythmia",
+      "organ": "cardiovascular",
+      "group": "Heart and circulation",
+      "canonical_id": "other_arrhythmia",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Document1.pdf",
+          "section": "Pages 1-2"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "valvular_disease",
+      "name": "Valvular disease",
+      "organ": "cardiovascular",
+      "group": "Heart and circulation",
+      "canonical_id": "valvular_disease",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Document1.pdf",
+          "section": "Pages 1-2"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "peripheral_arterial_disease",
+      "name": "Peripheral arterial disease",
+      "organ": "cardiovascular",
+      "group": "Heart and circulation",
+      "canonical_id": "peripheral_arterial_disease",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Document1.pdf",
+          "section": "Pages 1-2"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "congenital_heart_disease",
+      "name": "Congenital heart disease",
+      "organ": "cardiovascular",
+      "group": "Heart and circulation",
+      "canonical_id": "congenital_heart_disease",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Document1.pdf",
+          "section": "Pages 1-2"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "acute_coronary_syndrome",
+      "name": "Acute coronary syndrome",
+      "organ": "cardiovascular",
+      "group": "Heart and circulation",
+      "canonical_id": "acute_coronary_syndrome",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Document1.pdf",
+          "section": "Pages 1-2"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "acute_heart_failure_decompensation",
+      "name": "Acute heart failure decompensation",
+      "organ": "cardiovascular",
+      "group": "Heart and circulation",
+      "canonical_id": "acute_heart_failure_decompensation",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Document1.pdf",
+          "section": "Pages 1-2"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "hypertensive_emergency",
+      "name": "Hypertensive emergency",
+      "organ": "cardiovascular",
+      "group": "Heart and circulation",
+      "canonical_id": "hypertensive_emergency",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Document1.pdf",
+          "section": "Pages 1-2"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "pulmonary_embolism",
+      "name": "Pulmonary embolism",
+      "organ": "cardiovascular",
+      "group": "Heart and circulation",
+      "canonical_id": "pulmonary_embolism",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Document1.pdf",
+          "section": "Pages 1-2"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "aortic_dissection",
+      "name": "Aortic dissection",
+      "organ": "cardiovascular",
+      "group": "Heart and circulation",
+      "canonical_id": "aortic_dissection",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Document1.pdf",
+          "section": "Pages 1-2"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "drug_induced_liver_injury",
+      "name": "Drug-induced liver injury",
+      "organ": "hepatic",
+      "group": "Liver conditions",
+      "canonical_id": "drug_induced_liver_injury",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Hepatic_Agent_Data_Report (1) (1).docx",
+          "section": "Sections 5-7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "acetaminophen_hepatotoxicity",
+      "name": "Acetaminophen hepatotoxicity",
+      "organ": "hepatic",
+      "group": "Liver conditions",
+      "canonical_id": "acetaminophen_hepatotoxicity",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Hepatic_Agent_Data_Report (1) (1).docx",
+          "section": "Sections 5-7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "nsaid_associated_liver_injury",
+      "name": "NSAID-associated liver injury",
+      "organ": "hepatic",
+      "group": "Liver conditions",
+      "canonical_id": "nsaid_associated_liver_injury",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Hepatic_Agent_Data_Report (1) (1).docx",
+          "section": "Sections 5-7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "hepatitis_a",
+      "name": "Hepatitis A",
+      "organ": "hepatic",
+      "group": "Liver conditions",
+      "canonical_id": "hepatitis_a",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Hepatic_Agent_Data_Report (1) (1).docx",
+          "section": "Sections 5-7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "hepatitis_b",
+      "name": "Hepatitis B",
+      "organ": "hepatic",
+      "group": "Liver conditions",
+      "canonical_id": "hepatitis_b",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Hepatic_Agent_Data_Report (1) (1).docx",
+          "section": "Sections 5-7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "hepatitis_c",
+      "name": "Hepatitis C",
+      "organ": "hepatic",
+      "group": "Liver conditions",
+      "canonical_id": "hepatitis_c",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Hepatic_Agent_Data_Report (1) (1).docx",
+          "section": "Sections 5-7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "hepatitis_d",
+      "name": "Hepatitis D",
+      "organ": "hepatic",
+      "group": "Liver conditions",
+      "canonical_id": "hepatitis_d",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Hepatic_Agent_Data_Report (1) (1).docx",
+          "section": "Sections 5-7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "hepatitis_e",
+      "name": "Hepatitis E",
+      "organ": "hepatic",
+      "group": "Liver conditions",
+      "canonical_id": "hepatitis_e",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Hepatic_Agent_Data_Report (1) (1).docx",
+          "section": "Sections 5-7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "masld",
+      "name": "MASLD",
+      "organ": "hepatic",
+      "group": "Liver conditions",
+      "canonical_id": "masld",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Hepatic_Agent_Data_Report (1) (1).docx",
+          "section": "Sections 5-7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "metald",
+      "name": "MetALD",
+      "organ": "hepatic",
+      "group": "Liver conditions",
+      "canonical_id": "metald",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Hepatic_Agent_Data_Report (1) (1).docx",
+          "section": "Sections 5-7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "alcohol_related_liver_disease",
+      "name": "Alcohol-related liver disease",
+      "organ": "hepatic",
+      "group": "Liver conditions",
+      "canonical_id": "alcohol_related_liver_disease",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Hepatic_Agent_Data_Report (1) (1).docx",
+          "section": "Sections 5-7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "autoimmune_hepatitis",
+      "name": "Autoimmune hepatitis",
+      "organ": "hepatic",
+      "group": "Liver conditions",
+      "canonical_id": "autoimmune_hepatitis",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Hepatic_Agent_Data_Report (1) (1).docx",
+          "section": "Sections 5-7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "primary_biliary_cholangitis",
+      "name": "Primary biliary cholangitis",
+      "organ": "hepatic",
+      "group": "Liver conditions",
+      "canonical_id": "primary_biliary_cholangitis",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Hepatic_Agent_Data_Report (1) (1).docx",
+          "section": "Sections 5-7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "primary_sclerosing_cholangitis",
+      "name": "Primary sclerosing cholangitis",
+      "organ": "hepatic",
+      "group": "Liver conditions",
+      "canonical_id": "primary_sclerosing_cholangitis",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Hepatic_Agent_Data_Report (1) (1).docx",
+          "section": "Sections 5-7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "haemochromatosis",
+      "name": "Haemochromatosis",
+      "organ": "hepatic",
+      "group": "Liver conditions",
+      "canonical_id": "haemochromatosis",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Hepatic_Agent_Data_Report (1) (1).docx",
+          "section": "Sections 5-7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "wilson_disease",
+      "name": "Wilson disease",
+      "organ": "hepatic",
+      "group": "Liver conditions",
+      "canonical_id": "wilson_disease",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Hepatic_Agent_Data_Report (1) (1).docx",
+          "section": "Sections 5-7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "alpha_1_antitrypsin_deficiency",
+      "name": "Alpha-1 antitrypsin deficiency",
+      "organ": "hepatic",
+      "group": "Liver conditions",
+      "canonical_id": "alpha_1_antitrypsin_deficiency",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Hepatic_Agent_Data_Report (1) (1).docx",
+          "section": "Sections 5-7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "cirrhosis",
+      "name": "Cirrhosis",
+      "organ": "hepatic",
+      "group": "Liver conditions",
+      "canonical_id": "HepaticCirrhosis",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Hepatic_Agent_Data_Report (1) (1).docx",
+          "section": "Sections 5-7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "Child-Pugh A",
+        "Child-Pugh B",
+        "Child-Pugh C"
+      ]
+    },
+    {
+      "id": "portal_hypertension",
+      "name": "Portal hypertension",
+      "organ": "hepatic",
+      "group": "Liver conditions",
+      "canonical_id": "portal_hypertension",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Hepatic_Agent_Data_Report (1) (1).docx",
+          "section": "Sections 5-7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "acute_on_chronic_liver_failure",
+      "name": "Acute-on-chronic liver failure",
+      "organ": "hepatic",
+      "group": "Liver conditions",
+      "canonical_id": "acute_on_chronic_liver_failure",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Hepatic_Agent_Data_Report (1) (1).docx",
+          "section": "Sections 5-7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "ischaemic_hepatitis",
+      "name": "Ischaemic hepatitis",
+      "organ": "hepatic",
+      "group": "Liver conditions",
+      "canonical_id": "ischaemic_hepatitis",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Hepatic_Agent_Data_Report (1) (1).docx",
+          "section": "Sections 5-7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "congestive_hepatopathy",
+      "name": "Congestive hepatopathy",
+      "organ": "hepatic",
+      "group": "Liver conditions",
+      "canonical_id": "congestive_hepatopathy",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Hepatic_Agent_Data_Report (1) (1).docx",
+          "section": "Sections 5-7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "hepatic_encephalopathy",
+      "name": "Hepatic encephalopathy",
+      "organ": "hepatic",
+      "group": "Liver conditions",
+      "canonical_id": "hepatic_encephalopathy",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Hepatic_Agent_Data_Report (1) (1).docx",
+          "section": "Sections 5-7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "hepatocellular_carcinoma",
+      "name": "Hepatocellular carcinoma",
+      "organ": "hepatic",
+      "group": "Liver conditions",
+      "canonical_id": "hepatocellular_carcinoma",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Hepatic_Agent_Data_Report (1) (1).docx",
+          "section": "Sections 5-7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "cholangiocarcinoma",
+      "name": "Cholangiocarcinoma",
+      "organ": "hepatic",
+      "group": "Liver conditions",
+      "canonical_id": "cholangiocarcinoma",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Hepatic_Agent_Data_Report (1) (1).docx",
+          "section": "Sections 5-7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "hepatopulmonary_syndrome",
+      "name": "Hepatopulmonary syndrome",
+      "organ": "hepatic",
+      "group": "Liver conditions",
+      "canonical_id": "hepatopulmonary_syndrome",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Hepatic_Agent_Data_Report (1) (1).docx",
+          "section": "Sections 5-7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "portopulmonary_hypertension",
+      "name": "Portopulmonary hypertension",
+      "organ": "hepatic",
+      "group": "Liver conditions",
+      "canonical_id": "portopulmonary_hypertension",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Hepatic_Agent_Data_Report (1) (1).docx",
+          "section": "Sections 5-7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "hepatic_hydrothorax",
+      "name": "Hepatic hydrothorax",
+      "organ": "hepatic",
+      "group": "Liver conditions",
+      "canonical_id": "hepatic_hydrothorax",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Hepatic_Agent_Data_Report (1) (1).docx",
+          "section": "Sections 5-7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "ascites",
+      "name": "Ascites",
+      "organ": "hepatic",
+      "group": "Liver conditions",
+      "canonical_id": "ascites",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Hepatic_Agent_Data_Report (1) (1).docx",
+          "section": "Sections 5-7"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "copd",
+      "name": "COPD",
+      "organ": "respiratory",
+      "group": "Lung and breathing conditions",
+      "canonical_id": "ChronicObstructivePulmonaryDisease",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Respiratory Agent Architecture.pdf",
+          "section": "Pages 1-4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "asthma",
+      "name": "Asthma",
+      "organ": "respiratory",
+      "group": "Lung and breathing conditions",
+      "canonical_id": "asthma",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Respiratory Agent Architecture.pdf",
+          "section": "Pages 1-4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "hypoxemia",
+      "name": "Hypoxemia",
+      "organ": "respiratory",
+      "group": "Lung and breathing conditions",
+      "canonical_id": "hypoxemia",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Respiratory Agent Architecture.pdf",
+          "section": "Pages 1-4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "hypoxia",
+      "name": "Hypoxia",
+      "organ": "respiratory",
+      "group": "Lung and breathing conditions",
+      "canonical_id": "hypoxia",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Respiratory Agent Architecture.pdf",
+          "section": "Pages 1-4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "hypercapnia",
+      "name": "Hypercapnia",
+      "organ": "respiratory",
+      "group": "Lung and breathing conditions",
+      "canonical_id": "hypercapnia",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Respiratory Agent Architecture.pdf",
+          "section": "Pages 1-4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "respiratory_acidosis",
+      "name": "Respiratory acidosis",
+      "organ": "respiratory",
+      "group": "Lung and breathing conditions",
+      "canonical_id": "respiratory_acidosis",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Respiratory Agent Architecture.pdf",
+          "section": "Pages 1-4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "pulmonary_edema",
+      "name": "Pulmonary edema",
+      "organ": "respiratory",
+      "group": "Lung and breathing conditions",
+      "canonical_id": "pulmonary_edema",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Respiratory Agent Architecture.pdf",
+          "section": "Pages 1-4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "bronchoconstriction",
+      "name": "Bronchoconstriction",
+      "organ": "respiratory",
+      "group": "Lung and breathing conditions",
+      "canonical_id": "bronchoconstriction",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Respiratory Agent Architecture.pdf",
+          "section": "Pages 1-4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "airway_obstruction",
+      "name": "Airway obstruction",
+      "organ": "respiratory",
+      "group": "Lung and breathing conditions",
+      "canonical_id": "airway_obstruction",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Respiratory Agent Architecture.pdf",
+          "section": "Pages 1-4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "anaphylaxis",
+      "name": "Anaphylaxis",
+      "organ": "respiratory",
+      "group": "Lung and breathing conditions",
+      "canonical_id": "anaphylaxis",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Respiratory Agent Architecture.pdf",
+          "section": "Pages 1-4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "respiratory_depression",
+      "name": "Respiratory depression",
+      "organ": "respiratory",
+      "group": "Lung and breathing conditions",
+      "canonical_id": "respiratory_depression",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Respiratory Agent Architecture.pdf",
+          "section": "Pages 1-4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "pneumonia",
+      "name": "Pneumonia",
+      "organ": "respiratory",
+      "group": "Lung and breathing conditions",
+      "canonical_id": "pneumonia",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Respiratory Agent Architecture.pdf",
+          "section": "Pages 1-4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    },
+    {
+      "id": "metabolic_acidosis",
+      "name": "Metabolic acidosis",
+      "organ": "respiratory",
+      "group": "Lung and breathing conditions",
+      "canonical_id": "metabolic_acidosis",
+      "mechanism": "",
+      "coverage": "context_only",
+      "numerical_supported": false,
+      "references": [
+        {
+          "document": "Respiratory Agent Architecture.pdf",
+          "section": "Pages 1-4"
+        }
+      ],
+      "severity_options": [
+        "unknown",
+        "mild",
+        "moderate",
+        "severe"
+      ]
+    }
+  ]
+}

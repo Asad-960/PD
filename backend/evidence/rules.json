@@ -1,0 +1,67 @@
+[
+  {
+    "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+    "version": "1.0.0",
+    "target_organ": "renal",
+    "category": "hemodynamic_compromise",
+    "severity": "critical",
+    "ingredient_or_class": "NSAID",
+    "mechanism": "NSAID prostaglandin inhibition may reduce renal perfusion in susceptible settings.",
+    "preconditions": {
+      "required_conditions": ["ChronicRenalStenosis", "CKD"],
+      "required_context": {},
+      "trigger_interventions": ["High_Dose_NSAID", "ibuprofen"],
+      "hemodynamic_thresholds": {
+        "mean_arterial_pressure": {"max": 70.0}
+      },
+      "required_measurements": []
+    },
+    "source_id": "SRC_KDIGO_AKI",
+    "source_section": "AKI prevention and medication-risk discussion",
+    "review_status": "reviewed",
+    "limitations": "Drug-induced GFR change is not modeled. This is a qualitative review flag, not an AKI prediction; missing eGFR prevents patient-specific assessment.",
+    "user_message": "NSAID exposure with recorded kidney vulnerability merits review; this sandbox cannot calculate renal injury or filtration change."
+  },
+  {
+    "rule_id": "RULE_CHF_FLUID_OVERLOAD",
+    "version": "1.0.0",
+    "target_organ": "cardiovascular",
+    "category": "volume_overload",
+    "severity": "critical",
+    "ingredient_or_class": "fluid_resuscitation",
+    "mechanism": "Recorded heart failure calls for careful clinical assessment of congestion and volume status.",
+    "preconditions": {
+      "required_conditions": ["ChronicVentricularSystolicDysfunction", "CHF"],
+      "required_context": {},
+      "trigger_interventions": ["IV_Saline_Infusion"],
+      "hemodynamic_thresholds": {},
+      "required_measurements": []
+    },
+    "source_id": "SRC_AHA_CHF",
+    "source_section": "Congestion and volume-status management",
+    "review_status": "reviewed",
+    "limitations": "Only total fluid amount is illustrated. This rule does not model cardiac filling pressure, edema, or clinical outcome.",
+    "user_message": "Saline exposure with recorded heart failure merits fluid-status review; this sandbox cannot predict decompensation."
+  },
+  {
+    "rule_id": "RULE_OPIOID_HEPATIC_RESPIRATORY",
+    "version": "1.0.0",
+    "target_organ": "hepatic",
+    "category": "clearance_impairment",
+    "severity": "monitor",
+    "ingredient_or_class": "opioid",
+    "mechanism": "The morphine label reports lower clearance and longer half-life in cirrhosis; respiratory depression is a labeled opioid hazard.",
+    "preconditions": {
+      "required_conditions": ["HepaticCirrhosis"],
+      "required_context": {"hepatic_impairment": "moderate"},
+      "trigger_interventions": ["morphine", "fentanyl", "Opioid_Bolus"],
+      "hemodynamic_thresholds": {},
+      "required_measurements": []
+    },
+    "source_id": "SRC_FDA_MORPHINE",
+    "source_section": "Clinical Pharmacology 12.3 Hepatic Impairment; Warnings 5.3 Respiratory Depression",
+    "review_status": "reviewed",
+    "limitations": "Morphine clearance and respiratory effects are not modeled. Severe hepatic impairment lacks adequate pharmacokinetic studies in the cited label.",
+    "user_message": "Morphine exposure with recorded hepatic impairment merits medication review; this sandbox cannot calculate clearance or respiratory effects."
+  }
+]

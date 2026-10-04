@@ -1,0 +1,2320 @@
+--- Hepatic_Agent_Data_Report (1) (1).docx ---
+MULTI-ORGAN DIGITAL TWIN SANDBOX
+Hepatic (Liver) Agent
+Data Collection and Reference Report: physiology, drug metabolism, diseases, scoring systems, and correlations with the cardiovascular, renal and respiratory agents
+Assigned organ
+Hepatic (liver)
+Prepared by
+Muhammad Hassa
+Document type
+Reference report for team use. Educational purposes only, not for clinical decisions
+Contents
+1. Introduction and Scope
+2. Liver Anatomy and Physiology
+3. Laboratory Reference Values and How to Read Them
+4. Hepatic Drug Metabolism (Ibuprofen and Acetaminophen)
+5. Liver Diseases
+5.1 Drug-induced liver injury    5.2 Acetaminophen hepatotoxicity    5.3 Ibuprofen and NSAID injury
+5.4 Viral hepatitis    5.5 MASLD, MetALD and alcohol-related disease    5.6 Autoimmune and biliary
+5.7 Genetic and metabolic    5.8 Cirrhosis and portal hypertension    5.9 Acute and acute-on-chronic failure
+5.10 Ischaemic hepatitis and congestion    5.11 Hepatic encephalopathy    5.12 Tumours
+6. Scoring Systems and Clinical Criteria
+7. Correlations Between the Liver and the Other Organs
+7.1 Liver and kidney    7.2 Liver and heart    7.3 Liver and lungs    7.4 Acid-base links    7.5 Causal chains
+8. Hepatic Agent: Data Specification for the Developers
+9. Where to Find More Data
+10. Checklist for the Team
+11. Glossary of Abbreviations
+12. References
+1. Introduction and Scope
+1.1 Purpose of this document
+This report collects the medical and physiological data needed to build the Hepatic (Liver) Agent of the Multi-Organ Digital Twin Sandbox. It covers liver physiology, reference laboratory values, drug metabolism, liver diseases, scoring systems, and the correlations between the liver and the other three organ agents (Cardiovascular, Renal and Respiratory). Developers can take numbers, thresholds and cause-and-effect rules from it without searching further.
+1.2 Where the Hepatic Agent sits in the twin
+Each organ is an autonomous agent with its own state and rules. Agents exchange signals every simulation step. The table lists the signals the Hepatic Agent needs and the signals it publishes.
+Direction
+Signal
+Other agent
+Why it matters
+Input
+Cardiac output, MAP, hepatic blood flow
+Cardiovascular
+Liver receives about 25% of cardiac output. Low flow causes ischaemic injury and slows clearance of high-extraction drugs.
+Input
+Oxygen delivery (CO x arterial O2 content), SaO2
+Respiratory / Cardiovascular
+Hypoxia or shock drives ischaemic hepatitis and lactate production.
+Input
+GFR, urine output
+Renal
+Drug metabolites made by the liver are excreted by the kidney. Poor GFR means accumulation.
+Input
+Stress events: drug doses (ibuprofen, acetaminophen), fasting, alcohol
+User interface
+Doses and patient state set what the liver must process.
+Output
+Ibuprofen plasma level and metabolite flux
+Renal
+Metabolites go to the kidney. Ibuprofen blocks renal prostaglandins and lowers GFR when the patient is volume depleted.
+Output
+Lactate clearance, blood lactate
+Respiratory, Renal
+Raised lactate causes metabolic acidosis, which drives hyperventilation and changes potassium and bicarbonate handling.
+Output
+Vascular tone change in advanced liver disease (low SVR)
+Cardiovascular
+Cirrhosis and liver failure cause systemic vasodilation, lower blood pressure and a hyperdynamic circulation.
+Output
+Liver status: ALT, AST, bilirubin, INR, albumin, ammonia
+All agents / user interface
+Injury and synthetic-function markers that the dashboard and risk report display.
+1.3 Scope and disclaimer
+The twin is an educational simulation. It uses one idealised patient per profile, not individual patient data. Nothing in this document is a clinical recommendation, and no number from it should be used for real dosing decisions.
+1.4 How the evidence was gathered
+Key facts that change over time or are often misquoted were checked against current sources in October 2026: the 2023 renaming of NAFLD to MASLD, the MELD 3.0 formula, acetaminophen toxic-dose thresholds and the nomogram, the criteria for hepatorenal syndrome and hepatopulmonary syndrome, ALT reference limits, and the evidence on ibuprofen liver injury. Other material (basic physiology, standard reference ranges, pharmacokinetics, disease descriptions) follows standard textbooks. Source numbers in square brackets point to Section 12. Laboratory reference ranges differ between laboratories, so ranges here are typical values.
+Before you submit: cross-check any number you plan to quote in a viva against the cited textbook or guideline. Examiners will ask where a value came from.
+2. Liver Anatomy and Physiology
+2.1 Key facts
+Size and position
+Largest internal organ, about 1.2 to 1.5 kg in an adult (roughly 2% of body weight), in the right upper abdomen under the diaphragm [R1, R2].
+Dual blood supply
+Portal vein supplies about 70 to 75% of liver blood flow (nutrient-rich, partly deoxygenated blood from gut and spleen). Hepatic artery supplies about 25 to 30% (oxygenated). Each supplies roughly half of the liver's oxygen [R1].
+Total hepatic blood flow
+About 1.5 L/min at rest, which is 25 to 30% of cardiac output [R1].
+Blood reservoir
+The liver holds about 10% of total blood volume (roughly 500 mL) and can release a large part of it into the circulation during haemorrhage or hypovolaemia. This links the liver to cardiovascular compensation [R1].
+Hepatic arterial buffer response
+When portal flow falls, adenosine accumulates around the arterioles and the hepatic artery dilates to preserve total flow. This protection is weakened in cirrhosis and in severe shock [R2].
+Functional unit
+The lobule (hexagonal, centred on a central vein) or the acinus (functional model with three zones). See 2.2.
+Main cell types
+Hepatocytes (about 80% of liver mass, about 60% of cells), Kupffer cells (resident macrophages), hepatic stellate cells (produce scar tissue in fibrosis), sinusoidal endothelial cells, cholangiocytes (bile duct lining) [R2].
+Regeneration
+The healthy liver regenerates after partial resection or acute injury. Chronic injury replaces regeneration with fibrosis and, finally, cirrhosis.
+2.2 Metabolic zonation (important for toxicity)
+Zone
+Location
+Oxygen
+Dominant activity
+Vulnerability
+Zone 1
+Periportal
+Highest
+Gluconeogenesis, urea cycle, beta-oxidation, bile formation
+Injured first by some toxins and in viral hepatitis (interface injury)
+Zone 2
+Mid-lobular
+Intermediate
+Mixed
+Yellow-fever type necrosis (rare)
+Zone 3
+Pericentral (around central vein)
+Lowest
+Highest CYP450 content (CYP2E1), glycolysis, glutamine synthesis
+Acetaminophen necrosis and ischaemic hepatitis start here (centrilobular necrosis)
+2.3 Functions of the liver
+Function group
+What the liver does
+Key numbers
+Marker to measure it
+Carbohydrate metabolism
+Stores glycogen, releases glucose by glycogenolysis and gluconeogenesis, keeps fasting glucose stable
+Glycogen store about 80 to 100 g, depleted in roughly 24 h of fasting
+Blood glucose (low in acute liver failure)
+Lipid metabolism
+Makes lipoproteins and cholesterol, oxidises fatty acids, forms ketones and bile acids
+Bile output about 600 to 1000 mL/day
+Lipid profile, bile acids
+Protein synthesis
+Albumin, clotting factors (I, II, V, VII, IX, X, XI), transport proteins, angiotensinogen, many others
+Albumin about 10 to 15 g/day, half-life about 20 days. Factor VII half-life about 4 to 6 hours
+Albumin (slow), INR/PT (fast)
+Nitrogen handling
+Converts ammonia to urea (periportal) and glutamine (perivenous)
+Ammonia from gut protein metabolism, cleared in a single pass in health
+Ammonia (limited reliability), urea
+Bilirubin handling
+Takes up unconjugated bilirubin, conjugates it with UGT1A1, excretes it in bile
+Daily bilirubin production about 250 to 400 mg
+Total and direct bilirubin
+Drug and toxin metabolism
+Phase I (CYP450 oxidation) and Phase II (conjugation) enzymes
+See Section 4
+Drug levels, clearance, ALT/AST after toxic exposure
+Lactate clearance
+Converts lactate to glucose (Cori cycle) and oxidises it. Clears most of the circulating lactate load
+Normal lactate 0.5 to 2.0 mmol/L
+Blood lactate
+Immune and filtering
+Kupffer cells clear bacteria and endotoxin from portal blood
+-
+Infection markers
+Storage and hormonal
+Stores vitamins A, D, B12, K, iron and copper. Makes IGF-1 and thrombopoietin, inactivates hormones
+-
+Ferritin, ceruloplasmin, platelets (low in portal hypertension)
+Fluid balance
+Albumin supplies most of plasma oncotic pressure, so liver failure shifts fluid out of vessels (oedema, ascites)
+Albumin 3.5 to 5.0 g/dL
+Albumin, ascites
+Twin relevance: the Hepatic Agent needs at least five working parts: (1) drug clearance, (2) injury state (hepatocyte loss, ALT), (3) synthetic function (INR, albumin), (4) lactate clearance, and (5) its dependence on blood flow and oxygen from the other agents.
+3. Laboratory Reference Values and How to Read Them
+3.1 Standard liver tests
+"Liver function tests" is the common name, but ALT, AST and ALP mainly show injury, while albumin, INR and bilirubin show function. The ACG guideline recommends calling them liver chemistries or liver tests [R9].
+Test
+What it reflects
+Typical adult range
+Raised or low means
+ALT (alanine aminotransferase)
+Hepatocyte injury (liver-specific). Half-life about 47 h
+Many labs: up to about 40 U/L. ACG healthy limits: 29 to 33 U/L men, 19 to 25 U/L women [R9]
+Hepatitis, drug injury, fatty liver, ischaemia. Above 1000 U/L suggests acute viral, toxic or ischaemic injury
+AST (aspartate aminotransferase)
+Hepatocyte injury, also muscle and heart. Half-life about 17 h
+About 10 to 40 U/L
+AST:ALT above 2 suggests alcohol-related disease. Ratio above 1 also in cirrhosis
+ALP (alkaline phosphatase)
+Bile duct and cholestasis, also bone and placenta
+About 40 to 130 U/L (varies with age)
+Cholestasis, biliary obstruction, infiltrative disease, congestion
+GGT
+Cholestasis, alcohol, enzyme induction
+About 8 to 60 U/L (higher in men)
+Confirms liver origin of a raised ALP
+Total bilirubin
+Bilirubin production and excretion
+0.1 to 1.2 mg/dL (about 2 to 21 umol/L)
+Jaundice becomes visible above about 2.5 to 3 mg/dL. Reflects both injury and function
+Direct (conjugated) bilirubin
+Post-conjugation, biliary excretion
+Up to about 0.3 mg/dL
+Cholestasis or hepatocellular injury. Mostly unconjugated rise in haemolysis and Gilbert syndrome
+Albumin
+Synthetic function and nutrition. Half-life about 20 days
+3.5 to 5.0 g/dL
+Low in chronic liver disease (not in acute injury, because of slow turnover)
+INR / PT
+Synthetic function (factors II, VII, IX, X)
+INR 0.8 to 1.2. PT about 11 to 13.5 s
+Rises early in acute liver failure. Does not correct with vitamin K in hepatocellular failure
+Ammonia (venous)
+Nitrogen handling, hepatic encephalopathy
+About 15 to 45 ug/dL (11 to 32 umol/L), lab dependent
+Raised in liver failure and portosystemic shunting. Poor correlation with encephalopathy grade
+Lactate
+Tissue hypoxia and hepatic clearance
+0.5 to 2.0 mmol/L
+Above 2 is hyperlactataemia. Above 4 is severe. Acute liver failure and shock raise it
+Platelets
+Spleen sequestration, thrombopoietin
+150 to 400 x10^9/L
+Low in portal hypertension and cirrhosis
+Creatinine, sodium (for scores)
+Kidney function, circulatory state
+Cr 0.6 to 1.3 mg/dL. Na 135 to 145 mmol/L
+Needed for MELD scores and for hepatorenal syndrome
+3.2 Grading the size of an ALT/AST rise
+Grade
+Rise above upper limit of normal (ULN)
+Typical causes
+Mild
+Less than 5 x ULN
+Fatty liver (MASLD), chronic hepatitis B/C, alcohol, many drugs
+Moderate
+5 to 15 x ULN
+Acute hepatitis, autoimmune hepatitis, drug injury
+Severe
+More than 15 x ULN (often 1000 U/L or higher)
+Acute viral hepatitis, acetaminophen toxicity, ischaemic hepatitis, autoimmune flare, bile duct stone passage
+3.3 Pattern of injury: the R ratio
+R = (ALT / ULN of ALT) divided by (ALP / ULN of ALP). It separates the three patterns [R20]:
+R value
+Pattern
+Meaning
+5 or more
+Hepatocellular
+Cell injury dominates (viral, toxic, ischaemic). ALT/AST high
+2 to 5
+Mixed
+Both cell injury and bile duct injury
+2 or less
+Cholestatic
+Bile flow problem. ALP/GGT high
+3.4 Useful patterns
+Ischaemic hepatitis: ALT and AST jump to more than 1000 U/L within 24 to 48 hours of hypotension or hypoxia, with very high LDH (ALT/LDH ratio below about 1.5). They fall quickly, often by half in 72 hours, and return toward normal within 7 to 10 days.
+Acetaminophen toxicity: ALT rises from about 12 to 24 hours, peaks at 72 to 96 hours, often in the thousands, with INR rising in step.
+Alcohol-related hepatitis: AST:ALT above 2, AST rarely above 300 to 400 U/L, raised GGT and bilirubin.
+Cirrhosis: transaminases may be normal. Look for low albumin, raised INR, low platelets, raised bilirubin.
+Congestive hepatopathy (heart failure): ALP, GGT and bilirubin rise more than ALT.
+Hy's law (drug injury): ALT above 3 x ULN with bilirubin above 2 x ULN, without initial cholestasis and without another cause, carries about a 10% or higher risk of death or transplant [R20].
+4. Hepatic Drug Metabolism (Ibuprofen and Acetaminophen)
+4.1 Basic principles
+Phase I (functionalisation): cytochrome P450 enzymes oxidise drugs. Main isoforms: CYP3A4 (largest share, handles about half of drugs), CYP2D6, CYP2C9, CYP2C19, CYP1A2 and CYP2E1. Highest activity is in zone 3 [R4].
+Phase II (conjugation): UGT (glucuronidation), SULT (sulfation), GST (glutathione), NAT (acetylation). Products are water soluble and leave in bile or urine [R4].
+First-pass effect: after oral dosing, the portal blood passes through the liver before reaching the systemic circulation. High-extraction drugs lose much of the dose here.
+Hepatic clearance (well-stirred model): CL(H) = Q x fu x CLint / (Q + fu x CLint), where Q is hepatic blood flow, fu the unbound fraction and CLint the intrinsic enzyme capacity. The extraction ratio E = CL(H) / Q [R4].
+Drug type
+Extraction ratio
+Clearance depends mainly on
+Effect of shock / low flow
+Effect of liver disease
+High extraction
+Above about 0.7
+Hepatic blood flow
+Clearance falls sharply
+Reduced by shunting and flow loss
+Low extraction
+Below about 0.3
+Enzyme capacity and protein binding
+Small effect
+Reduced by loss of enzyme activity (cirrhosis, hepatocyte loss)
+Both ibuprofen (low extraction) and acetaminophen (low to intermediate extraction) depend mainly on enzyme capacity, so their clearance falls when hepatocytes are lost or enzymes are inhibited.
+Factors that change hepatic drug handling
+Factor
+Effect
+Cirrhosis
+Fewer functioning hepatocytes, lower CYP activity, portosystemic shunting (higher bioavailability of high-extraction drugs), low albumin (higher free fraction of highly bound drugs)
+Age
+Liver blood flow and mass decline with age, so clearance of many drugs falls modestly
+Fasting / malnutrition
+Depletes glutathione and glycogen, which raises acetaminophen toxicity risk
+Alcohol
+Acute use competes for enzymes. Chronic use induces CYP2E1 and depletes glutathione
+Genetics
+CYP2C9*2 and *3 variants lower ibuprofen clearance. UGT1A1 variants cause Gilbert syndrome
+Interacting drugs
+Enzyme inducers (rifampicin, carbamazepine) raise NAPQI formation. Inhibitors (fluconazole) slow CYP2C9 drugs
+Kidney disease
+Metabolites accumulate. Some non-renal clearance is reduced in advanced CKD
+4.2 Ibuprofen
+Parameter
+Typical value
+Note
+Class and action
+Propionic acid NSAID. Reversible inhibition of COX-1 and COX-2
+Lowers prostaglandin synthesis (pain, fever, inflammation, and renal vasodilation)
+Bioavailability
+Above 80%
+Rapid absorption
+Time to peak (Tmax)
+About 1 to 2 h
+Faster on an empty stomach
+Peak concentration after 400 mg
+About 25 to 45 mg/L
+Dose proportional in the usual range
+Volume of distribution
+About 0.1 to 0.2 L/kg (7 to 14 L in a 70 kg adult)
+Small, because drug is highly protein bound
+Protein binding
+About 99% (mainly albumin)
+Low albumin raises the free fraction
+Elimination half-life
+About 2 h (range 1.8 to 2.5 h)
+Prolonged in liver or severe kidney disease
+Clearance
+About 3.5 to 4.5 L/h in a healthy adult
+Low-extraction drug
+Metabolism
+CYP2C9 (main) and CYP2C8 to hydroxy- and carboxy-ibuprofen, plus acyl glucuronidation
+R-enantiomer partly converted to active S-enantiomer
+Excretion
+More than 90% of the dose in urine as metabolites within about 24 h. Less than 1% unchanged
+Metabolites go to the Renal Agent
+Usual doses (adult)
+Over-the-counter: 200 to 400 mg every 4 to 6 h, maximum 1200 mg/day. Prescription: up to 3200 mg/day (US labelling)
+Dose limits are used for warnings in the twin
+Overdose bands (toxicology references)
+Under about 100 mg/kg: usually asymptomatic. About 100 to 400 mg/kg: GI upset, drowsiness, possible acidosis. Above about 400 mg/kg: severe toxicity (acidosis, renal injury, CNS depression)
+Approximate ranges, treat as indicative
+Pharmacodynamics that matter to the twin
+Emax model for COX inhibition: inhibition = Emax x C / (EC50 + C). Plasma concentrations after normal doses (20 to 40 mg/L) give high COX inhibition. The twin links this to renal prostaglandin loss.
+Renal effect: prostaglandins (PGE2, PGI2) dilate the afferent arteriole and protect GFR when angiotensin II and sympathetic tone are high (dehydration, heart failure, cirrhosis, CKD). NSAIDs remove this protection and can cause acute kidney injury. See Section 7.1.
+Blood pressure: NSAIDs cause sodium and water retention and a small rise in blood pressure (a few mmHg).
+Liver effect: direct liver toxicity at normal doses is very rare (Section 5.3).
+4.3 Acetaminophen (paracetamol)
+Parameter
+Typical value
+Note
+Bioavailability
+About 85 to 98% orally
+Absorption faster for immediate-release tablets, slower in overdose and with extended-release forms
+Time to peak (Tmax)
+About 0.5 to 2 h
+Can be delayed in large overdose
+Peak after 1 g
+About 10 to 20 mg/L
+Typical therapeutic range of the plasma concentration is about 5 to 20 mg/L
+Volume of distribution
+About 0.9 L/kg
+Total body water
+Protein binding
+About 10 to 25%
+Low
+Half-life
+About 1.5 to 3 h in health. Longer in overdose and liver injury (over 4 h)
+A half-life above 4 h suggests a high risk of hepatotoxicity
+Clearance
+About 0.3 L/h/kg (about 5 mL/min/kg)
+Low to intermediate extraction
+Metabolic pathways at therapeutic doses
+Pathway
+Share of dose
+Enzyme
+Product
+Behaviour at high dose
+Glucuronidation
+About 50 to 60%
+UGT1A1, 1A6, 1A9, 2B15
+APAP-glucuronide (urine)
+Partly saturable but high capacity
+Sulfation
+About 25 to 35%
+SULT1A1, 1A3/4, 1E1
+APAP-sulfate (urine)
+Saturates early, so more drug goes to oxidation
+Oxidation
+About 5 to 10%
+CYP2E1 (main), 1A2, 3A4
+NAPQI (reactive)
+Share can rise to about 15% or more
+Unchanged renal
+About 1 to 5%
+-
+Parent drug in urine
+Depends on GFR
+Mechanism of toxicity (NAPQI and glutathione)
+NAPQI is a reactive quinone. Normally it is neutralised at once by glutathione (GSH) through glutathione-S-transferase, then excreted as cysteine and mercapturic acid conjugates [R15].
+Hepatic GSH concentration is about 5 to 10 mmol/L. When about 70% of the store is used up (GSH below about 30% of normal), NAPQI binds to cell proteins, especially in mitochondria.
+Result: mitochondrial dysfunction, oxidative stress, activation of JNK, and centrilobular (zone 3) necrosis. Cell contents (ALT, AST) leak into blood [R10].
+Risk factors: acute overdose, fasting or malnutrition (low GSH), chronic heavy alcohol (CYP2E1 induction plus low GSH), enzyme-inducing drugs, repeated supratherapeutic dosing (the "therapeutic misadventure").
+Dose thresholds used in references
+Situation (adults)
+Threshold
+Source
+Usual maximum daily dose
+4 g/day. Many authorities advise 2 to 3 g/day for chronic use, chronic alcohol use, malnutrition or cirrhosis
+[R10, R2]
+Acute single ingestion considered toxic
+200 mg/kg or 10 g, whichever is less. 150 mg/kg (or about 7.5 g in adults) is the usual trigger for treatment when a level is not available
+[R10, R11]
+Repeated supratherapeutic ingestion
+150 mg/kg/day or 6 g/day (whichever is less) over 24 h or more, or 100 mg/kg/day over 72 h or more
+[R10]
+Acute overdose definition
+Entire ingestion within one 8-hour period
+[R10]
+Therapeutic-dose caveat: controlled studies in healthy adults taking 4 g/day for about two weeks have shown mild, symptom-free ALT rises in a proportion of subjects (Watkins et al., JAMA 2006). The twin can show this as a small, transient ALT rise at the maximum dose, but not as liver failure.
+Clinical course of acute overdose
+Stage
+Time after ingestion
+Features
+Labs
+I
+0.5 to 24 h
+Nausea, vomiting, malaise, or no symptoms
+Normal. Drug level useful
+II
+24 to 72 h
+Right upper quadrant pain, tender liver, symptoms may ease
+ALT/AST rising, INR and bilirubin start to rise, urine output may fall
+III
+72 to 96 h
+Peak liver injury: jaundice, coagulopathy, encephalopathy, possible acute liver failure, kidney injury, lactic acidosis
+ALT/AST often in thousands, INR high, lactate and creatinine up, pH may fall
+IV
+4 days to 2 weeks
+Recovery or death. Survivors normally recover fully, with no chronic damage
+Labs normalise
+Rumack-Matthew nomogram and treatment
+The nomogram applies to a single acute ingestion with a level taken 4 or more hours after ingestion. It must not be used for repeated or chronic ingestion [R10, R11]. The treatment line starts at 150 ug/mL (mg/L) at 4 h and falls to 4.7 ug/mL at 24 h, halving about every 4 hours:
+Hours after ingestion
+4
+6
+8
+10
+12
+16
+20
+24
+Treatment-line level (mg/L)
+150
+106
+75
+53
+37.5
+18.8
+9.4
+4.7
+Antidote: N-acetylcysteine (NAC), a glutathione precursor. Best started within 8 hours of ingestion, still useful later. Intravenous regimen: 150 mg/kg over 1 h, 50 mg/kg over 4 h, then 100 mg/kg over 16 h. Oral regimen: 140 mg/kg load, then 70 mg/kg every 4 h for 17 doses [R10, R11].
+Activated charcoal if within about 1 to 2 hours of a large ingestion.
+King's College criteria (acetaminophen acute liver failure, transplant referral): arterial pH below 7.30 after resuscitation, or all three of INR above 6.5, creatinine above 3.4 mg/dL and grade III to IV encephalopathy. Raised lactate (about 3 to 3.5 mmol/L or more after resuscitation) adds prognostic information [R16].
+4.4 Comparison table
+Property
+Ibuprofen
+Acetaminophen
+Main liver risk
+Idiosyncratic injury, very rare. Overdose probably direct toxicity
+Dose-dependent (intrinsic) injury through NAPQI and glutathione depletion
+Main non-liver risk
+Kidney (especially with dehydration), stomach and bleeding, blood pressure
+Kidney injury in severe overdose
+Metabolism
+CYP2C9/2C8 oxidation and glucuronidation
+Glucuronidation, sulfation (saturable), CYP2E1 to NAPQI
+Half-life
+About 2 h
+About 2 to 3 h
+Protein binding
+About 99%
+About 10 to 25%
+Antidote
+None specific. Supportive care
+N-acetylcysteine
+Safe in cirrhosis?
+No. Kidney injury, diuretic resistance, bleeding risk
+Commonly accepted at up to about 2 g/day
+4.5 Other hepatotoxic drugs (for later extensions)
+Amoxicillin-clavulanate: the most common cause of idiosyncratic drug injury in Western series.
+Anti-tuberculosis drugs (isoniazid, rifampicin, pyrazinamide): a very common cause of drug injury in South Asia.
+Others: statins (rare), methotrexate, valproate, amiodarone, azathioprine, anabolic steroids, and herbal or dietary supplements.
+5. Liver Diseases
+Each disease is summarised in the same format: definition, causes, mechanism, clinical and laboratory picture, severity, management in outline, and what it means for the digital twin.
+5.1 Drug-induced liver injury (DILI)
+Definition
+Liver injury caused by a drug, herbal product or supplement. Intrinsic DILI is dose dependent and predictable (acetaminophen). Idiosyncratic DILI is rare, unpredictable and not clearly dose dependent (amoxicillin-clavulanate, isoniazid, many NSAIDs) [R20].
+Case definition (consensus)
+Any one of: ALT of 5 x ULN or more; ALP of 2 x ULN or more; ALT of 3 x ULN or more with bilirubin above 2 x ULN [R20].
+Pattern
+Hepatocellular, cholestatic or mixed, by the R ratio (Section 3.3).
+Risk markers
+Hy's law (ALT above 3 x ULN plus bilirubin above 2 x ULN, no cholestasis, no other cause) predicts a risk of about 10% or more of death or transplant. Causality is assessed with the RUCAM scale.
+Management
+Stop the drug. Supportive care. N-acetylcysteine for acetaminophen and, in early non-acetaminophen acute liver failure, as an adjunct. Corticosteroids only in selected immune-allergic cases. Avoid re-exposure.
+Twin relevance
+Acetaminophen is modelled mechanistically (Section 4.3). Ibuprofen liver injury can be an optional low-probability event, not a default outcome.
+5.2 Acetaminophen hepatotoxicity
+Definition
+Dose-dependent hepatocellular necrosis from NAPQI after glutathione depletion. Leading cause of acute liver failure in the United States and the United Kingdom [R10, R16].
+Causes / risk factors
+Intentional or accidental overdose, repeated supratherapeutic dosing, fasting, chronic alcohol use, malnutrition, enzyme inducers.
+Mechanism
+Sulfation saturates, more drug is oxidised by CYP2E1 to NAPQI, glutathione runs out, NAPQI binds mitochondrial proteins, zone 3 necrosis (Section 4.3).
+Clinical picture
+Four stages (Section 4.3): symptom-free or nausea, then liver pain, then peak injury at 72 to 96 h, then recovery or failure.
+Key markers
+Plasma acetaminophen level on the Rumack-Matthew nomogram, ALT/AST, INR, bilirubin, lactate, creatinine, pH, phosphate.
+Severity
+ALT above 1000 U/L is significant injury. Acute liver failure is INR of 1.5 or more with encephalopathy. King's College criteria guide transplant referral.
+Management
+N-acetylcysteine, charcoal if early, supportive care, intensive care and transplant for failure.
+Twin relevance
+Primary mechanistic hepatic scenario. Needs GSH pool, NAPQI formation fraction, hepatocyte loss, ALT and INR kinetics. Fasting profile starts with a smaller GSH pool.
+5.3 Ibuprofen and NSAID-related liver injury
+Frequency
+Clinically apparent injury from ibuprofen is very rare: about 1.0 to 1.6 cases per 100,000 prescriptions and about 1 per 10,000 new users. LiverTox likelihood score A (well defined but very rare) [R5]. NSAIDs as a class account for roughly 10% of drug-induced liver injury cases.
+Pattern
+Mostly hepatocellular, sometimes cholestatic or mixed, often immune-allergic. Typically in people on rather high daily doses, with onset after days to weeks. A systematic review found 22 cases, with mean cumulative dose about 30 g and onset about 12 days; 11 recovered fully (mean about 14 weeks) and 5 progressed to liver failure, death or transplant [R6].
+Overdose
+Liver injury in ibuprofen overdose is probably a direct toxic effect, but the mechanism is not well defined [R5].
+Management
+Stop the drug and avoid re-exposure, since re-challenge after immune-allergic injury usually causes recurrence.
+Twin relevance
+Ibuprofen is not a major hepatotoxin in this project. Its important effects are renal and haemodynamic. In cirrhosis, however, NSAIDs are avoided because they cause kidney injury, diuretic resistance and bleeding.
+5.4 Viral hepatitis
+Virus
+Transmission
+Incubation
+Chronic infection?
+Main markers
+Treatment / prevention
+HAV
+Faecal-oral (food, water)
+About 2 to 6 weeks
+No
+IgM anti-HAV
+Vaccine. Supportive care. Acute liver failure uncommon (under 1%)
+HBV
+Blood, sexual, mother to child
+About 1 to 4 months
+About 90% if infected at birth, about 5% in adults
+HBsAg, IgM anti-HBc, HBV DNA
+Vaccine. Tenofovir or entecavir for chronic disease. Raises HCC risk
+HCV
+Blood (unsafe injections, transfusion), rarely sexual
+About 2 to 12 weeks
+About 75 to 85%
+Anti-HCV, HCV RNA
+Direct-acting antivirals (sofosbuvir-based) cure above 95%. No vaccine. Pakistan carries one of the highest HCV burdens in the world
+HDV
+Needs HBV to infect
+Co-infection or superinfection
+Yes, with HBV
+Anti-HDV, HDV RNA
+Prevent HBV. Bulevirtide in some regions
+HEV
+Faecal-oral (waterborne outbreaks, genotypes 1 and 2)
+About 2 to 8 weeks
+Rare (immunosuppressed)
+IgM anti-HEV, HEV RNA
+Supportive. Severe or fatal in pregnancy
+Acute hepatitis: ALT often 1000 U/L or more, jaundice, dark urine, fatigue. Mostly self-limiting except HBV, HCV and HDV in some cases.
+Chronic hepatitis (B or C): slow fibrosis over decades, cirrhosis in a fraction, hepatocellular carcinoma risk.
+Twin relevance: a chronic hepatitis profile can be modelled as a reduced starting hepatocyte mass or a "fibrosis stage" variable that lowers drug clearance and raises baseline ALT.
+5.5 Fatty liver diseases: MASLD, MetALD and alcohol-related liver disease
+Nomenclature (2023)
+NAFLD is now called MASLD (metabolic dysfunction-associated steatotic liver disease) and NASH is MASH. MASLD means hepatic steatosis plus at least one of five cardiometabolic risk factors, with little or no alcohol. The umbrella term is steatotic liver disease (SLD). About 98% of people in a European NAFLD cohort met the MASLD criteria [R7].
+Five cardiometabolic criteria (adults)
+(1) BMI of 25 or more (or waist above 94 cm men / 80 cm women). (2) Fasting glucose of 100 mg/dL or more, type 2 diabetes or treatment. (3) Blood pressure of 130/85 mmHg or more or treatment. (4) Triglycerides of 150 mg/dL or more or treatment. (5) HDL of 40 mg/dL or less (men) / 50 mg/dL or less (women) or treatment [R7].
+MetALD
+MASLD with higher alcohol intake: about 140 to 350 g/week (women) and 210 to 420 g/week (men) [R7].
+Alcohol-related liver disease (ALD)
+Steatosis, then alcoholic hepatitis (AST:ALT above 2, bilirubin up, AST below about 400 U/L), then cirrhosis. Intake above about 350 g/week (women) / 420 g/week (men) is the usual ALD range.
+Pathophysiology
+Insulin resistance, excess fat in hepatocytes, lipotoxicity, inflammation (steatohepatitis), stellate cell activation, fibrosis.
+Stages
+Steatosis, then MASH, then fibrosis F1 to F4 (F4 is cirrhosis), then possible hepatocellular carcinoma. Fibrosis stage drives outcome.
+Laboratory / non-invasive tests
+ALT mildly raised or normal. FIB-4 and APRI (Section 6), liver elastography, ultrasound with fatty change, biopsy if uncertain.
+Management
+Weight loss (7 to 10%), exercise, diet, control of diabetes, blood pressure and lipids. Specific drugs are emerging. Abstain from alcohol in ALD.
+Twin relevance
+MASLD patients have higher cardiovascular risk and higher risk of CKD. Steatosis and fibrosis can be modelled as a lower starting hepatic function value.
+5.6 Autoimmune and biliary diseases
+Disease
+Key features
+Markers
+Treatment
+Autoimmune hepatitis (AIH)
+Immune attack on hepatocytes, more common in women
+ALT/AST up, IgG up, ANA, anti-smooth muscle antibody
+Prednisolone plus azathioprine
+Primary biliary cholangitis (PBC)
+Destruction of small bile ducts, fatigue and itching, mostly middle-aged women
+ALP up, anti-mitochondrial antibody
+Ursodeoxycholic acid
+Primary sclerosing cholangitis (PSC)
+Inflammation and strictures of bile ducts, linked to inflammatory bowel disease, raises cholangiocarcinoma risk
+ALP up, beaded ducts on MRCP
+Supportive. Transplant for advanced disease
+Gallstone disease / obstruction
+Stone in the common bile duct, cholangitis (fever, jaundice, pain)
+ALP, GGT and direct bilirubin up
+ERCP and stone removal, antibiotics
+5.7 Genetic and metabolic liver diseases
+Disease
+Defect
+Key findings
+Treatment
+Wilson disease
+ATP7B gene, copper accumulation
+Low ceruloplasmin, high urine copper, Kayser-Fleischer rings, liver and neurological signs, young age
+Chelation (penicillamine, trientine), zinc
+Hereditary haemochromatosis
+HFE (usually C282Y), iron overload
+High ferritin, transferrin saturation above about 45%
+Regular phlebotomy
+Alpha-1 antitrypsin deficiency
+SERPINA1 variant, misfolded protein accumulates in the liver
+Low alpha-1 antitrypsin level, lung and liver disease
+Supportive, transplant
+Gilbert syndrome
+Reduced UGT1A1 activity (about 30% of normal)
+Mild unconjugated hyperbilirubinaemia during fasting or illness, otherwise normal liver tests
+None needed. Matters for some drugs
+5.8 Cirrhosis and portal hypertension
+Definition
+Diffuse fibrosis with regenerative nodules and distorted blood flow, the end stage of chronic liver injury.
+Causes
+Chronic hepatitis B and C, alcohol, MASLD, autoimmune and biliary disease, haemochromatosis, Wilson disease, drugs.
+Stages
+Compensated (few or no symptoms, normal or near-normal labs). Decompensated (ascites, variceal bleeding, encephalopathy, jaundice).
+Portal hypertension
+Hepatic venous pressure gradient (HVPG) is normally 1 to 5 mmHg. Above 5 mmHg is portal hypertension. 10 mmHg or more is clinically significant (varices, ascites). 12 mmHg or more carries variceal bleeding risk.
+Haemodynamics
+Higher resistance inside the liver plus splanchnic vasodilation (nitric oxide) cause a hyperdynamic circulation: higher cardiac output, low systemic vascular resistance, lower mean arterial pressure. The body responds with renin-angiotensin, ADH and sympathetic activation, which causes sodium and water retention and ascites [R2, R3].
+Complications
+Ascites, spontaneous bacterial peritonitis (ascitic neutrophils of 250/mm3 or more), varices and bleeding, hepatic encephalopathy, hepatorenal syndrome (HRS-AKI), hepatopulmonary syndrome, portopulmonary hypertension, hepatic hydrothorax, coagulopathy and low platelets, hepatocellular carcinoma, cirrhotic cardiomyopathy, malnutrition.
+Prognosis
+Child-Pugh class A, B and C: one-year survival about 100%, 80% and 45% (commonly cited figures).
+Drugs in cirrhosis
+Lower enzyme activity, shunting, low albumin and poor renal perfusion all change drug handling. Avoid NSAIDs (kidney injury, bleeding). Acetaminophen is acceptable at low doses (about 2 g/day or less). Sedatives and opioids can precipitate encephalopathy.
+Twin relevance
+Cirrhosis profile: hepatic function fraction of about 50% or lower, lower baseline MAP, higher baseline cardiac output, higher renal vulnerability (Section 7).
+5.9 Acute liver failure and acute-on-chronic liver failure
+Acute liver failure (ALF)
+INR of 1.5 or more with any degree of encephalopathy in a patient without pre-existing cirrhosis and illness of less than 26 weeks. Subtypes: hyperacute (under 7 days), acute (7 to 28 days), subacute (over 28 days to 26 weeks) [R16].
+Causes
+Acetaminophen (leading cause in US/UK), viral hepatitis (HEV and HBV important in South Asia), idiosyncratic drugs, autoimmune hepatitis, ischaemia, Wilson disease, Budd-Chiari syndrome, mushroom poisoning (Amanita).
+Complications
+Cerebral oedema and raised intracranial pressure, coagulopathy, hypoglycaemia, lactic acidosis, acute kidney injury (common), infection, ARDS, vasodilatory low blood pressure (low SVR).
+Acute-on-chronic liver failure (ACLF)
+Acute decompensation of cirrhosis with failure of one or more organs and high short-term mortality [R17].
+Management
+Intensive care, treat cause (NAC for acetaminophen), manage ICP, glucose and infection, early transplant listing (King's College criteria).
+CLIF-C organ failure score (links the liver to the other three agents)
+The EASL-CLIF organ failure score classifies ACLF by six organ systems. It maps almost directly onto the four agents of this project, which makes it useful for the final risk report [R17].
+Organ
+Score 1
+Score 2
+Score 3 (organ failure)
+Liver (bilirubin)
+Below 6 mg/dL
+6 to below 12 mg/dL
+12 mg/dL or more
+Kidney (creatinine)
+Below 2 mg/dL
+2 to below 3.5 mg/dL
+3.5 mg/dL or more, or renal replacement
+Brain (encephalopathy)
+Grade 0
+Grade 1 to 2
+Grade 3 to 4
+Coagulation (INR)
+Below 2.0
+2.0 to below 2.5
+2.5 or more
+Circulation (MAP)
+70 mmHg or more
+Below 70 mmHg
+Vasopressors needed
+Respiration (PaO2/FiO2)
+Above 300
+201 to 300
+200 or less
+5.10 Ischaemic hepatitis and congestive hepatopathy (the heart-liver link)
+Ischaemic hepatitis ("shock liver")
+Diffuse zone 3 necrosis after hypoperfusion or hypoxia: cardiac failure, septic or haemorrhagic shock, severe hypoxaemia. ALT/AST climb to above 1000 U/L (often 20 x ULN or more) within 24 to 48 h, LDH is very high, and levels fall rapidly (often by half in 72 h), returning toward normal in 7 to 10 days. Mortality is driven by the underlying cause.
+Congestive hepatopathy
+Raised central venous pressure (right heart failure, tricuspid disease) causes sinusoidal congestion and a cholestatic pattern (ALP, GGT, bilirubin up, ALT mildly up). Chronic congestion can lead to "cardiac cirrhosis".
+Twin relevance
+Direct rule linking Cardiovascular and Respiratory outputs to hepatic injury: prolonged low O2 delivery or MAP produces a rapid ALT rise; high venous pressure raises ALP and bilirubin.
+5.11 Hepatic encephalopathy
+Definition
+Brain dysfunction from liver failure or portosystemic shunting. Ammonia and other gut-derived toxins reach the brain.
+Triggers
+Infection, gastrointestinal bleeding, dehydration and kidney injury, electrolyte disorders (low potassium, low sodium), constipation, sedatives and opioids.
+Treatment
+Treat the trigger, lactulose, rifaximin.
+West Haven grade
+Features
+0 / minimal
+Normal, or abnormal only on psychometric testing
+1
+Trivial lack of awareness, euphoria or anxiety, shortened attention, sleep reversal
+2
+Lethargy, disorientation to time, personality change, inappropriate behaviour, asterixis
+3
+Somnolence to semistupor, responds to stimuli, confused, gross disorientation
+4
+Coma
+5.12 Liver tumours
+Hepatocellular carcinoma (HCC): arises mainly in cirrhosis and chronic hepatitis B. Surveillance with ultrasound (with or without AFP) every 6 months in at-risk patients.
+Cholangiocarcinoma: bile duct cancer, risk raised by PSC. Metastases to the liver are more common than primary tumours.
+Tumours are out of scope for the 48-hour twin, but should appear in the disease background of the report.
+6. Scoring Systems and Clinical Criteria
+6.1 Child-Pugh score
+Each variable scores 1 to 3 points. Total 5 to 6 is class A, 7 to 9 is class B, 10 to 15 is class C [R18].
+Variable
+1 point
+2 points
+3 points
+Bilirubin (mg/dL)
+Below 2
+2 to 3
+Above 3
+Albumin (g/dL)
+Above 3.5
+2.8 to 3.5
+Below 2.8
+INR
+Below 1.7
+1.7 to 2.3
+Above 2.3
+Ascites
+None
+Mild or controlled with diuretics
+Moderate to severe or refractory
+Encephalopathy
+None
+Grade 1 to 2 (or controlled)
+Grade 3 to 4 (or refractory)
+6.2 MELD, MELD-Na and MELD 3.0
+MELD predicts 90-day mortality in advanced liver disease and allocates transplant organs. In all versions any value below 1.0 is set to 1.0 before taking the logarithm (ln = natural log) [R8, R18].
+Original MELD
+MELD = round( 10 x [ 0.957 x ln(creatinine) + 0.378 x ln(bilirubin) + 1.120 x ln(INR) + 0.643 ] ). Creatinine capped at 4.0 mg/dL.
+MELD-Na
+MELD-Na = MELD + 1.32 x (137 - Na) - [ 0.033 x MELD x (137 - Na) ]. Sodium limited to 125 to 137 mmol/L.
+MELD 3.0 (2021)
+MELD 3.0 = 1.33 (if female) + 4.56 x ln(bilirubin) + 0.82 x (137 - Na) - 0.24 x (137 - Na) x ln(bilirubin) + 9.09 x ln(INR) + 11.14 x ln(creatinine) + 1.85 x (3.5 - albumin) - 1.83 x (3.5 - albumin) x ln(creatinine) + 6 [R8].
+MELD 3.0 limits
+Sodium 125 to 137 mmol/L. Albumin 1.5 to 3.5 g/dL. Creatinine maximum 3.0 mg/dL. Bilirubin, INR and creatinine minimum 1.0.
+90-day survival (MELD 3.0)
+Survival = 0.946 raised to the power exp( 0.17698 x MELD 3.0 - 3.56 ), x 100.
+Worked example
+Male, bilirubin 3.0 mg/dL, INR 1.8, creatinine 1.5 mg/dL, Na 130 mmol/L, albumin 3.0 g/dL. Original MELD = 21. MELD-Na = 25. MELD 3.0 = 25, estimated 90-day survival about 88%.
+MELD is validated for chronic liver disease. It is not used for acute liver failure, where King's College criteria apply.
+6.3 Fibrosis scores
+FIB-4
+FIB-4 = (age in years x AST) / (platelets in 10^9/L x square root of ALT). Below 1.3 (below 2.0 if age 65 or over) makes advanced fibrosis unlikely. Above 2.67 suggests high risk of advanced fibrosis.
+APRI
+APRI = ((AST / AST upper limit of normal) / platelets in 10^9/L) x 100. Above 0.7 suggests significant fibrosis. Above 1.0 suggests cirrhosis.
+6.4 KDIGO acute kidney injury staging (used for the kidney link)
+Stage
+Serum creatinine
+Urine output
+1
+1.5 to 1.9 x baseline, or rise of 0.3 mg/dL or more within 48 h
+Below 0.5 mL/kg/h for 6 to 12 h
+2
+2.0 to 2.9 x baseline
+Below 0.5 mL/kg/h for 12 h or more
+3
+3.0 x baseline or more, or 4.0 mg/dL or more, or dialysis
+Below 0.3 mL/kg/h for 24 h or more, or anuria for 12 h or more
+6.5 Other criteria in one place
+Criterion
+Rule
+Hy's law
+ALT above 3 x ULN plus bilirubin above 2 x ULN, no cholestasis, no other cause
+Acute liver failure
+INR of 1.5 or more plus encephalopathy, no prior cirrhosis, illness under 26 weeks
+King's College (acetaminophen)
+pH below 7.30 after resuscitation, or INR above 6.5 plus creatinine above 3.4 mg/dL plus grade 3 to 4 encephalopathy
+King's College (non-acetaminophen)
+INR above 6.5, or any 3 of: age under 10 or over 40; drug or indeterminate cause; jaundice to encephalopathy over 7 days; INR above 3.5; bilirubin above 17.5 mg/dL
+HRS-AKI
+See Section 7.1
+Hepatopulmonary syndrome
+See Section 7.3
+7. Correlations Between the Liver and the Other Organs
+This section is the core of the multi-agent design. For each partner organ it lists the mechanisms, the numbers that define them, and the direction and speed of the interaction.
+7.1 Liver and Kidney (Hepatic and Renal agents)
+Why the two organs are linked
+The kidney excretes the water-soluble products of hepatic metabolism. More than 90% of an ibuprofen dose leaves in urine as liver-made metabolites. If GFR falls, these accumulate [R4].
+Advanced liver disease causes splanchnic vasodilation, which lowers the effective arterial blood volume. The kidney responds with intense vasoconstriction, sodium retention and, in the extreme, hepatorenal syndrome [R2, R12].
+Kidney blood flow in patients with high renin, angiotensin II or sympathetic tone depends on vasodilating prostaglandins. NSAIDs remove them.
+The liver makes angiotensinogen (the RAAS substrate), albumin (plasma volume and oncotic pressure) and the urea precursor pathway.
+Types of kidney injury in liver disease and in the twin scenarios
+Type
+Mechanism
+Urine sodium
+FeNa
+Response to volume
+Notes
+Pre-renal (volume depletion)
+Dehydration, vomiting, diarrhoea, over-diuresis, bleeding
+Below 20 mmol/L
+Below 1%
+Yes
+Reversible. Creatinine falls after fluids
+NSAID-associated AKI
+Loss of prostaglandin-mediated afferent dilation when angiotensin II / sympathetic tone is high
+Usually low
+Usually below 1%
+Partial. Stop drug and give volume
+Usually reversible within days. Risk is highest with dehydration, CKD, cirrhosis, heart failure, diuretics, ACE inhibitor/ARB ("triple whammy")
+HRS-AKI
+Functional renal vasoconstriction in cirrhosis
+Very low (often below 10 mmol/L)
+Often below 0.2 to 1%
+No (after 48 h of albumin)
+Diagnosis of exclusion (criteria below)
+Acute tubular necrosis (ATN)
+Prolonged ischaemia, sepsis, toxins
+Above 40 mmol/L
+Above 2%
+No
+Slow recovery (days to weeks). Muddy brown casts
+Cholemic nephropathy
+Bile pigment casts in severe jaundice
+Variable
+Variable
+No
+Seen with very high bilirubin
+Hepatorenal syndrome (HRS-AKI): ICA diagnostic criteria [R12]
+Cirrhosis with ascites.
+AKI by ICA criteria: creatinine rise of 0.3 mg/dL or more within 48 h, or a rise of 50% or more from baseline within 7 days (urine output below 0.5 mL/kg/h for 6 h also counts).
+No response after 2 consecutive days of diuretic withdrawal and plasma volume expansion with albumin 1 g/kg/day (maximum 100 g/day).
+No shock.
+No current or recent use of nephrotoxic drugs (NSAIDs, aminoglycosides, iodinated contrast).
+No structural kidney disease: proteinuria below 500 mg/day, fewer than 50 red cells per high-power field, normal renal ultrasound.
+Treatment: terlipressin plus albumin (first line), or norepinephrine plus albumin. Terlipressin reverses HRS in only about 40 to 50% of patients. Definitive treatment is liver transplant.
+Modelling rule: because the HRS criteria exclude NSAID use, a cirrhotic twin that develops kidney injury after ibuprofen should be labelled "NSAID-associated AKI", not hepatorenal syndrome. Reserve "HRS-AKI" for advanced liver failure without a nephrotoxic trigger.
+Other kidney-liver points
+Creatinine is unreliable in cirrhosis. Low muscle mass and reduced creatine synthesis lower creatinine, so GFR is overestimated. Bilirubin can interfere with some assays.
+Severe acetaminophen overdose can also injure the kidney directly, and kidney injury is a King's College criterion.
+Raised potassium, acidosis and fluid overload from a failing kidney worsen encephalopathy and lactate handling.
+7.2 Liver and Heart (Hepatic and Cardiovascular agents)
+Link
+Direction
+Mechanism and numbers
+Time scale
+Cardiac output and blood pressure to liver injury
+Cardio to Hepatic
+The liver gets 25 to 30% of cardiac output and half its oxygen from the hepatic artery. Sustained hypotension (roughly MAP below 60 to 65 mmHg), cardiac failure or hypoxaemia causes zone 3 necrosis: ischaemic hepatitis (ALT above 1000 U/L, falling by about half in 72 h) [R2, R3]
+Hours to 2 days
+Venous congestion to liver
+Cardio to Hepatic
+High right atrial pressure (right heart failure, volume overload) causes sinusoidal congestion. ALP, GGT and bilirubin rise more than ALT
+Days to weeks
+Hepatic blood reservoir
+Hepatic to Cardio
+About 10% of blood volume sits in the liver. With sympathetic activation (haemorrhage, standing) a few hundred millilitres return to the circulation, supporting preload [R1]
+Seconds to minutes
+Hyperdynamic circulation in cirrhosis
+Hepatic to Cardio
+Splanchnic vasodilation (nitric oxide) lowers systemic vascular resistance and blood pressure, and raises cardiac output and heart rate. Renin-angiotensin, ADH and sympathetic systems are activated to compensate
+Chronic
+Cirrhotic cardiomyopathy
+Hepatic to Cardio
+Blunted contractile response to stress, diastolic dysfunction, QT prolongation, even without heart disease. Unmasked by infection, bleeding or procedures
+Chronic
+Acute liver failure vasodilation
+Hepatic to Cardio
+Low SVR and hypotension, often needing vasopressors. CLIF circulation failure is MAP below 70 mmHg or vasopressor use
+Hours to days
+Albumin and plasma volume
+Hepatic to Cardio
+Low albumin lowers plasma oncotic pressure, fluid moves to tissues (oedema, ascites) and plasma volume falls
+Days to weeks
+Clotting factors
+Hepatic to Cardio
+High INR with a failing liver makes haemorrhage more dangerous and harder to compensate
+Hours to days
+Lactate
+Cardio to Hepatic and back
+Low cardiac output and low oxygen delivery raise lactate. A failing liver clears it more slowly, so acidosis worsens
+Minutes to hours
+Drugs
+Both
+NSAIDs raise blood pressure, worsen heart failure and blunt diuretics. Non-selective beta-blockers in portal hypertension lower heart rate and cardiac output
+Hours to days
+Metabolic disease
+Both
+MASLD shares risk factors with cardiovascular disease and carries higher cardiovascular mortality [R7]
+Chronic
+7.3 Liver and Lungs (Hepatic and Respiratory agents)
+Hepatopulmonary syndrome (HPS) [R13]
+A pulmonary vascular complication of liver disease. Dilated capillaries and shunts in the lungs cause ventilation-perfusion mismatch and low blood oxygen. It is defined by three parts:
+Liver disease and/or portal hypertension.
+Evidence of intrapulmonary vascular dilatation (contrast echocardiography or technetium macroaggregated albumin scan).
+Abnormal oxygenation: A-a gradient of 15 mmHg or more (20 mmHg or more if older than 64 to 65 years), with or without PaO2 below 80 mmHg on room air.
+HPS severity
+Criterion
+Mild
+A-a gradient 15 mmHg or more, PaO2 80 mmHg or more
+Moderate
+PaO2 60 to 79 mmHg
+Severe
+PaO2 50 to 59 mmHg
+Very severe
+PaO2 below 50 mmHg
+Typical signs: breathlessness on sitting up (platypnoea), and a fall in PaO2 of more than 4 mmHg or in saturation of more than 5% when moving from lying to upright (orthodeoxia), spider naevi, clubbing. Prevalence in cirrhosis is about 4 to 29%, depending on the criteria used.
+Treatment: oxygen supplementation. The definitive treatment is liver transplant.
+Other lung-liver links
+Link
+Direction
+Mechanism
+Portopulmonary hypertension
+Hepatic to Respiratory
+Portal hypertension with raised pulmonary artery pressure from vasoconstriction (older definition: mean PAP above 25 mmHg with raised pulmonary vascular resistance and normal wedge pressure; newer guidelines use a lower mean PAP threshold of above 20 mmHg). Opposite of HPS (vasoconstriction, not vasodilation). Strains the right heart [R13]
+Hepatic hydrothorax
+Hepatic to Respiratory
+Ascitic fluid passes through diaphragm defects into the (usually right) chest, causing breathlessness
+Ascites and diaphragm
+Hepatic to Respiratory
+Tense ascites raises the diaphragm and reduces lung volumes
+Lactic acidosis
+Hepatic to Respiratory
+Failing lactate clearance lowers pH and bicarbonate. Chemoreceptors raise alveolar ventilation (Kussmaul breathing) to compensate
+Chronic hyperventilation
+Hepatic to Respiratory
+Mild hypocapnia (respiratory alkalosis) is common in chronic liver disease
+Hypoxaemia to liver
+Respiratory to Hepatic
+Low arterial oxygen and low flow together cause ischaemic liver injury. Oxygen delivery = cardiac output x arterial oxygen content
+Respiratory depression to liver
+Respiratory to Hepatic
+Hypoventilation lowers oxygen supply. Opioids and sedatives accumulate when hepatic clearance is reduced, which prolongs respiratory depression and can precipitate encephalopathy
+Acute liver failure to lungs
+Hepatic to Respiratory
+ARDS, aspiration with encephalopathy, and the CLIF respiratory failure threshold (PaO2/FiO2 of 200 or less)
+7.4 Acid-base and metabolic links used by several agents
+Lactate: produced when oxygen delivery is critically low, cleared mainly by the liver. Hepatic injury, shock and hypoxia together create lactic acidosis.
+Bicarbonate and pH: pH = 6.1 + log10( HCO3 / (0.03 x PaCO2) ). Lactate and kidney failure lower HCO3. The lungs respond by lowering PaCO2.
+Potassium: acidosis shifts potassium out of cells. Falling GFR reduces excretion. Hyperkalaemia above 5.5 mmol/L is a warning and above 6.0 mmol/L is critical.
+Glucose: the liver sustains fasting glucose. Acute liver failure causes hypoglycaemia. Fasting also depletes glutathione.
+7.5 Causal chains for the planned stress events
+Scenario A: high-dose ibuprofen plus dehydration (the headline scenario)
+Step
+Agent
+Signal or event
+Direction
+Time scale
+1
+Cardiovascular
+Fluid loss lowers plasma volume and preload. Heart rate rises, sympathetic tone rises
+Plasma volume down, HR up
+Minutes to hours
+2
+Renal
+Renin-angiotensin and ADH rise. Afferent arteriole depends on prostaglandins
+Angiotensin II up, urine concentrated
+30 to 60 min
+3
+Hepatic
+Ibuprofen absorbed, plasma peak about 1 to 2 h, cleared by CYP2C9 and glucuronidation, half-life about 2 h. Metabolites passed to kidney
+COX inhibition peaks, metabolites rise
+Hours
+4
+Renal
+Prostaglandin loss plus high angiotensin II lowers GFR. Metabolite clearance falls
+GFR down, urine output down
+Hours
+5
+Renal
+Creatinine rises with a lag (distribution volume and half-time of many hours). Potassium rises
+Creatinine up
+12 to 48 h
+6
+Renal to Cardio
+Sodium and water retention, higher vascular tone
+Blood pressure up
+Hours to days
+7
+All
+Overall kidney injury may become tubular if low GFR is prolonged, slowing recovery
+AKI persists after drug is gone
+Days
+The liver in a healthy patient is not injured in this scenario. Its role is the drug clearance rate and the metabolite load. In cirrhosis the same dose causes higher drug exposure and a greater kidney effect.
+Scenario B: acetaminophen overdose in a fasting patient
+Step
+Agent
+Signal or event
+Time scale
+1
+Hepatic
+Sulfation saturates, CYP2E1 route increases, NAPQI forms. Fasting means low starting glutathione
+1 to 8 h
+2
+Hepatic
+Glutathione falls below about 30%, NAPQI binds, hepatocyte death starts in zone 3
+4 to 24 h
+3
+Hepatic
+ALT rises from about 12 to 24 h, peaks at 72 to 96 h. INR rises. Lactate clearance falls
+1 to 4 days
+4
+Hepatic to Cardio
+Loss of liver function causes vasodilation: SVR down, MAP down
+Days
+5
+Cardio to Renal
+Lower MAP and effective volume reduce renal perfusion. Possible AKI
+Days
+6
+Hepatic to Respiratory
+Lactic acidosis drives hyperventilation
+Hours to days
+Scenario C: haemorrhage
+Preload falls, cardiac output falls, heart rate and sympathetic tone rise. The liver's blood reservoir releases blood.
+Prolonged low flow and low haematocrit lower hepatic oxygen supply. Lactate rises and clearance falls. Ischaemic hepatitis follows if hypoperfusion lasts hours.
+Loss and dilution of clotting factors raise INR and worsen bleeding.
+Scenario D: respiratory depression (opioid or sedative)
+Hypoventilation raises PaCO2 and lowers PaO2 and pH. Hypoxia reduces hepatic oxygen supply.
+If liver function is reduced, opioid clearance falls and the effect lasts longer. In cirrhosis, sedatives can trigger encephalopathy.
+8. Hepatic Agent: Data Specification for the Developers
+This section converts the evidence into the inputs the code needs. Values marked "design choice" are modelling decisions that the team should tune so the validation scenarios in 8.5 behave as expected. Values with a reference number come from the sources.
+8.1 State variables and thresholds
+Variable
+Unit
+Healthy baseline (70 kg adult)
+Warning
+Critical
+Basis
+Hepatic blood flow
+L/min
+1.5 (25 to 30% of CO)
+Below about 60% of baseline
+Below about 40%
+Baseline [R1]. Alert levels design choice
+Hepatic functional fraction
+0 to 1
+1.0
+Below 0.6
+Below 0.3
+Design choice. Scales clearance, lactate clearance, synthetic function
+ALT
+U/L
+About 25
+Above 120 (3 x ULN of 40)
+Above 1000
+ULN [R9]. Grading [R9, R20]
+AST
+U/L
+About 25
+Above 120
+Above 1000
+As ALT
+Total bilirubin
+mg/dL
+0.8
+Above 2.0 (Hy's law with ALT above 3 x ULN)
+Above 6 (CLIF 2), 12 (CLIF 3)
+[R17, R20]
+INR
+ratio
+1.0
+Above 1.5
+Above 2.0 (above 2.5 CLIF 3)
+[R16, R17]
+Albumin
+g/dL
+4.2
+Below 3.5
+Below 2.8
+[R18] (Child-Pugh points). Slow variable, half-life about 20 days
+Lactate
+mmol/L
+1.0
+Above 2
+Above 4
+[R16]
+Ammonia
+ug/dL
+About 30
+Above about 45 (lab upper limit)
+Design choice
+Lab dependent
+Hepatic glutathione
+% of store
+100
+Below 60
+Below 30 (NAPQI binds)
+[R10, R15]
+Ibuprofen plasma
+mg/L
+0
+Above 50
+Above 100
+Typical peak after 400 mg is 25 to 45 mg/L. Alert levels design choice
+Acetaminophen plasma
+mg/L
+0
+Above the nomogram line at the matching hour
+Above line and rising ALT
+[R10, R11]
+8.2 Pharmacokinetic parameters (ranges to calibrate within)
+Parameter
+Ibuprofen
+Acetaminophen
+Source
+Oral bioavailability
+0.8 to 1.0
+0.85 to 0.98
+[R4]
+Absorption
+Tmax 1 to 2 h (first-order rate about 1 to 3 per hour)
+Tmax 0.5 to 2 h (first-order rate about 1.5 to 3 per hour)
+[R4]
+Volume of distribution
+0.1 to 0.2 L/kg
+About 0.9 L/kg
+[R4]
+Clearance
+3.5 to 4.5 L/h
+About 0.3 L/h/kg (about 20 L/h in 70 kg)
+[R4]
+Half-life
+1.8 to 2.5 h
+1.5 to 3 h (over 4 h in toxicity)
+[R4, R10]
+Protein binding
+About 99%
+10 to 25%
+[R4]
+Pathway shares at therapeutic dose
+Almost all hepatic: CYP2C9/2C8 plus glucuronide. Under 1% unchanged
+Glucuronide 50 to 60%, sulfate 25 to 35%, NAPQI 5 to 10%, unchanged 1 to 5%
+[R4, R10]
+Saturation behaviour
+Not clinically important
+Sulfation saturates, NAPQI share rises to about 15% or more
+[R4, R10]
+Hepatic glutathione
+-
+Concentration about 5 to 10 mmol/L. NAPQI binds when GSH below about 30%
+[R10, R15]
+PD: COX inhibition
+Emax-type curve. EC50 is a design choice, tuned so that therapeutic concentrations give high inhibition
+-
+Design choice
+Maximum doses
+1200 mg/day OTC. 3200 mg/day prescription
+4 g/day (2 to 3 g/day in at-risk patients)
+[R10]
+8.3 Rule table (if-then)
+No.
+Condition
+Hepatic Agent action
+Basis
+1
+Single acetaminophen dose of 150 mg/kg or more (about 7.5 g in an adult), or 200 mg/kg or 10 g
+Flag "potentially toxic". Increase NAPQI formation as sulfation saturates
+[R10, R11]
+2
+Level above treatment line (150 mg/L at 4 h, halving every 4 h) for a single acute ingestion at 4 h or later
+Flag "NAC indicated". Do not apply the nomogram to repeated dosing
+[R10, R11]
+3
+Glutathione below about 30% of store
+Unneutralised NAPQI binds proteins, hepatocyte loss rate proportional to bound NAPQI
+[R10, R15]
+4
+ALT above 3 x ULN and bilirubin above 2 x ULN, no cholestasis
+Flag Hy's law
+[R20]
+5
+INR 1.5 or more with encephalopathy, no prior cirrhosis
+Flag acute liver failure. Apply King's College criteria for report
+[R16]
+6
+MAP below about 60 to 65 mmHg or oxygen delivery very low for hours
+Ischaemic injury: rapid ALT rise within 24 to 48 h, then fall by about half in 72 h
+[R2, R3]
+7
+Hepatic functional fraction falls
+Lower drug clearance, lower lactate clearance, higher INR (hours), lower albumin (days), lower SVR (vasodilation)
+[R2, R3]
+8
+Lactate above 4 mmol/L
+Critical flag. Message to Respiratory (acidosis) and Renal (pH, potassium)
+[R16]
+9
+GFR falls
+Metabolite clearance falls in proportion, metabolites accumulate
+[R4]
+10
+Cirrhosis profile plus NSAID plus kidney injury
+Report as NSAID-associated AKI. Use "HRS-AKI" only if ICA criteria are met without a nephrotoxic drug
+[R12]
+11
+Cirrhosis profile
+Lower baseline MAP and SVR, higher CO, lower enzyme capacity, lower baseline albumin and platelets
+[R2, R3]
+12
+Final report
+Compute CLIF-style organ scores for liver, kidney, circulation and respiration
+[R17]
+8.4 Patient-profile modifiers (suggested)
+Profile
+Effect on the Hepatic Agent
+Suggested value
+Basis
+Healthy adult
+Reference
+Functional fraction 1.0
+-
+Compensated cirrhosis (Child-Pugh A)
+Lower enzyme capacity and flow
+About 0.6 to 0.7
+Design choice informed by [R2, R3]
+Decompensated (Child-Pugh B)
+Further loss
+About 0.4 to 0.5
+Design choice
+Child-Pugh C
+Severe loss
+About 0.2 to 0.3
+Design choice
+Fasting / malnutrition
+Smaller glutathione store, lower glycogen
+GSH store about 40 to 60% of normal
+Direction [R10]. Value design choice
+Chronic heavy alcohol
+CYP2E1 induction (more NAPQI) plus low GSH
+Higher NAPQI fraction, lower GSH
+Direction [R10]. Values design choice
+Elderly
+Lower hepatic blood flow and clearance
+About 10 to 30% lower clearance
+Direction [R4]
+CYP2C9 poor metaboliser
+Lower ibuprofen clearance
+Clearance markedly lower
+Direction [R4]
+MASLD / obesity
+Mildly reduced function, higher baseline ALT
+Functional fraction about 0.8 to 0.9
+Design choice
+8.5 Validation scenarios and expected behaviour
+Use these as a test list. If the twin does not reproduce the expected pattern, tune the design-choice parameters, not the literature values.
+Scenario
+Expected hepatic result
+Expected effect on other agents
+Ibuprofen 400 mg, healthy, hydrated
+Peak plasma about 25 to 45 mg/L, cleared in roughly 8 to 10 h (half-life about 2 h). No liver injury
+GFR essentially unchanged. No AKI
+Ibuprofen 800 mg every 6 h plus 3 to 4% dehydration, healthy
+No hepatic injury. Higher metabolite load
+GFR falls, creatinine rises 12 to 48 h later, blood pressure rises
+Same, CKD or elderly
+No hepatic injury
+Larger GFR loss, AKI more likely
+Acetaminophen 4 g/day, healthy
+GSH preserved. At most a small, transient ALT rise [R19]
+No effect
+Acetaminophen 20 g, healthy
+GSH depleted, ALT above 1000 U/L, peak at 72 to 96 h, INR rises
+Possible MAP fall, AKI, lactic acidosis with hyperventilation
+Acetaminophen 10 g, fasting vs normal
+Fasting patient has worse injury than normal-fed patient at the same dose
+As above
+Haemorrhage 1.2 L
+Lactate rises, clearance falls, INR rises, possible ischaemic ALT rise if prolonged
+HR up, MAP and CO down, haematocrit falls after refill
+Opioid depression in COPD or cirrhosis
+Longer drug effect when function is reduced
+PaCO2 above 50 mmHg, SaO2 falls, pH falls
+Polypharmacy in cirrhosis (NSAID plus acetaminophen plus dehydration)
+Lower clearance, higher exposure, worse injury if acetaminophen high
+NSAID-associated AKI, lower MAP
+8.6 Simplifications and assumptions to state in the report
+One virtual patient per profile, using population-average values.
+The liver is modelled as one well-mixed compartment (no zonation), although zone 3 vulnerability is explained in the text.
+Hepatocyte loss is the single driver of lower function, ALT release and INR rise.
+Ibuprofen is modelled for its kidney and circulation effects, with idiosyncratic liver injury excluded by default.
+Albumin changes slowly (half-life about 20 days) and is not expected to move within 48 to 72 hours.
+Other organs (brain, gut, endocrine, immune system) are not modelled.
+Parameters are literature ranges tuned to match patterns, not fitted to individual patient data.
+9. Where to Find More Data
+Use these if the team wants real data to compare against the twin outputs or to extend the project.
+Resource
+What it offers
+Use
+Indian Liver Patient Dataset (ILPD), UCI Machine Learning Repository
+583 patient records (416 liver patients, 167 others): age, sex, bilirubin, ALP, ALT, AST, proteins, albumin, albumin/globulin ratio
+Check the plausible spread of liver tests, build simple classifiers
+NHANES (US CDC)
+Population liver enzymes, elastography and ultrasound-based steatosis data (2017 to March 2020 cycle), plus body measures and chemistry
+Baseline distributions, MASLD prevalence
+MIMIC-IV (PhysioNet)
+De-identified intensive care records with serial ALT, bilirubin, INR, lactate, creatinine, vital signs
+Time courses in shock, liver failure and AKI (requires credentialed access)
+LiverTox (NIH / NCBI Bookshelf)
+Clinical summaries for more than 1,000 drugs and supplements with likelihood scores and injury patterns
+Drug injury profiles, ibuprofen and acetaminophen pages
+DILIrank (US FDA)
+Drugs ranked by drug-induced liver injury concern
+Extending the drug list
+PubMed / PMC reviews
+Review articles and guidelines on each disease
+Backing for each cited number
+9.1 Textbooks and guidelines to cite in the viva
+Guyton and Hall Textbook of Medical Physiology (liver blood flow and function).
+Sherlock's Diseases of the Liver and Biliary System (disease detail).
+Harrison's Principles of Internal Medicine (diseases and scores).
+Goodman and Gilman's Pharmacological Basis of Therapeutics (pharmacokinetics).
+AASLD, EASL and ACG guidelines (cited in Section 12).
+10. Checklist for the Team
+Use this to confirm nothing was missed before the hepatic data goes into the code.
+Item
+Covered in
+Status
+Liver anatomy, blood flow and zones
+Section 2
+Done
+Functions and which marker shows each
+Sections 2.3 and 3
+Done
+Reference ranges and patterns
+Section 3
+Done
+Drug metabolism principles
+Section 4.1
+Done
+Ibuprofen PK and effects
+Section 4.2
+Done
+Acetaminophen PK, NAPQI, glutathione, nomogram, NAC
+Section 4.3
+Done
+Disease list with mechanisms and markers
+Section 5
+Done
+Scores (Child-Pugh, MELD, MELD-Na, MELD 3.0, FIB-4, APRI, KDIGO, CLIF)
+Section 6, 5.9
+Done
+Liver-kidney correlations including HRS and NSAID kidney injury
+Section 7.1
+Done
+Liver-heart correlations
+Section 7.2
+Done
+Liver-lung correlations including HPS
+Section 7.3
+Done
+Causal chains for each stress event
+Section 7.5
+Done
+Developer specification: variables, thresholds, rules, validation tests
+Section 8
+Done
+Datasets and textbooks
+Section 9
+Done
+Decide units and thresholds shared with the other three agent owners
+Team meeting
+Open
+Agree one common creatinine, MAP and GFR baseline for all agents
+Team meeting
+Open
+Confirm the alert thresholds marked "design choice" in Section 8
+Team meeting
+Open
+11. Glossary of Abbreviations
+Term
+Meaning
+A-a gradient
+Alveolar-arterial oxygen difference
+ACLF
+Acute-on-chronic liver failure
+AKI
+Acute kidney injury
+ALD
+Alcohol-related liver disease
+ALF
+Acute liver failure
+ALP / ALT / AST / GGT
+Alkaline phosphatase / alanine aminotransferase / aspartate aminotransferase / gamma-glutamyl transferase
+APRI / FIB-4
+Non-invasive fibrosis scores
+CKD
+Chronic kidney disease
+CLIF-C OF
+EASL-CLIF Consortium organ failure score
+CO / MAP / SVR / CVP
+Cardiac output / mean arterial pressure / systemic vascular resistance / central venous pressure
+COX
+Cyclooxygenase
+CYP
+Cytochrome P450 enzyme family
+DILI
+Drug-induced liver injury
+FeNa
+Fractional excretion of sodium
+GFR
+Glomerular filtration rate
+GSH / GST
+Glutathione / glutathione-S-transferase
+HPS / PoPH
+Hepatopulmonary syndrome / portopulmonary hypertension
+HRS-AKI
+Hepatorenal syndrome with acute kidney injury
+HVPG
+Hepatic venous pressure gradient
+INR / PT
+International normalised ratio / prothrombin time
+KDIGO
+Kidney Disease: Improving Global Outcomes
+MASLD / MASH / MetALD
+Metabolic dysfunction-associated steatotic liver disease / steatohepatitis / with higher alcohol intake
+MELD
+Model for End-stage Liver Disease
+NAC
+N-acetylcysteine
+NAPQI
+N-acetyl-p-benzoquinone imine, the toxic acetaminophen metabolite
+NSAID
+Non-steroidal anti-inflammatory drug
+PK / PD
+Pharmacokinetics / pharmacodynamics
+RAAS
+Renin-angiotensin-aldosterone system
+UGT / SULT
+UDP-glucuronosyltransferase / sulfotransferase
+ULN
+Upper limit of normal
+12. References
+Items marked with a web address were retrieved and checked in October 2026. Textbook and journal entries follow the standard published editions and citations.
+No.
+Reference
+R1
+Hall JE, Hall ME. Guyton and Hall Textbook of Medical Physiology (current edition). Elsevier.
+R2
+Dooley JS, Lok ASF, Garcia-Tsao G, Pinzani M, eds. Sherlock's Diseases of the Liver and Biliary System. Wiley-Blackwell.
+R3
+Loscalzo J, et al., eds. Harrison's Principles of Internal Medicine. McGraw-Hill.
+R4
+Brunton LL, Knollmann BC, eds. Goodman and Gilman's The Pharmacological Basis of Therapeutics. McGraw-Hill.
+R5
+LiverTox: Clinical and Research Information on Drug-Induced Liver Injury. Ibuprofen. NCBI Bookshelf NBK547845. https://www.ncbi.nlm.nih.gov/books/NBK547845/
+R6
+Zoubek ME, et al. Systematic review: ibuprofen-induced liver injury. Aliment Pharmacol Ther. https://cris.maastrichtuniversity.nl/en/publications/systematic-review-ibuprofen-induced-liver-injury
+R7
+Rinella ME, et al. A multisociety Delphi consensus statement on new fatty liver disease nomenclature. J Hepatol 2023;79(6):1542-1556. See also https://pmc.ncbi.nlm.nih.gov/articles/PMC10824973/
+R8
+Kim WR, et al. MELD 3.0: the Model for End-Stage Liver Disease updated for the modern era. Gastroenterology 2021;161(6):1887-1895. https://pmc.ncbi.nlm.nih.gov/articles/PMC8608337
+R9
+Kwo PY, Cohen SM, Lim JK. ACG clinical guideline: evaluation of abnormal liver chemistries. Am J Gastroenterol 2017;112:18-35.
+R10
+TOXCard: Acetaminophen toxicity and management. emDocs. https://www.emdocs.net/toxcard-acetaminophen-toxicity-and-management
+R11
+Rumack BH, Matthew H. Acetaminophen poisoning and toxicity. Pediatrics 1975;55:871-876. MDCalc: Acetaminophen overdose and NAC dosing. https://www.mdcalc.com/calc/568
+R12
+Angeli P, et al. Diagnosis and management of acute kidney injury in patients with cirrhosis: revised consensus recommendations of the International Club of Ascites. J Hepatol 2015;62:968-974. Biggins SW, et al. 2021 AASLD practice guidance on ascites, spontaneous bacterial peritonitis and hepatorenal syndrome. Hepatology 2021;74:1014-1048. Review: https://pmc.ncbi.nlm.nih.gov/articles/PMC10038893
+R13
+Rodriguez-Roisin R, et al. Pulmonary-hepatic vascular disorders (PHD). Eur Respir J 2004;24:861-880. Review: https://pmc.ncbi.nlm.nih.gov/articles/PMC9403489/
+R14
+KDIGO Clinical Practice Guideline for Acute Kidney Injury. Kidney Int Suppl 2012;2:1-138.
+R15
+Mitchell JR, et al. Acetaminophen-induced hepatic necrosis. J Pharmacol Exp Ther 1973;187:185-194.
+R16
+Bernal W, Wendon J. Acute liver failure. N Engl J Med 2013;369:2525-2534. O'Grady JG, et al. Early indicators of prognosis in fulminant hepatic failure. Gastroenterology 1989;97:439-445.
+R17
+Moreau R, et al. Acute-on-chronic liver failure is a distinct syndrome that develops in patients with acute decompensation of cirrhosis. Gastroenterology 2013;144:1426-1437.
+R18
+Pugh RNH, et al. Transection of the oesophagus for bleeding oesophageal varices. Br J Surg 1973;60:646-649. Kamath PS, et al. A model to predict survival in patients with end-stage liver disease. Hepatology 2001;33:464-470.
+R19
+Watkins PB, et al. Aminotransferase elevations in healthy adults receiving 4 grams of acetaminophen daily. JAMA 2006;296:87-93.
+R20
+Chalasani NP, et al. ACG clinical guideline: diagnosis and management of idiosyncratic drug-induced liver injury. Am J Gastroenterol 2021;116:878-898.
+
+--- Renal_Agent_Framework.docx ---
+RENAL AGENT
+Renal Knowledge & Reasoning Framework
+Design reference for a provenance-aware, multi-agent renal module in a physiological simulation sandbox
+Scope
+This document defines how the Renal Agent should inspect an authoritative physiological snapshot, detect renal patterns, link them to candidate mechanisms, grade risk, and label every conclusion by its evidential status (engine-simulated, evidence-only, illustrative, or unsupported). It also catalogues the renal conditions and cross-system interactions the agent should recognize, and proposes a ten-mechanism build order.
+Design principles
+Never diagnose kidney disease from a single number.
+Never hard-code a disease to a fixed severity; the current patient state overrides the default label.
+The numerical engine owns the physiology; agents interpret and communicate findings, they do not alter values such as creatinine.
+Every finding carries provenance, coverage level and limitations.
+Contents
+Architectural Principles
+The renal agent should not “diagnose kidney disease” from one number. It should inspect the authoritative physiological snapshot, detect renal patterns, connect them to possible mechanisms, grade risk, and clearly mark whether a conclusion is engine-simulated, evidence-only, illustrative, or unsupported.
+Do not hard-code something such as IgA nephropathy = severe. The same disease can be mild in one patient and life-threatening in another. Use the labels below as a default risk/escalation potential, then let laboratory values, time course, comorbidities and complications determine the current severity. CKD risk is formally assessed using kidney function and albuminuria, while AKI severity is staged using creatinine and urine output (KDIGO).
+Coverage labels
+Label
+Meaning
+ENGINE_SIMULATED
+The value or change is produced by the numerical physiology engine.
+EVIDENCE_ONLY
+Supported by clinical literature but not numerically modeled by the engine.
+ILLUSTRATIVE
+Shown for explanatory purposes; not a computed or evidenced result.
+UNSUPPORTED
+Cannot be concluded from the available snapshot, engine or evidence.
+1. Risk Labels for the Renal AI
+Three display levels are suggested:
+AI level
+Meaning in the sandbox
+🟢 MILD / MONITOR
+Limited abnormality, stable physiology, often reversible or manageable, no immediate organ-failure signal.
+🟠 SEVERE / HIGH CONCERN
+Significant renal injury or substantial progression risk; needs close monitoring or intervention.
+🔴 HIGHLY RISKY / CRITICAL
+Potential for rapid kidney failure, dangerous electrolyte or acid-base disturbance, sepsis, shock, pulmonary edema, dialysis requirement, or death.
+The current patient state should override the default disease label.
+Scenario
+Displayed level
+Kidney stone, 3 mm, no obstruction
+🟢 MILD
+Kidney stone causing unilateral obstruction
+🟠 SEVERE
+Obstructed infected kidney + sepsis
+🔴 HIGHLY RISKY
+Kidney stones themselves often do not permanently damage the kidneys when appropriately treated, but obstruction, infection, or loss of kidney function changes the risk substantially. (NIDDK)
+2. Primary Kidney Diseases
+This is the first major group the Renal Agent should know.
+Renal condition
+Main cause / mechanism
+Important findings
+Default risk
+Acute kidney injury — prerenal
+Reduced renal blood flow
+Creatinine ↑, urine ↓, renal perfusion ↓
+🟠
+AKI — intrinsic renal
+Direct nephron/glomerular/tubular injury
+Creatinine ↑, abnormal urine, filtration ↓
+🟠→🔴
+AKI — postrenal
+Urinary obstruction
+Urine ↓, hydronephrosis, creatinine ↑
+🟠→🔴
+CKD
+Persistent structural/function loss
+eGFR ↓ and/or albuminuria
+🟢→🔴 stage-dependent
+Kidney failure
+Very advanced loss of renal function
+Severe filtration failure, complications
+🔴
+Diabetic kidney disease
+Chronic hyperglycemic glomerular damage
+Albuminuria, declining eGFR
+🟠→🔴
+Hypertensive nephropathy
+Chronic vascular/glomerular pressure injury
+Hypertension + eGFR decline
+🟠→🔴
+IgA nephropathy
+IgA immune deposition
+Hematuria, proteinuria
+🟢→🔴
+FSGS
+Segmental glomerular scarring
+Proteinuria, nephrotic syndrome
+🟠→🔴
+Membranous nephropathy
+Immune-mediated GBM injury
+Heavy proteinuria, edema
+🟠→🔴
+Minimal change disease
+Podocyte dysfunction
+Nephrotic proteinuria
+🟠
+Postinfectious glomerulonephritis
+Immune response after infection
+Hematuria, edema, hypertension
+🟠
+Rapidly progressive GN
+Severe inflammatory glomerular injury
+Rapid eGFR decline
+🔴
+Anti-GBM disease
+Antibodies attack GBM
+Rapid renal failure ± lung bleeding
+🔴
+ANCA-associated GN
+Small-vessel autoimmune vasculitis
+Hematuria, AKI, systemic vasculitis
+🔴
+Lupus nephritis
+SLE immune-complex kidney injury
+Proteinuria/hematuria/eGFR ↓
+🟠→🔴
+Nephrotic syndrome
+Severe glomerular protein leak
+Proteinuria, low albumin, edema
+🟠→🔴
+Nephritic syndrome
+Glomerular inflammation
+Hematuria, hypertension, oliguria
+🟠→🔴
+Acute tubular injury/necrosis
+Ischemia or toxins
+AKI, reduced tubular function
+🟠→🔴
+Acute interstitial nephritis
+Often drug/immune related
+AKI, inflammatory kidney injury
+🟠
+Chronic tubulointerstitial nephritis
+Chronic toxins, drugs, reflux, metabolic disorders
+Gradual CKD
+🟠
+Pyelonephritis
+Usually ascending bacterial infection
+Fever, flank pain, urinary signs
+🟠
+Complicated pyelonephritis
+Infection + obstruction/comorbidity
+AKI/sepsis risk
+🔴
+Renal abscess
+Localized kidney infection
+Fever, inflammation, renal injury
+🔴
+Polycystic kidney disease
+Genetic cyst formation
+Enlarged kidneys, HTN, CKD
+🟠→🔴
+Alport syndrome
+Genetic basement-membrane disorder
+Hematuria, progressive CKD
+🟠→🔴
+Fabry-related nephropathy
+Lysosomal storage disorder
+Proteinuria, CKD
+🟠→🔴
+Congenital renal dysplasia
+Abnormal kidney development
+Reduced nephron function
+🟢→🔴
+Renal hypoplasia
+Small/underdeveloped kidneys
+Reduced renal reserve
+🟠
+Solitary kidney
+Congenital/acquired
+Reduced reserve
+🟢→🟠
+Renal artery stenosis
+Reduced arterial supply
+Hypertension, renal ischemia
+🟠→🔴
+Renal artery thrombosis
+Acute arterial occlusion
+Renal ischemia/infarction
+🔴
+Renal vein thrombosis
+Venous obstruction
+Pain, hematuria, renal injury
+🔴
+Renal infarction
+Embolus/thrombosis
+Acute ischemic injury
+🔴
+Thrombotic microangiopathy
+Small-vessel thrombosis
+AKI + hemolysis + platelets ↓
+🔴
+Hemolytic uremic syndrome
+Microangiopathic renal injury
+AKI, anemia, thrombocytopenia
+🔴
+Renal papillary necrosis
+Ischemia/toxins, diabetes, analgesics etc.
+Hematuria, obstruction
+🟠→🔴
+Renal cortical necrosis
+Severe ischemia/shock
+Major acute renal failure
+🔴
+Nephrolithiasis
+Urinary crystal/stone formation
+Pain, hematuria
+🟢
+Obstructive nephropathy
+Stone/tumor/prostate/stricture
+Hydronephrosis, GFR ↓
+🟠→🔴
+Hydronephrosis
+Urine-flow obstruction
+Renal pelvic dilation
+🟠
+Reflux nephropathy
+Vesicoureteral reflux/scarring
+Recurrent infections, CKD
+🟠
+Renal tubular acidosis
+Tubular acid-handling defect
+Acidosis, abnormal K⁺
+🟠
+Fanconi syndrome
+Proximal tubular dysfunction
+Glucose/phosphate/amino-acid wasting
+🟠
+Nephrogenic diabetes insipidus
+Kidney unresponsive to ADH
+Polyuria, dehydration
+🟠
+Hyperoxaluria nephropathy
+Oxalate deposition
+Stones + renal damage
+🟠→🔴
+Urate nephropathy
+Uric-acid crystal deposition
+AKI/CKD
+🟠→🔴
+Myeloma cast nephropathy
+Light-chain tubular injury
+Rapid renal dysfunction
+🔴
+Amyloid nephropathy
+Amyloid deposition
+Proteinuria, nephrotic syndrome
+🟠→🔴
+Kidney malignancy affecting function
+Tumor/invasion/obstruction
+Hematuria, obstruction, renal loss
+🟠→🔴
+Diabetes and hypertension are the most common causes of CKD in adults. Other important causes include autoimmune disease, glomerular disorders, nephrotoxins, infections, stones with complications, polycystic disease, renal artery stenosis, sickle cell disease, myeloma, hepatorenal syndrome and cardiorenal syndrome. NIDDK specifically includes IgA nephropathy, FSGS, membranous nephropathy, minimal change disease, lupus nephritis and anti-GBM disease among important glomerular disorders. (NIDDK)
+3. Cardiovascular Diseases That Can Damage the Kidney
+This category is extremely important because Cardiovascular Agent → Renal Agent communication will frequently happen here.
+Cardiovascular event / disease
+Renal mechanism
+Possible renal result
+Risk
+Chronic hypertension
+Glomerular/vascular damage
+CKD
+🟠→🔴
+Malignant/severe hypertension
+Acute vascular injury
+AKI
+🔴
+Heart failure
+Renal perfusion ↓ + venous congestion
+Cardiorenal syndrome
+🔴
+Cardiogenic shock
+Cardiac output ↓ severely
+Ischemic AKI
+🔴
+Myocardial infarction with low output
+Renal perfusion ↓
+AKI
+🔴
+Cardiac tamponade
+Cardiac output ↓
+Prerenal AKI
+🔴
+Severe arrhythmia
+Output/perfusion ↓
+AKI
+🟠→🔴
+Pulmonary embolism with hemodynamic compromise
+Low output/venous pressure effects
+AKI
+🔴
+Pulmonary hypertension / right HF
+Renal venous congestion
+GFR ↓
+🟠→🔴
+Atherosclerosis
+Renal artery narrowing/atheroembolism
+CKD/AKI
+🟠→🔴
+Aortic disease affecting renal arteries
+Renal perfusion ↓
+Renal ischemia
+🔴
+Reduced cardiac output is a recognized cause of prerenal AKI, including heart failure, cardiogenic shock, myocardial infarction, tamponade and severe pulmonary vascular disease. (Merck Manuals)
+Example inter-agent message:
+{
+  "source_agent": "cardiovascular",
+  "finding": "reduced_renal_perfusion_risk",
+  "evidence": {
+    "MAP": 58,
+    "cardiac_output": 3.0
+  }
+}
+Important: the cardiovascular agent does not change creatinine. The numerical engine owns that.
+4. Endocrine and Metabolic Diseases Affecting the Kidneys
+Disease / state
+Kidney mechanism
+Risk
+Diabetes mellitus
+Hyperglycemia damages glomeruli
+🟠→🔴
+Diabetic ketoacidosis
+Severe dehydration/hypoperfusion
+🔴
+Hyperosmolar hyperglycemic state
+Extreme osmotic diuresis/dehydration
+🔴
+Hypercalcemia
+Vasoconstriction + stones/tubular injury
+🟠→🔴
+Hyperparathyroidism
+Hypercalcemia/stones
+🟠
+Gout / hyperuricemia
+Urate stones/crystal disease
+🟠
+Tumor lysis syndrome
+Uric acid/phosphate precipitation
+🔴
+Severe obesity
+Hyperfiltration, HTN, diabetes, FSGS risk
+🟠
+Metabolic syndrome
+Diabetes/HTN/vascular injury
+🟠
+Adrenal insufficiency
+Hypotension/volume loss
+🟠→🔴
+Severe hypothyroidism
+Hemodynamic/GFR changes
+🟠
+Rhabdomyolysis
+Myoglobin tubular toxicity
+🔴
+Diabetes damages renal filtering vessels over time and is a major cause of kidney disease. (NIDDK)
+5. Liver Diseases Affecting the Renal System
+This is an important Hepatic Agent → Renal Agent pathway.
+Liver condition
+Renal mechanism
+Risk
+Decompensated cirrhosis
+Effective arterial volume ↓
+🟠→🔴
+Hepatorenal syndrome
+Severe renal vasoconstriction in advanced liver disease
+🔴
+Acute liver failure
+Hemodynamic/inflammatory abnormalities
+🔴
+Severe ascites
+Altered effective circulating volume
+🟠→🔴
+Hepatitis B-associated nephropathy
+Immune-complex disease
+🟠→🔴
+Hepatitis C-associated nephropathy
+Immune/vasculitic glomerular damage
+🟠→🔴
+Decompensated liver disease is a recognized cause of renal hypoperfusion/AKI, and hepatorenal syndrome is specifically recognized as liver disease producing renal dysfunction. (Merck Manuals)
+6. Respiratory Diseases Affecting the Kidneys
+For the Respiratory Agent → Renal Agent interface:
+Condition
+Mechanism affecting kidney
+Risk
+Severe hypoxemia
+Renal tissue oxygen delivery ↓
+🟠→🔴
+Respiratory failure
+Hypoxia + hemodynamic disturbance
+🔴
+Severe COPD exacerbation
+Hypoxemia/hypercapnia/hemodynamics
+🟠→🔴
+ARDS
+Systemic inflammation + hypoxia
+🔴
+Pulmonary sepsis / pneumonia with shock
+Hypotension/inflammation
+🔴
+Mechanical ventilation with adverse hemodynamics
+Venous pressure/cardiac output changes
+🟠
+Pulmonary hemorrhage in anti-GBM disease
+Shared autoimmune disease affects lung + kidney
+🔴
+Anti-GBM disease is particularly useful for a multi-agent demonstration because it can simultaneously produce glomerulonephritis and pulmonary bleeding, directly linking the renal and respiratory agents. Untreated disease can rapidly progress to renal and respiratory failure. (NIDDK)
+7. Infection and Inflammation Affecting the Kidneys
+Condition
+Renal effect
+Risk
+Sepsis
+Vasodilation, inflammation, microcirculatory injury
+🔴
+Septic shock
+Severe hypoperfusion
+🔴
+UTI
+Usually lower urinary tract initially
+🟢
+Pyelonephritis
+Direct kidney infection
+🟠
+Pyelonephritis + sepsis
+Infection + organ dysfunction
+🔴
+Endocarditis
+Immune GN / embolic disease
+🔴
+Post-streptococcal GN
+Immune-complex injury
+🟠
+HIV-associated nephropathy
+Glomerular injury
+🟠→🔴
+HBV-associated GN
+Immune-mediated
+🟠
+HCV-associated GN
+Immune-mediated
+🟠
+COVID / severe systemic viral illness
+Inflammation/hemodynamic injury
+🟠→🔴
+Kidney infection commonly begins as a lower UTI and ascends to the kidneys; severe cases can lead to sepsis, kidney scarring, CKD or kidney failure. (NIDDK)
+8. Autoimmune and Systemic Diseases
+Systemic disease
+Kidney manifestation
+Risk
+Systemic lupus erythematosus
+Lupus nephritis
+🟠→🔴
+ANCA vasculitis
+Rapidly progressive GN
+🔴
+Anti-GBM disease
+Crescentic GN
+🔴
+IgA vasculitis
+IgA-mediated GN
+🟠→🔴
+Systemic sclerosis
+Scleroderma renal crisis
+🔴
+Rheumatoid / systemic inflammatory disease
+Amyloidosis/drug effects
+🟠
+Sjögren syndrome
+Tubulointerstitial nephritis/RTA
+🟠
+Sarcoidosis
+Interstitial nephritis/hypercalcemia
+🟠
+Antiphospholipid syndrome
+Renal vascular thrombosis
+🔴
+9. Blood and Hematological Diseases Affecting the Kidneys
+Disease
+Kidney mechanism
+Risk
+Multiple myeloma
+Light-chain/cast nephropathy
+🔴
+Sickle-cell disease
+Ischemia/hyperfiltration/papillary damage
+🟠→🔴
+Hemolytic uremic syndrome
+Thrombotic microangiopathy
+🔴
+TTP
+Microvascular thrombosis
+🔴
+DIC
+Renal microthrombosis + shock
+🔴
+Severe hemolysis
+Pigment-related tubular injury
+🟠→🔴
+Leukemia / lymphoma
+Infiltration/tumor lysis
+🟠→🔴
+Multiple myeloma, HUS/TTP and sickle-cell disease are among recognized systemic causes of chronic or acute kidney disease. (NIDDK)
+10. Fluid-State Problems
+These should be among the first implemented renal rules, because physiological engines are far better suited to fluid and hemodynamic simulation than to inventing disease-specific trajectories.
+Stress event
+Kidney mechanism
+Risk
+Mild dehydration
+Renal perfusion slightly ↓
+🟢
+Moderate dehydration
+GFR ↓, RAAS ↑
+🟠
+Severe dehydration
+Prerenal AKI
+🔴
+Vomiting
+Fluid/electrolyte loss
+🟢→🔴
+Diarrhea
+Volume + bicarbonate/electrolyte loss
+🟢→🔴
+Hemorrhage
+Circulating volume ↓
+🔴
+Major burns
+Fluid shifts
+🔴
+Third-spacing
+Effective volume ↓
+🟠→🔴
+Overdiuresis
+Volume depletion
+🟠
+Fluid overload
+Venous congestion
+🟠→🔴
+Shock
+Severe renal hypoperfusion
+🔴
+Volume depletion, hemorrhage, GI losses, burns and low cardiac output are classical causes of prerenal AKI. (Merck Manuals)
+11. Drugs and Toxins
+These are best represented as engine-simulated only when the engine actually models the pharmacology; otherwise they are evidence-only.
+Drug / exposure
+Possible renal mechanism
+Risk context
+NSAIDs (ibuprofen, naproxen etc.)
+Renal prostaglandin inhibition → afferent vasoconstriction
+🟠; 🔴 with dehydration/CKD/HF
+ACE inhibitors
+Efferent arteriolar dilation
+Usually therapeutic; AKI risk in susceptible states
+ARBs
+Same general hemodynamic issue
+Context dependent
+Aminoglycosides
+Tubular toxicity
+🟠→🔴
+Vancomycin
+Nephrotoxicity risk
+🟠
+Amphotericin B
+Tubular injury
+🟠→🔴
+Cisplatin
+Tubular toxicity
+🟠→🔴
+Calcineurin inhibitors
+Renal vasoconstriction
+🟠→🔴
+Lithium
+Chronic tubulointerstitial injury / NDI
+🟠
+Some PPIs
+Interstitial nephritis association
+🟠
+Some antibiotics
+AIN/crystal injury
+🟠
+Acyclovir
+Crystal/tubular obstruction
+🟠→🔴
+Methotrexate at problematic exposure
+Crystal nephropathy
+🟠→🔴
+Ethylene glycol
+Oxalate nephropathy + systemic toxicity
+🔴
+Myoglobin from rhabdomyolysis
+Pigment tubular injury
+🔴
+Iodinated contrast
+AKI risk in susceptible contexts
+Context dependent
+NSAIDs and medications altering renal perfusion are specifically included among recognized causes of AKI. (Merck Manuals)
+Worked example: ibuprofen with dehydration
+Ibuprofen alone
+       ↓
+EVIDENCE:
+NSAID renal hemodynamic effect
+ 
+              +
+ 
+Dehydration
+       ↓
+ENGINE:
+effective circulating volume ↓
+renal perfusion ↓
+ 
+              ↓
+ 
+RENAL AGENT
+"Combined renal hypoperfusion risk increased."
+If the physiology engine (Pulse) does not contain an ibuprofen PK/PD renal model, the system should not invent a number such as eGFR = 91 → 63 attributable to ibuprofen. Instead:
+Statement
+Coverage
+Volume-induced renal changes
+ENGINE_SIMULATED
+NSAID-associated additional renal risk
+EVIDENCE_ONLY
+Exact NSAID-attributable ΔeGFR
+UNSUPPORTED
+12. Kidney Disease Damages Other Systems
+The interaction runs in both directions: OTHER SYSTEM → KIDNEY, but also KIDNEY → OTHER SYSTEM. The Renal Agent should therefore publish findings that other agents can inspect.
+Renal abnormality
+Other system affected
+Consequence
+Na⁺/water retention
+Cardiovascular
+Hypertension
+Fluid overload
+Respiratory
+Pulmonary edema
+Fluid overload
+Cardiovascular
+Heart failure worsening
+Hyperkalemia
+Cardiac
+Dangerous arrhythmias
+Hypokalemia
+Cardiac/muscle
+Arrhythmias, weakness
+Metabolic acidosis
+Respiratory
+Compensatory hyperventilation
+Metabolic acidosis
+Cardiovascular
+Reduced cardiac function in severe cases
+Reduced EPO
+Hematological
+Anemia
+Anemia
+Cardio/respiratory
+Increased cardiac workload, dyspnea
+Phosphate retention
+Bone/endocrine
+CKD mineral-bone disorder
+Reduced calcitriol
+Bone/endocrine
+Calcium/PTH abnormalities
+Secondary hyperparathyroidism
+Bone
+Bone resorption
+Uremia
+Neurologic
+Confusion/encephalopathy
+Uremia
+GI
+Nausea/anorexia
+Uremia
+Cardiovascular
+Pericarditis in advanced disease
+Protein loss
+Whole body
+Edema/malnutrition
+Nephrotic syndrome
+Hematologic
+Thrombosis risk
+CKD
+Cardiovascular
+Increased CVD risk
+CKD complications become more common and severe as eGFR falls and include cardiovascular disease, anemia, nutritional problems and mineral/bone abnormalities. Kidney damage also reduces EPO production, contributing to anemia, particularly in advanced CKD. CKD mineral-bone disorder involves altered phosphate, calcium, calcitriol and PTH physiology and can affect both bones and the cardiovascular system. (NIDDK)
+13. Renal Agent Input Variables
+The Renal Agent should be able to inspect at least the following, which is far better than creatinine and GFR alone because kidneys are tightly coupled to circulation, fluid balance, electrolytes and acid-base physiology.
+Group
+Variables
+Renal
+eGFR, serum creatinine, BUN, urine output, urine output (mL/kg/h), UACR / proteinuria, hematuria, renal perfusion, renal blood flow
+Hemodynamic
+SBP, DBP, MAP, heart rate, cardiac output, blood volume, fluid balance
+Electrolytes
+Na⁺, K⁺, Cl⁻, HCO₃⁻, Ca²⁺, phosphate, Mg²⁺
+Other
+Blood glucose, albumin, hemoglobin, pH, lactate, SpO₂, temperature
+Context
+Age, mass, diabetes, hypertension, heart failure, liver failure, infection, sepsis, dehydration, hemorrhage, known CKD, baseline eGFR, baseline creatinine, medications
+14. AKI Staging Rules
+This is one place where objective staging exists rather than arbitrary AI scoring. KDIGO staging includes approximately:
+AKI state
+Creatinine criterion
+Urine criterion
+Sandbox display
+Stage 1
+≥0.3 mg/dL rise or 1.5–1.9× baseline
+<0.5 mL/kg/h for 6–12 h
+🟠
+Stage 2
+2.0–2.9× baseline
+<0.5 mL/kg/h ≥12 h
+🟠 severe
+Stage 3
+≥3× baseline, very high creatinine, or renal replacement therapy
+<0.3 mL/kg/h ≥24 h or anuria ≥12 h
+🔴
+Instead of a fixed threshold such as:
+if creatinine > 2:
+    renal_state = "red"
+use a baseline-relative, stage-driven rule:
+creatinine_ratio = current_creatinine / baseline_creatinine
+ 
+if aki_stage == 3:
+    renal_state = "RED"
+elif aki_stage in [1, 2]:
+    renal_state = "AMBER"
+Baseline matters enormously.
+15. Cause Tree for the Renal Agent
+This is probably the single most useful representation for training the agent. The prerenal / intrinsic / postrenal distinction is the standard high-level way of organizing causes of AKI (Merck Manuals).
+RENAL DYSFUNCTION
+│
+├── PRERENAL
+│   ├── Dehydration
+│   ├── Vomiting
+│   ├── Diarrhea
+│   ├── Hemorrhage
+│   ├── Burns
+│   ├── Sepsis / vasodilation
+│   ├── Heart failure
+│   ├── Cardiogenic shock
+│   ├── Liver failure
+│   └── Renal-hemodynamic medications
+│
+├── INTRINSIC RENAL
+│   ├── Glomerular
+│   │   ├── IgA nephropathy
+│   │   ├── Lupus nephritis
+│   │   ├── FSGS
+│   │   ├── Membranous nephropathy
+│   │   ├── Anti-GBM
+│   │   └── ANCA vasculitis
+│   ├── Tubular
+│   │   ├── Ischemic ATI/ATN
+│   │   ├── Nephrotoxins
+│   │   ├── Rhabdomyolysis
+│   │   └── Tumor lysis
+│   ├── Interstitial
+│   │   ├── Drug-induced AIN
+│   │   ├── Infection
+│   │   └── Autoimmune disease
+│   └── Vascular
+│       ├── Malignant hypertension
+│       ├── TMA/HUS/TTP
+│       ├── Renal artery disease
+│       └── Renal infarction
+│
+└── POSTRENAL
+    ├── Stones
+    ├── BPH
+    ├── Prostate cancer
+    ├── Bladder tumor
+    ├── Ureter tumor
+    ├── Blood clot
+    ├── Urethral stricture
+    ├── Neurogenic bladder
+    └── Catheter obstruction
+16. Provenance for Every Finding
+Every renal finding should carry a structured provenance record. An engine-backed finding:
+{
+  "finding": "renal_hypoperfusion",
+  "severity": "severe",
+  "confidence": 0.91,
+ 
+  "observations": {
+    "MAP_mmHg": 58,
+    "urine_output_ml_kg_hr": 0.42,
+    "volume_state": "depleted"
+  },
+ 
+  "possible_causes": [
+    "volume_depletion",
+    "low_mean_arterial_pressure"
+  ],
+ 
+  "affected_systems": [
+    "renal",
+    "cardiovascular"
+  ],
+ 
+  "coverage": "engine_simulated",
+ 
+  "evidence_ids": [],
+ 
+  "limitations": [
+    "etiology_not_proven_from_snapshot_alone"
+  ]
+}
+Whereas an NSAID rule might return:
+{
+  "finding": "nsaid_associated_renal_risk",
+  "severity": "severe",
+ 
+  "context": [
+    "ibuprofen_exposure",
+    "volume_depletion"
+  ],
+ 
+  "coverage": "evidence_only",
+ 
+  "limitations": [
+    "drug_induced_delta_gfr_not_numerically_modeled"
+  ]
+}
+That distinction is extremely important.
+Recommended Build Hierarchy
+Do not begin by encoding hundreds of obscure renal diseases. Start with these ten core mechanisms:
+Renal hypoperfusion / prerenal AKI
+Intrinsic renal injury
+Urinary obstruction
+Chronic kidney disease
+Glomerular protein loss
+Infection / pyelonephritis
+Fluid overload
+Electrolyte disturbance, especially potassium
+Acid-base dysfunction
+Cardiorenal / hepatorenal / drug-related renal risk
+These mechanisms cover an enormous share of clinically meaningful renal interactions. Diseases such as diabetes, heart failure, sepsis, NSAID exposure, lupus or stones then become causal/context nodes feeding the mechanisms, rather than dozens of unrelated hard-coded rules. That structure makes the Renal Agent far more scientifically defensible and far easier to train, test and explain.
+Sources referenced
+KDIGO — AKI staging and CKD risk classification
+NIDDK — kidney disease causes, complications, stones, infection, glomerular disorders
+Merck Manuals — AKI classification and prerenal causes
+

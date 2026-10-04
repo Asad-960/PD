@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="1" failures="0" skipped="0" tests="1" time="2.436" timestamp="2026-10-04T11:47:15.815055+05:00" hostname="DESKTOP-P16JVIG"><testcase classname="" name="tests.test_atomic_writer" time="0.000"><error message="collection failure">ImportError while importing test module 'C:\Users\hp\Desktop\PDTT\tests\test_atomic_writer.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\importlib\__init__.py:90: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_atomic_writer.py:9: in &lt;module&gt;
+    from backend.schemas.domain import PatientProfile, SimulationConfig, Intervention, PhysiologySnapshot, DraftFinding
+E   ImportError: cannot import name 'DraftFinding' from 'backend.schemas.domain' (C:\Users\hp\Desktop\PDTT\backend\schemas\domain.py)</error></testcase></testsuite></testsuites>

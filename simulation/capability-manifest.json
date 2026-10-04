@@ -1,0 +1,455 @@
+{
+  "schema_version": "2.0.0",
+  "engine_name": "PDTT Illustrative Fluid Bookkeeping",
+  "engine_version": "0.2.0",
+  "engine_available_locally": true,
+  "execution_mode": "ILLUSTRATIVE",
+  "provenance_statement": "Local educational constants and fluid accounting only. No Pulse execution or reference traces. Not a patient prediction.",
+  "metrics": {
+    "heart_rate": {
+      "name": "heart_rate",
+      "display_name": "Heart Rate",
+      "unit": "bpm",
+      "domain": "cardiovascular",
+      "capability": "illustrative",
+      "description": "Cardiac cycle frequency.",
+      "notes": "Fixed educational baseline; no personalized trajectory."
+    },
+    "mean_arterial_pressure": {
+      "name": "mean_arterial_pressure",
+      "display_name": "Mean Arterial Pressure (MAP)",
+      "unit": "mmHg",
+      "domain": "cardiovascular",
+      "capability": "illustrative",
+      "description": "Average blood pressure across cardiac cycle.",
+      "notes": "Fixed educational baseline; no personalized trajectory."
+    },
+    "systolic_arterial_pressure": {
+      "name": "systolic_arterial_pressure",
+      "display_name": "Systolic Arterial Pressure",
+      "unit": "mmHg",
+      "domain": "cardiovascular",
+      "capability": "illustrative",
+      "description": "Peak arterial pressure during cardiac contraction.",
+      "notes": "Fixed educational baseline; no personalized trajectory."
+    },
+    "diastolic_arterial_pressure": {
+      "name": "diastolic_arterial_pressure",
+      "display_name": "Diastolic Arterial Pressure",
+      "unit": "mmHg",
+      "domain": "cardiovascular",
+      "capability": "illustrative",
+      "description": "Minimum arterial pressure during cardiac relaxation.",
+      "notes": "Fixed educational baseline; no personalized trajectory."
+    },
+    "cardiac_output": {
+      "name": "cardiac_output",
+      "display_name": "Cardiac Output",
+      "unit": "L/min",
+      "domain": "cardiovascular",
+      "capability": "illustrative",
+      "description": "Volume of blood pumped by the heart per minute.",
+      "notes": "Fixed educational baseline; no personalized trajectory."
+    },
+    "central_venous_pressure": {
+      "name": "central_venous_pressure",
+      "display_name": "Central Venous Pressure (CVP)",
+      "unit": "mmHg",
+      "domain": "cardiovascular",
+      "capability": "illustrative",
+      "description": "Pressure in thoracic vena cava near right atrium.",
+      "notes": "Fixed educational baseline; no personalized trajectory."
+    },
+    "systemic_vascular_resistance": {
+      "name": "systemic_vascular_resistance",
+      "display_name": "Systemic Vascular Resistance (SVR)",
+      "unit": "mmHg*min/L",
+      "domain": "cardiovascular",
+      "capability": "illustrative",
+      "description": "Resistance offered by systemic circulation.",
+      "notes": "Fixed educational baseline; no personalized trajectory."
+    },
+    "renal_blood_flow": {
+      "name": "renal_blood_flow",
+      "display_name": "Renal Blood Flow",
+      "unit": "mL/min",
+      "domain": "renal",
+      "capability": "illustrative",
+      "description": "Total volumetric flow to both kidneys.",
+      "notes": "Fixed educational baseline; no personalized trajectory."
+    },
+    "glomerular_filtration_rate": {
+      "name": "glomerular_filtration_rate",
+      "display_name": "Glomerular Filtration Rate (GFR)",
+      "unit": "mL/min",
+      "domain": "renal",
+      "capability": "illustrative",
+      "description": "Rate at which kidneys filter blood through glomeruli.",
+      "notes": "Fixed educational baseline; no personalized trajectory."
+    },
+    "urine_production_rate": {
+      "name": "urine_production_rate",
+      "display_name": "Urine Production Rate",
+      "unit": "mL/min",
+      "domain": "renal",
+      "capability": "illustrative",
+      "description": "Urine volume output rate.",
+      "notes": "Fixed educational baseline; no personalized trajectory."
+    },
+    "blood_urea_nitrogen": {
+      "name": "blood_urea_nitrogen",
+      "display_name": "Blood Urea Nitrogen (BUN)",
+      "unit": "mg/dL",
+      "domain": "renal",
+      "capability": "illustrative",
+      "description": "Serum concentration of nitrogen derived from urea.",
+      "notes": "Fixed educational baseline; no personalized trajectory."
+    },
+    "serum_creatinine": {
+      "name": "serum_creatinine",
+      "display_name": "Serum Creatinine",
+      "unit": "mg/dL",
+      "domain": "renal",
+      "capability": "illustrative",
+      "description": "Breakdown product of creatine phosphate in muscle.",
+      "notes": "Fixed educational baseline; no personalized trajectory."
+    },
+    "respiration_rate": {
+      "name": "respiration_rate",
+      "display_name": "Respiration Rate",
+      "unit": "breaths/min",
+      "domain": "respiratory",
+      "capability": "illustrative",
+      "description": "Ventilatory breaths per minute.",
+      "notes": "Fixed educational baseline; no personalized trajectory."
+    },
+    "oxygen_saturation": {
+      "name": "oxygen_saturation",
+      "display_name": "Oxygen Saturation (SpO2)",
+      "unit": "%",
+      "domain": "respiratory",
+      "capability": "illustrative",
+      "description": "Percentage of oxygen-saturated hemoglobin.",
+      "notes": "Fixed educational baseline; no personalized trajectory."
+    },
+    "end_tidal_carbon_dioxide": {
+      "name": "end_tidal_carbon_dioxide",
+      "display_name": "End-Tidal CO2 (ETCO2)",
+      "unit": "mmHg",
+      "domain": "respiratory",
+      "capability": "illustrative",
+      "description": "Partial pressure of carbon dioxide released at end of expiration.",
+      "notes": "Fixed educational baseline; no personalized trajectory."
+    },
+    "arterial_partial_pressure_oxygen": {
+      "name": "arterial_partial_pressure_oxygen",
+      "display_name": "PaO2",
+      "unit": "mmHg",
+      "domain": "respiratory",
+      "capability": "illustrative",
+      "description": "Partial pressure of oxygen in arterial blood.",
+      "notes": "Fixed educational baseline; no personalized trajectory."
+    },
+    "arterial_partial_pressure_carbon_dioxide": {
+      "name": "arterial_partial_pressure_carbon_dioxide",
+      "display_name": "PaCO2",
+      "unit": "mmHg",
+      "domain": "respiratory",
+      "capability": "illustrative",
+      "description": "Partial pressure of carbon dioxide in arterial blood.",
+      "notes": "Fixed educational baseline; no personalized trajectory."
+    },
+    "arterial_blood_ph": {
+      "name": "arterial_blood_ph",
+      "display_name": "Arterial Blood pH",
+      "unit": "pH",
+      "domain": "respiratory",
+      "capability": "illustrative",
+      "description": "Acidity/alkalinity of arterial blood.",
+      "notes": "Fixed educational baseline; no personalized trajectory."
+    },
+    "hepatic_blood_flow": {
+      "name": "hepatic_blood_flow",
+      "display_name": "Hepatic Blood Flow",
+      "unit": "mL/min",
+      "domain": "hepatic",
+      "capability": "illustrative",
+      "description": "Total volumetric perfusion to liver.",
+      "notes": "Fixed educational baseline; no personalized trajectory."
+    },
+    "alt_ast_levels": {
+      "name": "alt_ast_levels",
+      "display_name": "Liver Transaminases (ALT/AST)",
+      "unit": "U/L",
+      "domain": "hepatic",
+      "capability": "unsupported",
+      "description": "Biochemical cellular necrosis markers. Not modeled by Pulse.",
+      "notes": "Not modeled by this adapter."
+    },
+    "hepatic_clearance_rate": {
+      "name": "hepatic_clearance_rate",
+      "display_name": "Hepatic Clearance Modifier",
+      "unit": "mL/min",
+      "domain": "hepatic",
+      "capability": "unsupported",
+      "description": "Not modeled by the active adapter.",
+      "notes": "No hepatic clearance or Child-Pugh response is calculated."
+    },
+    "blood_glucose": {
+      "name": "blood_glucose",
+      "display_name": "Blood Glucose",
+      "unit": "mg/dL",
+      "domain": "metabolic",
+      "capability": "unsupported",
+      "description": "Endocrine glycemic regulation requires dedicated metabolic model.",
+      "notes": "Not modeled by this adapter."
+    },
+    "insulin_level": {
+      "name": "insulin_level",
+      "display_name": "Serum Insulin",
+      "unit": "uIU/mL",
+      "domain": "metabolic",
+      "capability": "unsupported",
+      "description": "Endocrine hormone concentration. Not simulated by baseline engine.",
+      "notes": "Not modeled by this adapter."
+    },
+    "total_fluid_volume": {
+      "name": "total_fluid_volume",
+      "display_name": "Illustrative Total Fluid",
+      "unit": "L",
+      "domain": "metabolic",
+      "capability": "illustrative",
+      "description": "Educational fluid amount bookkeeping.",
+      "notes": "Does not represent compartment physiology."
+    }
+  },
+  "conditions": {
+    "ChronicRenalStenosis": {
+      "name": "Renal artery stenosis",
+      "engine_mapping": null,
+      "capability": "unsupported",
+      "target_organs": [
+        "renal",
+        "cardiovascular"
+      ],
+      "severity_range": "0.0 - 1.0 (Mild: 0.3, Moderate: 0.6)",
+      "notes": "Context only; no disease-specific numerical model."
+    },
+    "ChronicVentricularSystolicDysfunction": {
+      "name": "Chronic Heart Failure (Left Ventricular Dysfunction)",
+      "engine_mapping": null,
+      "capability": "evidence_only",
+      "target_organs": [
+        "cardiovascular",
+        "respiratory"
+      ],
+      "severity_range": "0.0 - 1.0",
+      "notes": "Qualitative context only; evidence verification pending."
+    },
+    "ChronicObstructivePulmonaryDisease": {
+      "name": "COPD (Chronic Obstructive Pulmonary Disease)",
+      "engine_mapping": null,
+      "capability": "unsupported",
+      "target_organs": [
+        "respiratory",
+        "cardiovascular"
+      ],
+      "severity_range": "0.0 - 1.0",
+      "notes": "Context only; no disease-specific numerical model."
+    },
+    "EssentialHypertension": {
+      "name": "Essential Hypertension",
+      "engine_mapping": null,
+      "capability": "unsupported",
+      "target_organs": [
+        "cardiovascular",
+        "renal"
+      ],
+      "severity_range": "Baseline BP e.g. 155/95 mmHg",
+      "notes": "Context only; no disease-specific numerical model."
+    },
+    "ChronicAnemia": {
+      "name": "Chronic Anemia",
+      "engine_mapping": null,
+      "capability": "unsupported",
+      "target_organs": [
+        "cardiovascular",
+        "respiratory"
+      ],
+      "severity_range": "0.1 - 0.5 hemoglobin mass reduction",
+      "notes": "Context only; no disease-specific numerical model."
+    },
+    "Type2DiabetesMellitus": {
+      "name": "Type 2 Diabetes Mellitus",
+      "engine_mapping": null,
+      "capability": "unsupported",
+      "target_organs": [
+        "renal",
+        "hepatic",
+        "metabolic"
+      ],
+      "severity_range": "Contextual Flag (true/false)",
+      "notes": "Context only; no disease-specific numerical model."
+    },
+    "HepaticCirrhosis": {
+      "name": "Hepatic Cirrhosis / Impaired Clearance",
+      "engine_mapping": null,
+      "capability": "evidence_only",
+      "target_organs": [
+        "hepatic"
+      ],
+      "severity_range": "Mild | Moderate | Severe",
+      "notes": "Qualitative context only; evidence verification pending."
+    },
+    "CKD": {
+      "name": "Chronic Kidney Disease",
+      "engine_mapping": null,
+      "capability": "evidence_only",
+      "target_organs": [
+        "renal"
+      ],
+      "severity_range": null,
+      "notes": "Qualitative context only; never mapped to renal artery stenosis. Evidence verification is pending."
+    }
+  },
+  "interventions": {
+    "Dehydration": {
+      "name": "Dehydration / Volume Depletion",
+      "ingredient_or_type": "physiological_stressor",
+      "route": "environmental",
+      "capability": "illustrative",
+      "target_organs": [
+        "cardiovascular",
+        "renal"
+      ],
+      "numerical_effect": true,
+      "evidence_effect": false,
+      "notes": "Illustrative volume add/remove only, with validated amount and duration. No organ response prediction."
+    },
+    "IV_Saline_Infusion": {
+      "name": "IV Saline Infusion (0.9% Normal Saline)",
+      "ingredient_or_type": "fluid_resuscitation",
+      "route": "intravenous",
+      "capability": "illustrative",
+      "target_organs": [
+        "cardiovascular",
+        "renal",
+        "respiratory"
+      ],
+      "numerical_effect": true,
+      "evidence_effect": false,
+      "notes": "Illustrative volume add/remove only, with validated amount and duration. No organ response prediction."
+    },
+    "High_Dose_NSAID": {
+      "name": "High-Dose NSAID (Ibuprofen)",
+      "ingredient_or_type": "ibuprofen",
+      "route": "oral",
+      "capability": "evidence_only",
+      "target_organs": [
+        "renal",
+        "cardiovascular"
+      ],
+      "numerical_effect": false,
+      "evidence_effect": true,
+      "notes": "Nonnumerical exposure record. Exact rule/source review pending; no drug-induced trajectory."
+    },
+    "Vasopressor_Norepinephrine": {
+      "name": "Vasopressor (Norepinephrine)",
+      "ingredient_or_type": "norepinephrine",
+      "route": "intravenous",
+      "capability": "unsupported",
+      "target_organs": [
+        "cardiovascular",
+        "renal"
+      ],
+      "numerical_effect": false,
+      "evidence_effect": false,
+      "notes": "Not implemented in the active adapter. No numerical response is generated."
+    },
+    "Opioid_Bolus": {
+      "name": "Opioid Bolus (Morphine / Fentanyl)",
+      "ingredient_or_type": "morphine",
+      "route": "intravenous",
+      "capability": "unsupported",
+      "target_organs": [
+        "respiratory",
+        "cardiovascular",
+        "hepatic"
+      ],
+      "numerical_effect": false,
+      "evidence_effect": false,
+      "notes": "Not implemented in the active adapter. No numerical response is generated."
+    },
+    "ACE_Inhibitor": {
+      "name": "ACE Inhibitor (Lisinopril)",
+      "ingredient_or_type": "lisinopril",
+      "route": "oral",
+      "capability": "unsupported",
+      "target_organs": [
+        "renal",
+        "cardiovascular"
+      ],
+      "numerical_effect": false,
+      "evidence_effect": false,
+      "notes": "Not implemented in the active adapter. No numerical response is generated."
+    },
+    "Supplemental_Oxygen": {
+      "name": "Supplemental Oxygen Therapy",
+      "ingredient_or_type": "oxygen",
+      "route": "nasal_cannula",
+      "capability": "unsupported",
+      "target_organs": [
+        "respiratory"
+      ],
+      "numerical_effect": false,
+      "evidence_effect": false,
+      "notes": "Not implemented in the active adapter. No numerical response is generated."
+    },
+    "Naloxone_Rescue": {
+      "name": "Naloxone Rescue",
+      "ingredient_or_type": "naloxone",
+      "route": "intravenous",
+      "capability": "unsupported",
+      "target_organs": [
+        "respiratory"
+      ],
+      "numerical_effect": false,
+      "evidence_effect": false,
+      "notes": "Not implemented in the active adapter. No numerical response is generated."
+    },
+    "Morphine": {
+      "name": "Morphine",
+      "ingredient_or_type": "morphine",
+      "route": null,
+      "capability": "evidence_only",
+      "target_organs": [
+        "hepatic",
+        "respiratory"
+      ],
+      "numerical_effect": false,
+      "evidence_effect": true,
+      "notes": "Nonnumerical exposure record; evidence scope/review pending. No clearance or respiratory response is computed."
+    },
+    "Fentanyl": {
+      "name": "Fentanyl",
+      "ingredient_or_type": "fentanyl",
+      "route": null,
+      "capability": "unsupported",
+      "target_organs": [
+        "hepatic",
+        "respiratory"
+      ],
+      "numerical_effect": false,
+      "evidence_effect": false,
+      "notes": "No verified ingredient-specific rule or numerical model in the active adapter."
+    }
+  },
+  "physiology_engine_verified": false,
+  "evidence_verified": false,
+  "limitations": [
+    "Organ quantities are fixed illustrative constants, not patient measurements or drug/disease predictions.",
+    "Fluid bookkeeping is not intravascular distribution, perfusion, kidney physiology or a clinically validated model.",
+    "Baseline inputs and conditions are context-only and explicitly disclosed as unused by this adapter.",
+    "Evidence rules and citations require the separate evidence repair/review gate; availability is not clinical review."
+  ]
+}

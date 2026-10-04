@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="8" skipped="0" tests="8" time="3.492" timestamp="2026-10-04T10:10:53.116287+05:00" hostname="DESKTOP-P16JVIG"><testcase classname="tests.test_engine_worker_boundary" name="test_default_quantity_cannot_claim_unverified_pulse_output" time="0.007"><failure message="AssertionError: assert 'pulse_engine' == 'unverified'&#10;  &#10;  - unverified&#10;  + pulse_engine">tests\test_engine_worker_boundary.py:33: in test_default_quantity_cannot_claim_unverified_pulse_output
+    assert q.source == "unverified"
+E   AssertionError: assert 'pulse_engine' == 'unverified'
+E     
+E     - unverified
+E     + pulse_engine</failure></testcase><testcase classname="tests.test_engine_worker_boundary" name="test_persisted_config_identifies_actual_adapter" time="0.025"><failure message="AttributeError: 'dict' object has no attribute 'engine_name'">tests\test_engine_worker_boundary.py:41: in test_persisted_config_identifies_actual_adapter
+    assert stored.engine_name == "PDTT Illustrative Fluid Bookkeeping"
+           ^^^^^^^^^^^^^^^^^^
+E   AttributeError: 'dict' object has no attribute 'engine_name'</failure></testcase><testcase classname="tests.test_engine_worker_boundary" name="test_explicit_request_for_other_engine_cannot_silently_fall_back" time="0.007"><failure message="Failed: DID NOT RAISE ValueError">tests\test_engine_worker_boundary.py:50: in test_explicit_request_for_other_engine_cannot_silently_fall_back
+    with pytest.raises(ValueError, match="engine"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_engine_worker_boundary" name="test_rejected_initialization_is_failed_not_successful" time="0.008"><failure message="AssertionError: Regex pattern did not match.&#10;  Expected regex: 'initialization'&#10;  Actual message: 'Initialize the adapter before taking a snapshot'">tests\test_engine_worker_boundary.py:60: in test_rejected_initialization_is_failed_not_successful
+    with pytest.raises(RuntimeError, match="initialization"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: Regex pattern did not match.
+E     Expected regex: 'initialization'
+E     Actual message: 'Initialize the adapter before taking a snapshot'</failure></testcase><testcase classname="tests.test_engine_worker_boundary" name="test_rejected_advance_cannot_be_recorded_as_completion" time="0.011"><failure message="Failed: DID NOT RAISE RuntimeError">tests\test_engine_worker_boundary.py:70: in test_rejected_advance_cannot_be_recorded_as_completion
+    with pytest.raises(RuntimeError, match="advance"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE RuntimeError</failure></testcase><testcase classname="tests.test_engine_worker_boundary" name="test_rejected_action_cannot_emit_applied_event" time="0.011"><failure message="Failed: DID NOT RAISE RuntimeError">tests\test_engine_worker_boundary.py:80: in test_rejected_action_cannot_emit_applied_event
+    with pytest.raises(RuntimeError, match="action"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE RuntimeError</failure></testcase><testcase classname="tests.test_engine_worker_boundary" name="test_unsupported_action_is_blocked_by_preflight" time="0.013"><failure message="Failed: DID NOT RAISE ValueError">tests\test_engine_worker_boundary.py:87: in test_unsupported_action_is_blocked_by_preflight
+    with pytest.raises(ValueError, match="unsupported"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE ValueError</failure></testcase><testcase classname="tests.test_engine_worker_boundary" name="test_numerical_invalidity_survives_boundary_and_fails_run" time="0.015"><failure message="Failed: DID NOT RAISE RuntimeError">tests\test_engine_worker_boundary.py:100: in test_numerical_invalidity_survives_boundary_and_fails_run
+    with pytest.raises(RuntimeError, match="invalid"):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE RuntimeError</failure></testcase></testsuite></testsuites>

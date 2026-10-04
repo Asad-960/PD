@@ -1,0 +1,8 @@
+PDTT ENGINE FEASIBILITY — ILLUSTRATIVE DEVELOPMENT MODE
+Python: C:\Users\hp\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe
+Pulse import probe: Import probe unavailable: ModuleNotFoundError: No module named 'pulse'. No OS/compiler compatibility verdict is implied.
+Illustrative lifecycle: PASS
+Evidence-only numerical isolation: PASS
+Real Pulse / genuine reference-trace lifecycle: UNVERIFIED
+Gate 1 verified-physiology status: NOT PASSED
+Illustrative adapter RSS: 32.11 MB; this is not a Pulse benchmark.

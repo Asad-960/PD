@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="2.400" timestamp="2026-10-04T11:53:30.874063+05:00" hostname="DESKTOP-P16JVIG"><testcase classname="tests.test_atomic_writer" name="test_new_event_cannot_skip_a_sequence" time="0.054"><failure message="Failed: DID NOT RAISE any of (ValueError, IntegrityError)">tests\test_atomic_writer.py:129: in test_new_event_cannot_skip_a_sequence
+    with pytest.raises((ValueError, sqlite3.IntegrityError)):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE any of (ValueError, IntegrityError)</failure></testcase><testcase classname="tests.test_atomic_writer" name="test_original_run_retry_survives_later_admitted_action" time="0.036"><failure message="ValueError: Run identity cannot rewrite its scheduled intervention history">tests\test_atomic_writer.py:139: in test_original_run_retry_survives_later_admitted_action
+    writer.create_run(c, p, [saline()])
+backend\database\writer.py:232: in create_run
+    raise ValueError("Run identity cannot rewrite its scheduled intervention history")
+E   ValueError: Run identity cannot rewrite its scheduled intervention history</failure></testcase></testsuite></testsuites>

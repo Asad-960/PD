@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="26" skipped="0" tests="40" time="7.509" timestamp="2026-10-04T10:58:58.067178+05:00" hostname="DESKTOP-P16JVIG"><testcase classname="scripts.audit_regressions" name="test_A01_generated_formula_output_must_be_labeled_illustrative" time="0.003" /><testcase classname="scripts.audit_regressions" name="test_A02_measured_creatinine_is_used_or_ignored_input_is_disclosed" time="0.003" /><testcase classname="scripts.audit_regressions" name="test_A03_reinitialization_does_not_inherit_previous_patient" time="0.004" /><testcase classname="scripts.audit_regressions" name="test_A04_output_sampling_and_interval_splits_do_not_change_physiology" time="0.004" /><testcase classname="scripts.audit_regressions" name="test_A05_zero_dose_saline_cannot_add_fluid" time="0.003" /><testcase classname="scripts.audit_regressions" name="test_A06_coverage_matches_actual_adapter_support" time="0.003" /><testcase classname="scripts.audit_regressions" name="test_A07_typed_dehydration_event_reaches_the_adapter" time="0.008"><failure message="TypeError: Object of type ImmutableMap is not JSON serializable">scripts\audit_regressions.py:137: in test_A07_typed_dehydration_event_reaches_the_adapter
+    run_worker(writer, [intervention("Dehydration", unit="fraction", dose=0.1,
+scripts\audit_regressions.py:73: in run_worker
+    worker.run()
+simulation\worker.py:115: in run
+    self._run_impl()
+simulation\worker.py:164: in _run_impl
+    if not self.engine.initialize(profile_dump, self.config.assumptions):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+simulation\adapter.py:94: in initialize
+    copied_assumptions = json.loads(_canonical(assumptions or {}))
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+simulation\adapter.py:36: in _canonical
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\__init__.py:238: in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:200: in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:258: in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:180: in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+E   TypeError: Object of type ImmutableMap is not JSON serializable</failure></testcase><testcase classname="scripts.audit_regressions" name="test_A08_snapshot_validity_is_not_silently_dropped" time="0.005" /><testcase classname="scripts.audit_regressions" name="test_A09_council_snapshot_prevents_shared_nested_mutation" time="0.002" /><testcase classname="scripts.audit_regressions" name="test_A10_malformed_quantity_cannot_escape_through_untyped_dict" time="0.002" /><testcase classname="scripts.audit_regressions" name="test_A11_medication_unit_must_be_validated" time="0.002" /><testcase classname="scripts.audit_regressions" name="test_A12_nonfinite_horizon_is_rejected" time="0.002" /><testcase classname="scripts.audit_regressions" name="test_A13_manifest_metadata_survives_typed_validation" time="0.003" /><testcase classname="scripts.audit_regressions" name="test_A14_unreviewed_rules_do_not_enter_primary_findings" time="0.005"><failure message="AssertionError: assert [AgentFinding... threshold.')] == []&#10;  &#10;  Left contains one more item: AgentFinding(finding_id='finding_RULE_CHF_FLUID_OVERLOAD_10', run_id='audit_run', sequence=10, simulation_time=10.0, o...', limitations='Pulse models bulk fluid physics; interstitial pulmonary edema is flagged via clinical rule threshold.')&#10;  Use -v to get more diff">scripts\audit_regressions.py:187: in test_A14_unreviewed_rules_do_not_enter_primary_findings
+    assert findings == []
+E   AssertionError: assert [AgentFinding... threshold.')] == []
+E     
+E     Left contains one more item: AgentFinding(finding_id='finding_RULE_CHF_FLUID_OVERLOAD_10', run_id='audit_run', sequence=10, simulation_time=10.0, o...', limitations='Pulse models bulk fluid physics; interstitial pulmonary edema is flagged via clinical rule threshold.')
+E     Use -v to get more diff</failure></testcase><testcase classname="scripts.audit_regressions" name="test_A15_severe_hepatic_context_is_not_silently_less_covered_than_moderate" time="0.004"><failure message="AssertionError: Severe hepatic impairment returned no finding or coverage warning.&#10;assert []">scripts\audit_regressions.py:198: in test_A15_severe_hepatic_context_is_not_silently_less_covered_than_moderate
+    assert severe, "Severe hepatic impairment returned no finding or coverage warning."
+E   AssertionError: Severe hepatic impairment returned no finding or coverage warning.
+E   assert []</failure></testcase><testcase classname="scripts.audit_regressions" name="test_A16_missing_threshold_is_explicitly_unknown" time="0.004"><failure message="AssertionError: []&#10;assert False&#10; +  where False = any(&lt;generator object test_A16_missing_threshold_is_explicitly_unknown.&lt;locals&gt;.&lt;genexpr&gt; at 0x00000240F050F9F0&gt;)">scripts\audit_regressions.py:206: in test_A16_missing_threshold_is_explicitly_unknown
+    assert any(f.severity == "unknown" for f in findings), findings
+E   AssertionError: []
+E   assert False
+E    +  where False = any(&lt;generator object test_A16_missing_threshold_is_explicitly_unknown.&lt;locals&gt;.&lt;genexpr&gt; at 0x00000240F050F9F0&gt;)</failure></testcase><testcase classname="scripts.audit_regressions" name="test_A17_event_id_is_not_a_drug_trigger" time="0.005"><failure message="AssertionError: assert [AgentFinding...d guidance.')] == []&#10;  &#10;  Left contains one more item: AgentFinding(finding_id='finding_RULE_NSAID_RENAL_HEMODYNAMIC_10', run_id='audit_run', sequence=10, simulation_time=10...tions='Drug-induced GFR reduction is not numerically modeled by engine; alert is qualitative evidence-based guidance.')&#10;  Use -v to get more diff">scripts\audit_regressions.py:214: in test_A17_event_id_is_not_a_drug_trigger
+    assert registry.evaluate_rules(p, snapshot(), [inv]) == []
+E   AssertionError: assert [AgentFinding...d guidance.')] == []
+E     
+E     Left contains one more item: AgentFinding(finding_id='finding_RULE_NSAID_RENAL_HEMODYNAMIC_10', run_id='audit_run', sequence=10, simulation_time=10...tions='Drug-induced GFR reduction is not numerically modeled by engine; alert is qualitative evidence-based guidance.')
+E     Use -v to get more diff</failure></testcase><testcase classname="scripts.audit_regressions" name="test_A18_finding_identity_is_scoped_to_run" time="0.005"><failure message="AssertionError: assert 'finding_RULE_CHF_FLUID_OVERLOAD_10' != 'finding_RULE_CHF_FLUID_OVERLOAD_10'&#10; +  where 'finding_RULE_CHF_FLUID_OVERLOAD_10' = AgentFinding(finding_id='finding_RULE_CHF_FLUID_OVERLOAD_10', run_id='run_a', sequence=10, simulation_time=10.0, organ...', limitations='Pulse models bulk fluid physics; interstitial pulmonary edema is flagged via clinical rule threshold.').finding_id&#10; +  and   'finding_RULE_CHF_FLUID_OVERLOAD_10' = AgentFinding(finding_id='finding_RULE_CHF_FLUID_OVERLOAD_10', run_id='run_b', sequence=10, simulation_time=10.0, organ...', limitations='Pulse models bulk fluid physics; interstitial pulmonary edema is flagged via clinical rule threshold.').finding_id">scripts\audit_regressions.py:223: in test_A18_finding_identity_is_scoped_to_run
+    assert a[0].finding_id != b[0].finding_id
+E   AssertionError: assert 'finding_RULE_CHF_FLUID_OVERLOAD_10' != 'finding_RULE_CHF_FLUID_OVERLOAD_10'
+E    +  where 'finding_RULE_CHF_FLUID_OVERLOAD_10' = AgentFinding(finding_id='finding_RULE_CHF_FLUID_OVERLOAD_10', run_id='run_a', sequence=10, simulation_time=10.0, organ...', limitations='Pulse models bulk fluid physics; interstitial pulmonary edema is flagged via clinical rule threshold.').finding_id
+E    +  and   'finding_RULE_CHF_FLUID_OVERLOAD_10' = AgentFinding(finding_id='finding_RULE_CHF_FLUID_OVERLOAD_10', run_id='run_b', sequence=10, simulation_time=10.0, organ...', limitations='Pulse models bulk fluid physics; interstitial pulmonary edema is flagged via clinical rule threshold.').finding_id</failure></testcase><testcase classname="scripts.audit_regressions" name="test_A19_each_finding_gets_a_distinct_stream_sequence" time="0.008"><failure message="sqlite3.IntegrityError: UNIQUE constraint failed: events.run_id, events.sequence">scripts\audit_regressions.py:235: in test_A19_each_finding_gets_a_distinct_stream_sequence
+    writer.append_event(create_finding_event(f))
+backend\database\writer.py:107: in append_event
+    self._conn.execute(
+E   sqlite3.IntegrityError: UNIQUE constraint failed: events.run_id, events.sequence</failure></testcase><testcase classname="scripts.audit_regressions" name="test_A20_schema_version_round_trips" time="0.007"><failure message="AssertionError: assert '1.0.0' == '2.0.0'&#10;  &#10;  - 2.0.0&#10;  ? ^&#10;  + 1.0.0&#10;  ? ^">scripts\audit_regressions.py:244: in test_A20_schema_version_round_trips
+    assert writer.get_events_after("audit_run")[0].schema_version == "2.0.0"
+E   AssertionError: assert '1.0.0' == '2.0.0'
+E     
+E     - 2.0.0
+E     ? ^
+E     + 1.0.0
+E     ? ^</failure></testcase><testcase classname="scripts.audit_regressions" name="test_A21_append_rejects_out_of_order_sequence" time="0.009"><failure message="Failed: DID NOT RAISE any of (ValueError, IntegrityError)">scripts\audit_regressions.py:250: in test_A21_append_rejects_out_of_order_sequence
+    with pytest.raises((ValueError, sqlite3.IntegrityError)):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE any of (ValueError, IntegrityError)</failure></testcase><testcase classname="scripts.audit_regressions" name="test_A22_finding_id_collision_cannot_rewrite_another_run" time="0.004"><failure message="Failed: DID NOT RAISE any of (ValueError, IntegrityError)">scripts\audit_regressions.py:258: in test_A22_finding_id_collision_cannot_rewrite_another_run
+    with pytest.raises((ValueError, sqlite3.IntegrityError)):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE any of (ValueError, IntegrityError)</failure></testcase><testcase classname="scripts.audit_regressions" name="test_A23_changed_run_configuration_cannot_rewrite_history" time="0.006"><failure message="Failed: DID NOT RAISE any of (ValueError, IntegrityError)">scripts\audit_regressions.py:265: in test_A23_changed_run_configuration_cannot_rewrite_history
+    with pytest.raises((ValueError, sqlite3.IntegrityError)):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE any of (ValueError, IntegrityError)</failure></testcase><testcase classname="scripts.audit_regressions" name="test_A24_snapshot_and_event_are_one_atomic_commit" time="0.011"><failure message="TypeError: Object of type ImmutableMap is not JSON serializable">scripts\audit_regressions.py:280: in test_A24_snapshot_and_event_are_one_atomic_commit
+    run_worker(FailingEventWriter(), [])
+scripts\audit_regressions.py:73: in run_worker
+    worker.run()
+simulation\worker.py:115: in run
+    self._run_impl()
+simulation\worker.py:164: in _run_impl
+    if not self.engine.initialize(profile_dump, self.config.assumptions):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+simulation\adapter.py:94: in initialize
+    copied_assumptions = json.loads(_canonical(assumptions or {}))
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+simulation\adapter.py:36: in _canonical
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\__init__.py:238: in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:200: in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:258: in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:180: in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+E   TypeError: Object of type ImmutableMap is not JSON serializable</failure></testcase><testcase classname="scripts.audit_regressions" name="test_A25_duplicate_idempotency_key_does_not_apply_twice" time="0.011"><failure message="TypeError: Object of type ImmutableMap is not JSON serializable">scripts\audit_regressions.py:288: in test_A25_duplicate_idempotency_key_does_not_apply_twice
+    run_worker(writer, [inv, retry], engine=engine)
+scripts\audit_regressions.py:73: in run_worker
+    worker.run()
+simulation\worker.py:115: in run
+    self._run_impl()
+simulation\worker.py:164: in _run_impl
+    if not self.engine.initialize(profile_dump, self.config.assumptions):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+simulation\adapter.py:94: in initialize
+    copied_assumptions = json.loads(_canonical(assumptions or {}))
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+simulation\adapter.py:36: in _canonical
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\__init__.py:238: in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:200: in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:258: in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:180: in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+E   TypeError: Object of type ImmutableMap is not JSON serializable</failure></testcase><testcase classname="scripts.audit_regressions" name="test_A26_same_intervention_id_in_fork_cannot_overwrite_parent" time="0.006"><failure message="Failed: DID NOT RAISE any of (ValueError, IntegrityError)">scripts\audit_regressions.py:296: in test_A26_same_intervention_id_in_fork_cannot_overwrite_parent
+    with pytest.raises((ValueError, sqlite3.IntegrityError)):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE any of (ValueError, IntegrityError)</failure></testcase><testcase classname="scripts.audit_regressions" name="test_A27_worker_constructor_rejects_run_id_mismatch" time="0.005" /><testcase classname="scripts.audit_regressions" name="test_A28_engine_failure_return_is_not_logged_as_applied" time="0.010"><failure message="TypeError: Object of type ImmutableMap is not JSON serializable">scripts\audit_regressions.py:311: in test_A28_engine_failure_return_is_not_logged_as_applied
+    run_worker(writer, [intervention()], engine=RejectingEngine())
+scripts\audit_regressions.py:73: in run_worker
+    worker.run()
+simulation\worker.py:115: in run
+    self._run_impl()
+simulation\worker.py:164: in _run_impl
+    if not self.engine.initialize(profile_dump, self.config.assumptions):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+simulation\adapter.py:94: in initialize
+    copied_assumptions = json.loads(_canonical(assumptions or {}))
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+simulation\adapter.py:36: in _canonical
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\__init__.py:238: in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:200: in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:258: in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:180: in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+E   TypeError: Object of type ImmutableMap is not JSON serializable</failure></testcase><testcase classname="scripts.audit_regressions" name="test_A29_pause_resume_is_persisted" time="0.105"><failure message="AssertionError: ['RUN_CREATED', 'RUN_INITIALIZING', 'RUN_FAILED']&#10;assert ('RUN_PAUSED' in ['RUN_CREATED', 'RUN_INITIALIZING', 'RUN_FAILED'])">scripts\audit_regressions.py:325: in test_A29_pause_resume_is_persisted
+    assert "RUN_PAUSED" in types and "RUN_RESUMED" in types, types
+E   AssertionError: ['RUN_CREATED', 'RUN_INITIALIZING', 'RUN_FAILED']
+E   assert ('RUN_PAUSED' in ['RUN_CREATED', 'RUN_INITIALIZING', 'RUN_FAILED'])</failure></testcase><testcase classname="scripts.audit_regressions" name="test_A30_background_start_cannot_create_two_active_owners" time="0.011"><failure message="AssertionError: Second active worker thread was created.&#10;assert &lt;Thread(Thread-3 (capture), started daemon 23440)&gt; is &lt;Thread(Thread-2 (capture), started daemon 24140)&gt;">scripts\audit_regressions.py:361: in test_A30_background_start_cannot_create_two_active_owners
+    assert b is a, "Second active worker thread was created."
+E   AssertionError: Second active worker thread was created.
+E   assert &lt;Thread(Thread-3 (capture), started daemon 23440)&gt; is &lt;Thread(Thread-2 (capture), started daemon 24140)&gt;</failure></testcase><testcase classname="scripts.audit_regressions" name="test_A31_checkpoint_has_worker_schedule_for_restoration" time="0.010"><failure message="TypeError: Object of type ImmutableMap is not JSON serializable">scripts\audit_regressions.py:371: in test_A31_checkpoint_has_worker_schedule_for_restoration
+    run_worker(writer, [intervention(when=5)])
+scripts\audit_regressions.py:73: in run_worker
+    worker.run()
+simulation\worker.py:115: in run
+    self._run_impl()
+simulation\worker.py:164: in _run_impl
+    if not self.engine.initialize(profile_dump, self.config.assumptions):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+simulation\adapter.py:94: in initialize
+    copied_assumptions = json.loads(_canonical(assumptions or {}))
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+simulation\adapter.py:36: in _canonical
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\__init__.py:238: in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:200: in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:258: in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:180: in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+E   TypeError: Object of type ImmutableMap is not JSON serializable</failure></testcase><testcase classname="scripts.audit_regressions" name="test_A32_future_intervention_is_not_active_early" time="0.005"><failure message="AssertionError: assert [AgentFinding... threshold.')] == []&#10;  &#10;  Left contains one more item: AgentFinding(finding_id='finding_RULE_CHF_FLUID_OVERLOAD_10', run_id='audit_run', sequence=10, simulation_time=10.0, o...', limitations='Pulse models bulk fluid physics; interstitial pulmonary edema is flagged via clinical rule threshold.')&#10;  Use -v to get more diff">scripts\audit_regressions.py:383: in test_A32_future_intervention_is_not_active_early
+    assert findings == []
+E   AssertionError: assert [AgentFinding... threshold.')] == []
+E     
+E     Left contains one more item: AgentFinding(finding_id='finding_RULE_CHF_FLUID_OVERLOAD_10', run_id='audit_run', sequence=10, simulation_time=10.0, o...', limitations='Pulse models bulk fluid physics; interstitial pulmonary edema is flagged via clinical rule threshold.')
+E     Use -v to get more diff</failure></testcase><testcase classname="scripts.audit_regressions" name="test_A33_canonical_condition_alias_matches_registry" time="0.004"><failure message="AssertionError: Coverage recognizes the condition but registry silently misses it.&#10;assert []">scripts\audit_regressions.py:391: in test_A33_canonical_condition_alias_matches_registry
+    assert findings, "Coverage recognizes the condition but registry silently misses it."
+E   AssertionError: Coverage recognizes the condition but registry silently misses it.
+E   assert []</failure></testcase><testcase classname="scripts.audit_regressions" name="test_A34_evidence_warning_does_not_depend_on_unused_egfr_lab" time="0.004"><failure message="assert False&#10; +  where False = any(&lt;generator object test_A34_evidence_warning_does_not_depend_on_unused_egfr_lab.&lt;locals&gt;.&lt;genexpr&gt; at 0x00000240F059FC60&gt;)">scripts\audit_regressions.py:398: in test_A34_evidence_warning_does_not_depend_on_unused_egfr_lab
+    assert any(f.coverage == "evidence_only" and f.severity != "unknown" for f in findings)
+E   assert False
+E    +  where False = any(&lt;generator object test_A34_evidence_warning_does_not_depend_on_unused_egfr_lab.&lt;locals&gt;.&lt;genexpr&gt; at 0x00000240F059FC60&gt;)</failure></testcase><testcase classname="scripts.audit_regressions" name="test_A35_failed_database_write_rolls_back_transaction" time="0.048"><failure message="AssertionError: Failed write retained an open transaction.&#10;assert not True&#10; +  where True = &lt;sqlite3.Connection object at 0x00000240F0336890&gt;.in_transaction&#10; +    where &lt;sqlite3.Connection object at 0x00000240F0336890&gt; = &lt;backend.database.writer.PersistenceWriter object at 0x00000240F0319580&gt;._conn">scripts\audit_regressions.py:407: in test_A35_failed_database_write_rolls_back_transaction
+    assert not w._conn.in_transaction, "Failed write retained an open transaction."
+E   AssertionError: Failed write retained an open transaction.
+E   assert not True
+E    +  where True = &lt;sqlite3.Connection object at 0x00000240F0336890&gt;.in_transaction
+E    +    where &lt;sqlite3.Connection object at 0x00000240F0336890&gt; = &lt;backend.database.writer.PersistenceWriter object at 0x00000240F0319580&gt;._conn</failure></testcase><testcase classname="scripts.audit_regressions" name="test_A36_cancel_during_final_advance_is_not_reported_completed" time="2.011"><failure message="assert False&#10; +  where False = wait(2)&#10; +    where wait = &lt;threading.Event at 0x240f02f7b30: unset&gt;.wait">scripts\audit_regressions.py:436: in test_A36_cancel_during_final_advance_is_not_reported_completed
+    assert entered.wait(2)
+E   assert False
+E    +  where False = wait(2)
+E    +    where wait = &lt;threading.Event at 0x240f02f7b30: unset&gt;.wait</failure></testcase><testcase classname="scripts.audit_regressions" name="test_A37_append_only_snapshot_cannot_be_replaced" time="0.005"><failure message="Failed: DID NOT RAISE any of (ValueError, IntegrityError)">scripts\audit_regressions.py:455: in test_A37_append_only_snapshot_cannot_be_replaced
+    with pytest.raises((ValueError, sqlite3.IntegrityError)):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   Failed: DID NOT RAISE any of (ValueError, IntegrityError)</failure></testcase><testcase classname="scripts.audit_regressions" name="test_CONTROL_cancel_wakes_paused_worker" time="0.016"><failure message="AssertionError: assert 'failed' == 'cancelled'&#10;  &#10;  - cancelled&#10;  + failed">scripts\audit_regressions.py:466: in test_CONTROL_cancel_wakes_paused_worker
+    assert writer.get_run("audit_run")["status"] == "cancelled"
+E   AssertionError: assert 'failed' == 'cancelled'
+E     
+E     - cancelled
+E     + failed</failure></testcase><testcase classname="scripts.audit_regressions" name="test_CONTROL_time_zero_equal_time_and_horizon_interventions_are_scheduled" time="0.010"><failure message="TypeError: Object of type ImmutableMap is not JSON serializable">scripts\audit_regressions.py:474: in test_CONTROL_time_zero_equal_time_and_horizon_interventions_are_scheduled
+    run_worker(writer, invs)
+scripts\audit_regressions.py:73: in run_worker
+    worker.run()
+simulation\worker.py:115: in run
+    self._run_impl()
+simulation\worker.py:164: in _run_impl
+    if not self.engine.initialize(profile_dump, self.config.assumptions):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+simulation\adapter.py:94: in initialize
+    copied_assumptions = json.loads(_canonical(assumptions or {}))
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+simulation\adapter.py:36: in _canonical
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), allow_nan=False)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\__init__.py:238: in dumps
+    **kw).encode(obj)
+          ^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:200: in encode
+    chunks = self.iterencode(o, _one_shot=True)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:258: in iterencode
+    return _iterencode(o, 0)
+           ^^^^^^^^^^^^^^^^^
+..\..\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\json\encoder.py:180: in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+E   TypeError: Object of type ImmutableMap is not JSON serializable</failure></testcase><testcase classname="scripts.audit_regressions" name="test_CONTROL_file_backed_query_plans_and_integrity" time="0.047" /></testsuite></testsuites>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="1" time="0.601" timestamp="2026-10-04T12:00:36.499108+05:00" hostname="DESKTOP-P16JVIG"><testcase classname="tests.test_worker_controls" name="test_cancel_after_last_advance_cannot_complete" time="0.032"><failure message="AssertionError: assert 'completed' == 'cancelled'&#10;  &#10;  - cancelled&#10;  + completed">E   AssertionError: assert 'completed' == 'cancelled'
+      
+      - cancelled
+      + completed</failure></testcase></testsuite></testsuites>

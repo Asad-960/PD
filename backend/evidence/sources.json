@@ -1,0 +1,26 @@
+[
+  {
+    "source_id": "SRC_KDIGO_AKI",
+    "title": "KDIGO Clinical Practice Guideline for Acute Kidney Injury",
+    "url": "https://kdigo.org/guidelines/acute-kidney-injury/",
+    "publication_date": "2012",
+    "license": "Refer to publisher terms",
+    "raw_extract": "Source-linked educational summary: medication exposure and vulnerability may warrant AKI risk review. This registry has no patient-specific effect estimate."
+  },
+  {
+    "source_id": "SRC_AHA_CHF",
+    "title": "AHA/ACC/HFSA Guideline for the Management of Heart Failure",
+    "url": "https://professional.heart.org/en/guidelines-statements/2022-ahaacchfsa-guideline-for-the-management-of-heart-failure-a-report-of-thecir0000000000001063",
+    "publication_date": "2022",
+    "license": "Refer to publisher terms",
+    "raw_extract": "Source-linked educational summary: heart-failure guidance emphasizes assessment of congestion and volume status. The sandbox does not predict response to an infusion."
+  },
+  {
+    "source_id": "SRC_FDA_MORPHINE",
+    "title": "FDA DailyMed - Morphine Sulfate Label",
+    "url": "https://dailymed.nlm.nih.gov/dailymed/fda/fdaDrugXsl.cfm?setid=ca359246-4674-4b32-b8b2-673d32b7112f&type=display",
+    "publication_date": "2026",
+    "license": "Refer to label terms",
+    "raw_extract": "Source-linked educational summary: the label reports altered morphine pharmacokinetics in cirrhosis and warns about respiratory depression. It reports inadequate pharmacokinetic studies in severe hepatic impairment."
+  }
+]
