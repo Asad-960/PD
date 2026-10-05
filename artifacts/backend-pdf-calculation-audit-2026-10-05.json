@@ -1,0 +1,14 @@
+{
+  "pdf_peak_marker": {
+    "actual_coordinates": [
+      [
+        48,
+        26
+      ]
+    ],
+    "expected_peak_x": 456,
+    "reason": "Point concentrations use 3 decimals; c_max uses 2, and PDF searches for exact equality."
+  },
+  "reported_cmax": 24.46,
+  "maximum_point_concentration": 24.462
+}

@@ -52,24 +52,4 @@ class PatientEvidenceRegistry(EvidenceRegistry):
         ]
 
     def evaluate_rules(self, profile, snapshot, active_interventions):
-        findings = super().evaluate_rules(profile, snapshot, active_interventions)
-        active = [item for item in active_interventions if item.simulation_time <= snapshot.simulation_time]
-        from backend.schemas.domain import AgentFinding
-        from backend.catalogue.registry import drugs_by_id
-        drugs = drugs_by_id()
-        for item in active:
-            if item.ingredient_id not in drugs:
-                continue
-            matches = [allergen for allergen in profile.allergies if allergen.casefold() in
-                       (item.ingredient_id.casefold(), drugs[item.ingredient_id]["name"].casefold())]
-            if matches:
-                organ = drugs[item.ingredient_id]["target_organs"][0]
-                findings.append(AgentFinding(finding_id=f"{snapshot.run_id}:allergy:{item.ingredient_id}:{snapshot.sequence}",
-                    run_id=snapshot.run_id, sequence=snapshot.sequence, source_snapshot_sequence=snapshot.sequence,
-                    simulation_time=snapshot.simulation_time, organ=organ, category="reported_allergy_overlap",
-                    severity="monitor", coverage="evidence_only", rule_id="ALLERGY_EXACT_INGREDIENT",
-                    inputs_observed={"reported_allergy": ", ".join(matches), "ingredient": item.ingredient_id},
-                    predicate_outcomes={"exact_ingredient_match": True}, causal_event_ids=[item.event_id],
-                    message="An administered ingredient exactly matches the recorded allergy list. Clinical review is required.",
-                    limitations="Exact text match only. Cross-reactivity, reactions, brands, and related ingredients are not assessed."))
-        return findings
+        return super().evaluate_rules(profile, snapshot, active_interventions)

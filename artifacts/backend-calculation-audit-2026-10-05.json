@@ -1,0 +1,100 @@
+{
+  "scope": "Production calculation functions with fictional fixtures; full integration suite is separate.",
+  "checks": [
+    {
+      "name": "Input unit normalization",
+      "status": "PASS",
+      "equivalent": "400 mg = 0.4 g = 400000 mcg"
+    },
+    {
+      "name": "Repeated administration ledger",
+      "status": "PASS",
+      "times": [
+        0,
+        20,
+        40
+      ],
+      "total_mg": 1200
+    },
+    {
+      "name": "Partial infusion ledger",
+      "status": "PASS",
+      "recorded_time_seconds": 30,
+      "delivered_mL": 250
+    },
+    {
+      "name": "Overlapping infusion ledger",
+      "status": "PASS",
+      "recorded_time_seconds": 40,
+      "delivered_mL": 750
+    },
+    {
+      "name": "Morphine concentration output units",
+      "status": "FAIL",
+      "expected_mcg_per_L": 80.0,
+      "actual_labeled_mcg_per_L": 0.08,
+      "error_factor": 1000
+    },
+    {
+      "name": "Fentanyl nonzero concentration erased by rounding",
+      "status": "FAIL",
+      "expected_initial_mcg_per_L": 0.3333333333333333,
+      "actual_cmax": 0.0,
+      "actual_first_point": 0
+    },
+    {
+      "name": "Delayed IV bolus peak timing",
+      "status": "FAIL",
+      "expected_peak_time_seconds": 30,
+      "actual_peak_time_seconds": 61.0,
+      "peak_underestimate_percent": 0.0
+    },
+    {
+      "name": "Short infusion peak timing",
+      "status": "FAIL",
+      "expected_peak_time_seconds": 11,
+      "actual_peak_time_seconds": 61.0,
+      "expected_model_peak_mg_per_L": 2.6660667566563094,
+      "actual_reported_peak_mg_per_L": 2.61
+    },
+    {
+      "name": "Oral peak truncated by report horizon",
+      "status": "FAIL_AS_GLOBAL_CMAX",
+      "true_peak_time_under_implemented_formula_seconds": 730.9793946012844,
+      "true_peak_under_implemented_formula_mg_per_L": 30.97054730724509,
+      "reported_peak_time_seconds": 300.0,
+      "reported_peak_mg_per_L": 24.46,
+      "note": "Reported peak is only the maximum of sampled points inside the selected window."
+    },
+    {
+      "name": "Partial report PK extends into unrecorded infusion delivery",
+      "status": "FAIL",
+      "last_recorded_time_seconds": 30,
+      "pk_end_time_seconds": 60,
+      "delivered_recorded_mL": 250.0
+    },
+    {
+      "name": "Saline plasma-volume unit contract",
+      "status": "FAIL",
+      "input_mL": 500,
+      "actual_labeled_plasma_volume_mL": 0.1,
+      "note": "The drug concentration formula divides the fluid amount by vd=5000; no dimensional conversion to a plasma-volume trajectory exists."
+    },
+    {
+      "name": "Patient mass effect on PK",
+      "status": "MODEL_LIMITATION",
+      "masses_kg": [
+        61,
+        120
+      ],
+      "curves": "identical"
+    },
+    {
+      "name": "Adapter/report infusion arithmetic agreement",
+      "status": "PASS",
+      "delivered_mL": 250
+    }
+  ],
+  "pass_count": 5,
+  "defect_count": 7
+}

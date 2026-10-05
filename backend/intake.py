@@ -4,6 +4,7 @@ import math
 
 from backend.catalogue.registry import VERSION, conditions_by_id, drugs_by_id
 from backend.database.writer import canonical_profile_hash
+from backend.evidence.patient_registry import PatientEvidenceRegistry
 from backend.schemas.domain import BaselineMeasurement, Intervention, PatientProfile, SimulationConfig
 from backend.schemas.intake import PatientIntake
 
@@ -23,6 +24,10 @@ MEASUREMENTS = {
 
 def preflight(intake: PatientIntake):
     conditions, drugs = conditions_by_id(), drugs_by_id()
+    reviewed_organs = {}
+    for rule in PatientEvidenceRegistry().rules:
+        if rule.review_status == "reviewed" and rule.ingredient_or_class in drugs:
+            reviewed_organs.setdefault(rule.ingredient_or_class, set()).add(rule.target_organ)
     errors, warnings, gaps = [], [], []
     selected = []
     for organ, history in intake.organs.items():
@@ -77,7 +82,9 @@ def preflight(intake: PatientIntake):
         seen.add(normalized)
         total_events += medication.repeat_count
         rows.append({"drug_id": drug["id"], "name": drug["name"], "coverage": "evidence_only" if drug["evidence_available"] else "unsupported",
-                     "scope": drug["rule_scope"], "numerical_supported": False})
+                     "scope": drug["rule_scope"], "numerical_supported": False,
+                     "associated_organs": drug["target_organs"],
+                     "reviewed_rule_organs": sorted(reviewed_organs.get(drug["id"], set()))})
         if not drug["evidence_available"]:
             gaps.append(f"{drug['name']}: recorded administration only; no reviewed drug-specific assessment.")
     if total_events > 500:

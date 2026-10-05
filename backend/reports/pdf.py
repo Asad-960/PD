@@ -145,6 +145,13 @@ def render_pdf(report):
          [patient_name, gender_display, bp_display, allergies_display]],
         [50 * mm, 38 * mm, 38 * mm, 44 * mm]
     ))
+    if report.get("safety_alerts"):
+        story.append(p("Patient-level medication safety alert", "Pdf_SectionTitle"))
+        for alert in report["safety_alerts"]:
+            story.append(p(f"Entered allergy '{alert['reported_allergy']}' exactly matches administered ingredient "
+                           f"{alert['ingredient_id']} at {number(alert['time'])} s. Clinical review required.",
+                           "Pdf_AlertRed"))
+        story.append(p("Exact text match only; reactions, cross-reactivity, and brand ingredients were not assessed.", "Pdf_Muted"))
 
     # Four-Organ Rule Signals
     story.append(p("Four-organ rule signals", "Pdf_SectionTitle"))
@@ -187,6 +194,18 @@ def render_pdf(report):
         ])
     story.append(styled_table(meds, [50 * mm, 28 * mm, 28 * mm, 34 * mm, 30 * mm]))
     story.append(p("Recorded administrations: amounts are calculated from applied administration events. It is not absorbed dose or blood concentration.", "Pdf_Muted"))
+    if report.get("organ_coverage"):
+        story.append(p("Medication-to-organ coverage", "Pdf_SectionTitle"))
+        labels = {"cardiovascular": "Heart & circulation", "respiratory": "Lungs & breathing",
+                  "renal": "Kidneys", "hepatic": "Liver"}
+        for drug_id in dict.fromkeys(item["drug_id"] for item in report["medications"]):
+            cells = report["organ_coverage"].get(drug_id, {})
+            associated = [labels[organ] for organ in organ_order if cells.get(organ, {}).get("associated")]
+            reviewed = [labels[organ] for organ in organ_order if cells.get(organ, {}).get("reviewed_rule_ids")]
+            name = next(item["name"] for item in report["medications"] if item["drug_id"] == drug_id)
+            story.append(p(f"{name}: catalogue associations: {', '.join(associated) or 'none'}; "
+                           f"reviewed caution rules: {', '.join(reviewed) or 'none'}; "
+                           "numerical organ effect unavailable."))
 
     # Organ Response Detail
     story.append(p("Organ response detail", "Pdf_SectionTitle"))
@@ -232,13 +251,15 @@ def render_pdf(report):
 
     # Administration Graph & Pharmacokinetic Curve
     story.append(p("Administration graph", "Pdf_SectionTitle"))
-    pk_map = {item["drug_id"]: item for item in report.get("pk_series", [])}
+    pk_map = {item["drug_id"]: item for item in report.get("pk_series", [])
+              if item.get("status") == "illustrative" and item.get("model_id")
+              and item.get("parameter_source") and isinstance(item.get("peak_index"), int)}
 
     for series in report["administration_series"][:3]:
         points = series["points"]
         if not points:
             continue
-        max_x = max(report["horizon_seconds"], 1)
+        max_x = max(report["last_time"], 1)
         drug_id = series["drug_id"]
         pk_info = pk_map.get(drug_id)
 
@@ -251,24 +272,15 @@ def render_pdf(report):
 
         # Title block
         if pk_info:
-            drawing.add(String(22, 92, f"{series['name']}  ·  Pharmacokinetic Plasma Concentration & Administration", fontName="Helvetica-Bold", fontSize=8.5, fillColor=BRAND_DARK))
-            drawing.add(String(22, 81, f"Simulated Profile  ·  Target: {pk_info['therapeutic_min']}-{pk_info['therapeutic_max']} {pk_info['unit']}  |  Peak Cmax: {pk_info['c_max']} {pk_info['unit']} @ {pk_info['t_max']} s", fontName="Helvetica", fontSize=7, fillColor=MUTED))
+            drawing.add(String(22, 92, f"{series['name']}  ·  Illustrative concentration & administration", fontName="Helvetica-Bold", fontSize=8.5, fillColor=BRAND_DARK))
+            drawing.add(String(22, 81, f"Window maximum: {number(pk_info['c_max'])} {pk_info['unit']} @ {number(pk_info['t_max'])} s; not patient-specific", fontName="Helvetica", fontSize=7, fillColor=MUTED))
         else:
             drawing.add(String(22, 92, f"{series['name']}  /  {series['unit']} administered", fontName="Helvetica-Bold", fontSize=8.5, fillColor=BRAND_DARK))
 
         # Plot boundaries
         px0, py0, pw, ph = 48, 26, 408, 48
 
-        # Target Therapeutic Window Band (if PK info available)
-        if pk_info and pk_info.get("therapeutic_max", 0) > 0:
-            scale_y_max = max(pk_info["c_max"] * 1.25, pk_info["therapeutic_max"] * 1.15, 1.0)
-            t_min_y = py0 + ph * min(1.0, max(0.0, pk_info["therapeutic_min"] / scale_y_max))
-            t_max_y = py0 + ph * min(1.0, max(0.0, pk_info["therapeutic_max"] / scale_y_max))
-            band_h = max(3.0, t_max_y - t_min_y)
-            drawing.add(Rect(px0, t_min_y, pw, band_h, fillColor=colors.HexColor("#e6f4ea"), strokeColor=colors.HexColor("#c6e7d2"), strokeWidth=0.5))
-            drawing.add(String(px0 + pw - 100, t_min_y + 2, "Therapeutic Window", fontName="Helvetica-Oblique", fontSize=6, fillColor=CLEAR_GREEN))
-        else:
-            scale_y_max = max((point["value"] for point in points), default=0) or 1
+        scale_y_max = max(pk_info["c_max"] * 1.25, 1e-12) if pk_info else max((point["value"] for point in points), default=0) or 1
 
         # Subtle horizontal grid lines
         for frac in (0.25, 0.5, 0.75, 1.0):
@@ -284,11 +296,11 @@ def render_pdf(report):
             pk_pts = pk_info["points"]
             coords = []
             cmax_x, cmax_y = px0, py0
-            for pt in pk_pts:
+            for index, pt in enumerate(pk_pts):
                 cx = px0 + pw * min(1.0, max(0.0, pt["time"] / max_x))
                 cy = py0 + ph * min(1.0, max(0.0, pt["concentration"] / scale_y_max))
                 coords.extend([cx, cy])
-                if pt["concentration"] == pk_info["c_max"]:
+                if index == pk_info["peak_index"]:
                     cmax_x, cmax_y = cx, cy
 
             if len(coords) >= 4:
@@ -314,7 +326,7 @@ def render_pdf(report):
             if len(points) > 1:
                 polygon_coords.extend([coordinates[-2], py0])
                 from reportlab.graphics.shapes import Polygon
-                drawing.add(Polygon(polygon_coords, fillColor=colors.HexColor("#0f766e", alpha=0.15), strokeColor=colors.transparent, strokeWidth=0))
+                drawing.add(Polygon(polygon_coords, fillColor=colors.Color(15 / 255, 118 / 255, 110 / 255, alpha=0.15), strokeColor=colors.transparent, strokeWidth=0))
                 drawing.add(PolyLine(coordinates, strokeColor=BRAND_TEAL, strokeWidth=2))
 
         # Axis ticks and labels

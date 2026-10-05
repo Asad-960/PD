@@ -1,9 +1,10 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { Activity, FileText, ChartNoAxesCombined, Download, Play, Pause, RotateCcw, ChevronDown, ExternalLink, ArrowLeft, HeartPulse, Wind, Droplets, TriangleAlert, CircleHelp, Check, RefreshCw } from "lucide-react";
-import { ResponsiveContainer, AreaChart, Area, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, ReferenceLine, ReferenceArea } from "recharts";
+import { ResponsiveContainer, AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip, ReferenceLine } from "recharts";
 import BodyScene from "../simulation/BodyScene";
-import { AdministrationSeries, Finding, Organ, ORGANS, ORGAN_COLORS, ORGAN_LABELS, PKSeries, TimelineReport } from "../../lib/contracts";
+import { AdministrationSeries, Finding, Organ, ORGANS, ORGAN_COLORS, ORGAN_LABELS, TimelineReport } from "../../lib/contracts";
+import { projectReportAt, valueAtPoints } from "../../lib/reportTimeline";
 
 function readable(value: string) { return value.replaceAll("_", " "); }
 function FindingDetails({ finding }: { finding: Finding }) {
@@ -15,15 +16,15 @@ function FindingDetails({ finding }: { finding: Finding }) {
 }
 
 function AmountChart({ series, report, time }: { series: AdministrationSeries; report: TimelineReport; time?: number }) {
-  const [chartMode, setChartMode] = useState<"pk" | "cumulative">("pk");
-  const pk = report.pk_series?.find(p => p.drug_id === series.drug_id);
+  const [chartMode, setChartMode] = useState<"pk" | "cumulative">("cumulative");
+  const pk = report.pk_series?.find(p => p.drug_id === series.drug_id &&
+    p.status === "illustrative" && Boolean(p.model_id && p.parameter_source) && Number.isInteger(p.peak_index));
 
   // If no PK available, fallback to cumulative
   const activeMode = pk ? chartMode : "cumulative";
 
-  const currentPkVal = pk && time !== undefined
-    ? pk.points.find(p => p.time >= time)?.concentration ?? pk.points[pk.points.length - 1]?.concentration
-    : null;
+  const currentPkVal = pk && time !== undefined ? valueAtPoints(pk.points, time, "concentration") : null;
+  const currentAmount = time !== undefined ? valueAtPoints(series.points, time, "value") : null;
 
   return (
     <div className="amount-chart enhanced-chart-card">
@@ -32,7 +33,7 @@ function AmountChart({ series, report, time }: { series: AdministrationSeries; r
           <div className="title-with-pill">
             <strong>{series.name}</strong>
             <span className="chart-type-tag">
-              {activeMode === "pk" ? "Simulated PK Plasma Profile" : "Cumulative Delivery Ledger"}
+              {activeMode === "pk" ? "Illustrative PK model" : "Cumulative delivery ledger"}
             </span>
           </div>
           <span className="muted compact">
@@ -64,20 +65,12 @@ function AmountChart({ series, report, time }: { series: AdministrationSeries; r
       {activeMode === "pk" && pk && (
         <div className="pk-metrics-strip">
           <div className="metric-chip">
-            <span className="chip-label">Peak Cmax:</span>
+            <span className="chip-label">Window maximum:</span>
             <strong>{pk.c_max} {pk.unit}</strong>
           </div>
           <div className="metric-chip">
             <span className="chip-label">Tmax:</span>
             <strong>{pk.t_max} s</strong>
-          </div>
-          <div className="metric-chip">
-            <span className="chip-label">Target Range:</span>
-            <span className="target-badge">{pk.therapeutic_min} – {pk.therapeutic_max} {pk.unit}</span>
-          </div>
-          <div className="metric-chip">
-            <span className="chip-label">Elimination t½:</span>
-            <span>~{Math.round(pk.t_half_seconds / 60)} min</span>
           </div>
           {currentPkVal !== null && (
             <div className="metric-chip live-scrub">
@@ -87,6 +80,7 @@ function AmountChart({ series, report, time }: { series: AdministrationSeries; r
           )}
         </div>
       )}
+      {activeMode === "cumulative" && currentAmount !== null && <div className="pk-metrics-strip"><div className="metric-chip live-scrub"><span className="chip-label">Delivered @ {time?.toFixed(1)}s:</span><strong>{currentAmount.toLocaleString(undefined, { maximumSignificantDigits: 12 })} {series.unit}</strong></div></div>}
 
       <div className="chart-surface">
         <ResponsiveContainer width="100%" height="100%">
@@ -102,7 +96,7 @@ function AmountChart({ series, report, time }: { series: AdministrationSeries; r
               <XAxis
                 dataKey="time"
                 type="number"
-                domain={[0, report.horizon_seconds]}
+                domain={[0, report.last_time]}
                 allowDuplicatedCategory
                 tick={{ fontSize: 11, fill: "#64748b" }}
                 tickLine={false}
@@ -116,16 +110,6 @@ function AmountChart({ series, report, time }: { series: AdministrationSeries; r
                 axisLine={{ stroke: "#cbd5e1" }}
                 domain={[0, "auto"]}
               />
-              {/* Shaded Therapeutic Target Window */}
-              {pk.therapeutic_max > 0 && (
-                <ReferenceArea
-                  y1={pk.therapeutic_min}
-                  y2={pk.therapeutic_max}
-                  fill="#10b98114"
-                  stroke="#10b98135"
-                  strokeDasharray="2 2"
-                />
-              )}
               {/* Peak Cmax Reference Line */}
               {pk.c_max > 0 && (
                 <ReferenceLine
@@ -144,7 +128,7 @@ function AmountChart({ series, report, time }: { series: AdministrationSeries; r
                 <ReferenceLine x={time} stroke="#f97316" strokeWidth={2} />
               )}
               <Tooltip
-                formatter={value => [`${Number(value).toFixed(2)} ${pk.unit}`, "Simulated Concentration"]}
+                formatter={value => [`${Number(value).toPrecision(4)} ${pk.unit}`, "Illustrative concentration"]}
                 labelFormatter={value => `${Number(value).toFixed(1)} s`}
                 contentStyle={{
                   backgroundColor: "#ffffff",
@@ -155,7 +139,7 @@ function AmountChart({ series, report, time }: { series: AdministrationSeries; r
                 }}
               />
               <Area
-                type="monotone"
+                type="linear"
                 dataKey="concentration"
                 stroke="#059669"
                 strokeWidth={2.5}
@@ -177,7 +161,7 @@ function AmountChart({ series, report, time }: { series: AdministrationSeries; r
               <XAxis
                 dataKey="time"
                 type="number"
-                domain={[0, report.horizon_seconds]}
+                domain={[0, report.last_time]}
                 allowDuplicatedCategory
                 tick={{ fontSize: 11, fill: "#64748b" }}
                 tickLine={false}
@@ -203,7 +187,7 @@ function AmountChart({ series, report, time }: { series: AdministrationSeries; r
                 }}
               />
               <Area
-                type="stepAfter"
+                type="linear"
                 dataKey="value"
                 stroke="#0f766e"
                 strokeWidth={2.5}
@@ -225,11 +209,11 @@ function AmountChart({ series, report, time }: { series: AdministrationSeries; r
       <div className="chart-legend-row">
         {activeMode === "pk" ? (
           <span className="legend-note">
-            Shaded band indicates therapeutic target window · Smooth curve models absorption and elimination kinetics.
+            Illustrative model only; no patient-specific concentration or organ response is established.
           </span>
         ) : (
           <span className="legend-note">
-            Calculated arithmetic ledger of administered doses over time.
+            Recorded delivery arithmetic; a rising infusion line does not indicate an organ response.
           </span>
         )}
       </div>
@@ -270,18 +254,19 @@ export default function ReportView({ report, onNewCase, onRefresh }: { report: T
   }, [playing, speed, report.last_time, tab]);
   useEffect(() => { if (!seriesId && report.administration_series[0]) setSeriesId(report.administration_series[0].drug_id); }, [report, seriesId]);
   const seek = (next: number) => { playTime.current = next; setTime(next); };
-  const visible = report.findings_timeline.filter(f => f.organ === selected && f.simulation_time <= time);
-  const latest = new Map<string, Finding>();
-  visible.forEach(f => latest.set(f.rule_id || f.finding_id, f));
-  const visibleFindings = [...latest.values()].filter(f => f.coverage === "evidence_only");
+  const frame = projectReportAt(report, time);
+  const visibleFindings = frame.findings[selected];
   const visual = report.visual_responses?.[selected];
-  const visibleCues = visual?.cues.filter(cue => cue.time <= time) || [];
+  const visibleCues = frame.cues[selected];
+  const sceneResponses = report.visual_responses ? Object.fromEntries(ORGANS.map(organ => [organ,
+    { ...report.visual_responses![organ], cues: frame.cues[organ] }])) as NonNullable<TimelineReport["visual_responses"]> : undefined;
   const selectedSignal = visibleFindings.length ? "Review required" : visual?.condition_mechanisms.length ? "Condition recorded" : "No concern in checked rules";
-  const concerns = ORGANS.filter(organ => report.findings_timeline.some(f => f.organ === organ && f.coverage === "evidence_only" && f.simulation_time <= time));
   const series = report.administration_series.find(s => s.drug_id === seriesId) || report.administration_series[0];
-  const activeMedications = (report.administrations || []).filter(m => m.simulation_time <= time).map(m => ({ ...m,
-    name: report.medications.find(row => row.drug_id === m.ingredient_id)?.name || m.ingredient_id,
-    delivered: m.dose * (m.duration ? Math.min(1, Math.max(0, (time - m.simulation_time) / m.duration)) : 1) }));
+  const activeMedications = frame.administrations;
+  const associatedMedications = [...new Set(report.medications.map(row => row.drug_id))]
+    .filter(drugId => report.organ_coverage?.[drugId]?.[selected]?.associated)
+    .map(drugId => ({ drugId, name: report.medications.find(row => row.drug_id === drugId)?.name ?? drugId,
+      rules: report.organ_coverage?.[drugId]?.[selected]?.reviewed_rule_ids ?? [] }));
   const icons = { cardiovascular: HeartPulse, respiratory: Wind, renal: Droplets, hepatic: Activity };
   const SelectedIcon = icons[selected];
 
@@ -301,15 +286,17 @@ export default function ReportView({ report, onNewCase, onRefresh }: { report: T
   return <div className="result-workspace">
     <div className="result-heading"><div><span className="tag neutral">{report.is_final ? "Assessment complete" : `Partial · ${report.status}`}</span><h1>{report.patient.name || "Patient assessment"}</h1><p className="muted">{report.patient.age} years · {readable(report.patient.gender)} · {report.report_id}</p></div><div className="result-actions"><button type="button" className="secondary-button" onClick={onNewCase}><ArrowLeft size={16} />Edit case</button><button type="button" className="primary-button" disabled={downloading} onClick={download}>{downloading ? <RefreshCw className="spin" size={17} /> : <Download size={17} />}{downloading ? "Generating..." : "Download PDF"}</button></div></div>
     {downloadError && <div className="error-message" role="alert">{downloadError}</div>}
+    {frame.safetyAlerts.length > 0 && <div className="error-message" role="alert">Recorded allergy matches an administered ingredient: {frame.safetyAlerts.map(alert => `${alert.reported_allergy} at ${alert.time}s`).join("; ")}. Exact text match only; clinical review is required.</div>}
     <div className="result-tabs" role="tablist" aria-label="Assessment views">{[{ id: "body", name: "Body simulation", icon: Activity }, { id: "report", name: "Assessment report", icon: FileText }, { id: "graphs", name: "Graphs", icon: ChartNoAxesCombined }].map(item => <button type="button" role="tab" aria-selected={tab === item.id} key={item.id} onClick={() => setTab(item.id as typeof tab)} className={tab === item.id ? "active" : ""}><item.icon size={18} />{item.name}</button>)}<span className="tab-status"><span className="coverage-dot evidence" />Evidence assessment</span></div>
 
     {tab === "body" && <>
-      <div className="simulation-layout"><div className="body-column"><BodyScene selected={selected} onSelect={setSelected} playing={playing} time={time} sex={report.patient.sex === "female" || report.patient.gender === "female" || report.patient.gender === "woman" ? "female" : "male"} responses={report.visual_responses} />
+      <div className="simulation-layout"><div className="body-column"><BodyScene selected={selected} onSelect={setSelected} playing={playing} time={time} sex={report.patient.sex === "female" || report.patient.gender === "female" || report.patient.gender === "woman" ? "female" : "male"} responses={sceneResponses} />
         <div className="playback"><div className="playback-top"><button type="button" className="play-button" title={playing ? "Pause playback" : "Play playback"} aria-label={playing ? "Pause playback" : "Play playback"} onClick={() => { if (time >= report.last_time) seek(0); setPlaying(!playing); }}>{playing ? <Pause size={18} fill="currentColor" /> : <Play size={18} fill="currentColor" />}</button><button type="button" className="icon-button" aria-label="Replay from start" title="Replay from start" onClick={() => { seek(0); setPlaying(true); }}><RotateCcw size={17} /></button><span className="time-counter">{time.toFixed(0)} <span>/ {report.last_time.toFixed(0)} s</span></span><label className="speed-control"><span>Speed</span><select aria-label="Playback speed" value={speed} onChange={e => setSpeed(Number(e.target.value))}>{[1, 5, 10, 20, 50].map(s => <option key={s} value={s}>{s}x</option>)}</select></label></div><input className="timeline-slider" aria-label="Simulation time" type="range" min="0" max={report.last_time || 1} step="0.1" value={time} onChange={e => { setPlaying(false); seek(Number(e.target.value)); }} /><div className="timeline-labels"><span>0 s</span><span>Administration timeline</span><span>{report.last_time.toFixed(0)} s</span></div></div>
       </div><aside className="organ-inspection"><div className="organ-switcher">{ORGANS.map(organ => { const Icon = icons[organ]; return <button type="button" key={organ} className={`icon-button ${selected === organ ? "selected" : ""}`} title={ORGAN_LABELS[organ]} aria-label={`Inspect ${ORGAN_LABELS[organ]}`} onClick={() => setSelected(organ)} style={{ color: ORGAN_COLORS[organ] }}><Icon size={20} /></button>; })}</div>
         <div className="inspection-title"><SelectedIcon size={24} color={ORGAN_COLORS[selected]} /><h2>{ORGAN_LABELS[selected]}</h2></div><div className={`organ-verdict ${visibleFindings.length ? "alert" : visual?.condition_mechanisms.length ? "history" : "clear"}`}><span>Rule-based signal</span><strong>{selectedSignal}</strong><small>{visibleFindings.length ? "A source-linked caution applies to this case." : "Not a declaration that this organ or regimen is safe."}</small></div><div className="inspection-history"><span className="muted compact">Recorded conditions</span>{report.organs[selected].conditions.length ? report.organs[selected].conditions.map(c => <div key={c.condition_id}><strong>{c.name}</strong><span>{c.severity === "unknown" ? "Stage unknown" : c.severity}</span></div>) : <p>{readable(report.organs[selected].history_status)}</p>}</div>
-        {visual && <div className="visual-response"><span className="muted compact">Visual response</span><strong>{visual.pattern_label}</strong>{visual.condition_mechanisms.map(item => <p key={item.condition_id}><b>{item.condition_name}:</b> {item.description}</p>)}{!visual.condition_mechanisms.length && <p>Resting motion is shown. No condition-specific response was entered for this organ.</p>}{visibleCues.map(cue => <p key={cue.event_id}><b>{cue.drug_name}:</b> {cue.kind === "source_linked_caution" ? "Evidence caution shown by red pulse." : "Exposure shown; no drug effect is predicted."}</p>)}</div>}
-        {visibleFindings.length ? visibleFindings.map(f => <FindingDetails finding={f} key={f.rule_id} />) : <div className="unassessed-state"><CircleHelp size={23} /><strong>No source-linked caution at this time</strong><p>The available checks do not establish organ function or medication safety.</p></div>}
+        {visual && <div className="visual-response"><span className="muted compact">Condition display pattern</span><strong>{visual.pattern_label}</strong>{visual.condition_mechanisms.map(item => <p key={item.condition_id}><b>{item.condition_name}:</b> {item.description}</p>)}{!visual.condition_mechanisms.length && <p>Resting motion is shown. No condition-specific response was entered for this organ.</p>}{visibleCues.map(cue => <p key={`${cue.event_id}-${cue.kind}-${cue.rule_id ?? ""}`}><b>{cue.drug_name} at {cue.time}s:</b> {cue.kind === "source_linked_caution" ? "Reviewed caution shown by red pulse; this is not measured organ damage." : "Administration association shown; no drug effect is predicted."}</p>)}</div>}
+        <div className="visual-response"><span className="muted compact">Medicine coverage for this organ</span>{associatedMedications.length ? associatedMedications.map(row => <p key={row.drugId}><b>{row.name}:</b> {row.rules.length ? `${row.rules.length} reviewed caution rule${row.rules.length > 1 ? "s" : ""}; effect magnitude unavailable.` : "Catalogue association only; no reviewed caution rule or numerical effect."}</p>) : <p>No catalogue association for the entered medicines. This does not establish safety.</p>}</div>
+        {visibleFindings.length ? visibleFindings.map(f => <FindingDetails finding={f} key={f.finding_id} />) : <div className="unassessed-state"><CircleHelp size={23} /><strong>No source-linked caution at this time</strong><p>The available checks do not establish organ function or medication safety.</p></div>}
         <div className="active-exposures"><h3>Recorded administrations</h3>{activeMedications.length ? activeMedications.map(m => <div key={m.event_id}><span>{m.name}<small>At {m.simulation_time}s{m.duration ? " · Infusion" : ""}</small></span><strong>{m.delivered.toLocaleString(undefined, { maximumSignificantDigits: 15 })} {m.unit}</strong></div>) : <p className="muted">None yet</p>}</div>
       </aside></div>
       {series && <div className="compact-chart-band"><div className="chart-band-heading"><h3>Administration record</h3><select aria-label="Chart medication" value={series.drug_id} onChange={e => setSeriesId(e.target.value)}>{report.administration_series.map(s => <option key={s.drug_id} value={s.drug_id}>{s.name}</option>)}</select></div><AmountChart series={series} report={report} time={time} /><p className="muted compact">Administered amounts are schedule arithmetic. Blood concentration and organ-response graphs are unavailable.</p></div>}
@@ -317,9 +304,10 @@ export default function ReportView({ report, onNewCase, onRefresh }: { report: T
 
     {tab === "report" && <article className="lab-report"><div className="lab-report-header"><div className="report-brand"><span className="brand-mark"><Activity size={25} /></span><strong>PDTT</strong></div><div><h2>Medication and Organ Assessment</h2><p>{new Date(report.created_at).toLocaleString("en-PK", { timeZone: "Asia/Karachi" })} · {report.report_id}</p></div></div><div className="report-scope-note"><TriangleAlert size={17} /><span>Evidence assessment only. Simulated outputs are not laboratory results or validated patient-specific predictions.</span></div><div className="report-organ-strip">{ORGANS.map(organ => { const caution = report.organs[organ].outcome === "concern_identified"; const condition = Boolean(report.organs[organ].conditions.length); return <div key={organ} className={`report-organ-signal ${caution ? "alert" : condition ? "history" : "quiet"}`}><span>{ORGAN_LABELS[organ]}</span><strong>{caution ? "Review required" : condition ? "Condition recorded" : "No flag in limited checks"}</strong></div>; })}</div>
       <section className="report-section"><h3>Patient details</h3><dl className="patient-report-grid"><div><dt>Name / identifier</dt><dd>{report.patient.name || report.patient_id}</dd></div><div><dt>Age</dt><dd>{report.patient.age} years</dd></div><div><dt>Gender</dt><dd>{readable(report.patient.gender)}{report.patient.gender_detail && `: ${report.patient.gender_detail}`}</dd></div><div><dt>Body mass</dt><dd>{report.patient.mass_kg === null ? "Not supplied" : `${report.patient.mass_kg} kg`}</dd></div><div><dt>BP history</dt><dd>{readable(report.blood_pressure.status)}</dd></div><div><dt>Allergies</dt><dd>{report.patient.allergies.join(", ") || readable(report.patient.allergies_status)}</dd></div><div><dt>Ongoing medications</dt><dd>{report.patient.current_medications.join(", ") || readable(report.patient.current_medications_status)}</dd></div><div><dt>Assessment status</dt><dd>{report.is_final ? "Final report" : `Partial: ${report.status}`}</dd></div></dl></section>
+      {(report.safety_alerts?.length ?? 0) > 0 && <section className="report-section"><h3>Patient-level medication safety alerts</h3>{report.safety_alerts?.map(alert => <div className="interaction-row" key={alert.event_id}><strong>{alert.reported_allergy} matched administered {alert.ingredient_id} at {alert.time}s</strong><p>Exact ingredient text match only. Clinical review is required; this is not an organ-effect prediction.</p></div>)}</section>}
       <section className="report-section"><h3>History context</h3><p>BP control: {readable(report.blood_pressure.control)}</p>{report.blood_pressure.notes && <p>{report.blood_pressure.notes}</p>}{ORGANS.flatMap(organ => report.organs[organ].conditions.filter(c => c.notes || c.subtype !== "unknown").map(c => <p key={`${organ}-${c.condition_id}`}><strong>{c.name}</strong>{c.subtype !== "unknown" && ` · ${c.subtype}`}{c.notes && `: ${c.notes}`}</p>))}</section>
-      <section className="report-section"><h3>Medication plan</h3><div className="table-scroll"><table><thead><tr><th>Medication</th><th>Dose / amount</th><th>Route</th><th>Schedule</th><th>Coverage</th></tr></thead><tbody>{report.medications.map((m, i) => <tr key={i}><td><strong>{m.name}</strong><small>{m.drug_class}</small></td><td>{m.dose} {m.unit}</td><td>{readable(m.route)}</td><td>At {m.time_seconds}s{m.repeat_count > 1 ? `, ${m.repeat_count}x every ${m.interval_seconds}s` : ""}{m.duration_seconds > 0 && ` over ${m.duration_seconds}s`}</td><td><span className="tag neutral">{readable(m.coverage)}</span></td></tr>)}</tbody></table></div></section>
-      <section className="report-section"><h3>Four-system assessment</h3>{ORGANS.map(organ => { const Icon = icons[organ]; const response = report.visual_responses?.[organ]; const caution = report.organs[organ].outcome === "concern_identified"; return <div className="organ-report-section" key={organ}><div className="section-heading"><Icon color={ORGAN_COLORS[organ]} size={22} /><h4>{ORGAN_LABELS[organ]}</h4><span className={`tag ${caution ? "warning" : "neutral"}`}>{caution ? "Review required" : response?.condition_mechanisms.length ? "Condition recorded" : "No flag in limited checks"}</span></div><p className="muted">{report.organs[organ].conditions.map(c => `${c.name} (${c.severity})`).join(", ") || `History: ${readable(report.organs[organ].history_status)}`}</p>{response && <p><strong>Illustrated response: {response.pattern_label}.</strong> {response.condition_mechanisms.map(item => item.description).join("; ")}</p>}{report.organs[organ].findings.filter(f => f.coverage === "evidence_only").map(f => <FindingDetails key={f.rule_id} finding={f} />)}<p>Clinical safety and organ function remain unverified.</p></div>; })}</section>
+      <section className="report-section"><h3>Medication plan</h3><div className="table-scroll"><table><thead><tr><th>Medication</th><th>Dose / amount</th><th>Route</th><th>Schedule</th><th>Coverage</th></tr></thead><tbody>{report.medications.map((m, i) => { const reviewed = ORGANS.filter(organ => report.organ_coverage?.[m.drug_id]?.[organ]?.reviewed_rule_ids.length); const coverage = report.organ_coverage?.[m.drug_id]; return <tr key={i}><td><strong>{m.name}</strong><small>{m.drug_class}</small></td><td>{m.dose} {m.unit}</td><td>{readable(m.route)}</td><td>At {m.time_seconds}s{m.repeat_count > 1 ? `, ${m.repeat_count}x every ${m.interval_seconds}s` : ""}{m.duration_seconds > 0 && ` over ${m.duration_seconds}s`}</td><td><span className="tag neutral">{coverage ? (reviewed.length ? `Reviewed caution: ${reviewed.map(organ => ORGAN_LABELS[organ]).join(", ")}` : "No reviewed medicine rule") : "Per-organ coverage unavailable in saved report"}</span><small>Numerical organ effect unavailable</small></td></tr>; })}</tbody></table></div></section>
+      <section className="report-section"><h3>Four-system assessment</h3>{ORGANS.map(organ => { const Icon = icons[organ]; const response = report.visual_responses?.[organ]; const caution = report.organs[organ].outcome === "concern_identified"; return <div className="organ-report-section" key={organ}><div className="section-heading"><Icon color={ORGAN_COLORS[organ]} size={22} /><h4>{ORGAN_LABELS[organ]}</h4><span className={`tag ${caution ? "warning" : "neutral"}`}>{caution ? "Review required" : response?.condition_mechanisms.length ? "Condition recorded" : "No flag in limited checks"}</span></div><p className="muted">{report.organs[organ].conditions.map(c => `${c.name} (${c.severity})`).join(", ") || `History: ${readable(report.organs[organ].history_status)}`}</p>{response && <p><strong>Condition display pattern: {response.pattern_label}.</strong> {response.condition_mechanisms.map(item => item.description).join("; ")}</p>}{report.organs[organ].findings.filter(f => f.coverage === "evidence_only").map(f => <FindingDetails key={f.rule_id} finding={f} />)}<p>Clinical safety and organ function remain unverified.</p></div>; })}</section>
       <section className="report-section"><h3>Entered measurements</h3>{report.measurements.length ? <div className="table-scroll"><table><thead><tr><th>Measurement</th><th>Entered value</th><th>Unit</th><th>Observed at</th><th>Source</th></tr></thead><tbody>{report.measurements.map(m => <tr key={m.name}><td>{m.label}</td><td>{m.value}</td><td>{m.unit}</td><td>{m.observed_at || "Not supplied"}</td><td>{m.provenance}</td></tr>)}</tbody></table></div> : <div className="empty-measurements"><CircleHelp size={20} /><p>No measurements were supplied. Missing lab values remain unknown.</p></div>}<p className="muted compact">No normality interpretation or reference range is inferred from these entries.</p></section>
       <section className="report-section"><h3>Medication interactions</h3>{report.interactions.length ? report.interactions.map((pair, i) => <div key={i} className="interaction-row"><strong>{pair.drug_a} + {pair.drug_b}</strong><span className="tag neutral">Not assessed</span><p>{pair.explanation}</p></div>) : <p>Comprehensive interaction assessment is unavailable. A single medication does not imply a safe regimen.</p>}</section>
       <section className="report-section"><h3>Available graphs</h3>{report.administration_series.map(s => <AmountChart key={s.drug_id} series={s} report={report} />)}<p className="muted compact">These graphs show administered amounts, not concentrations or organ response.</p></section>

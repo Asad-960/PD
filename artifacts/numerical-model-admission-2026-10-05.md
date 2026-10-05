@@ -1,0 +1,9 @@
+# Numerical model admission check — 2026-10-05
+
+The patient assessment adapter records administration amounts and declares `numerical_effect=false` for every catalogue medicine. The report now exposes 48 medicine–organ cells (12 medicines × 4 organs), all with numerical status `unsupported`. A catalogue association or qualitative caution cannot promote a cell to numerical support; the coverage builder also requires a matching verified output.
+
+The existing `simulation/feasibility_check.py --illustrative-only` probe passed the illustrative lifecycle and evidence/numerical isolation checks on this machine. Its native Pulse import probe failed with `ModuleNotFoundError`; the script reported `gate1_passed=false`. This probe does not establish whether a compatible SDK could be installed later. No genuine reference trace or patient-specific physiological model has been admitted.
+
+The prior fixed PK defaults had no parameter-specific source or validation record. Production report generation therefore passes no PK parameter set: `pk_series=[]`, and the app/PDF show the calculated administration ledger. The isolated `backend/reports/pk.py` calculator has unit/boundary/window tests for fictional model parameters, but is not a production drug model. Legacy cached PK rows lacking the new model/provenance contract are hidden from the app and PDF.
+
+To admit one numerical medicine–organ result later, provide an executable model or exact-input reference trace, supported ingredient/route/organ/quantity manifest, units and source-backed parameters, required patient inputs, independent reference cases, dimension/conservation checks, and an actual run output carrying the declared model ID. Until then, the correct outcome is “numerical organ effect unavailable,” including for medicines that have an evidence-only caution.

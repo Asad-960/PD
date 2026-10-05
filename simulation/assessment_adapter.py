@@ -31,7 +31,7 @@ class AssessmentTimelineAdapter(PhysiologyEngineAdapter):
                 "Clinical validation and independent evidence review have not been established."],
             "metrics": {"administered_" + key: {"name": "administered_" + key,
                 "display_name": drug["name"] + " administered", "unit": "mL" if key == "saline" else "mg",
-                "domain": drug["target_organs"][0], "capability": "illustrative",
+                "domain": "administration", "capability": "illustrative",
                 "description": "Cumulative administered amount from the submitted schedule.",
                 "notes": "Arithmetic ledger only; not blood concentration."} for key, drug in self.drugs.items()},
             "conditions": {item["canonical_id"]: {"name": item["name"], "engine_mapping": None,

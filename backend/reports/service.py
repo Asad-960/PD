@@ -9,6 +9,9 @@ from backend.evidence.patient_registry import PatientEvidenceRegistry
 from backend.intake import MEASUREMENTS, preflight
 from backend.schemas.intake import PatientIntake
 from backend.reports.visual_response import build_visual_responses
+from backend.reports.coverage import build_organ_coverage
+from backend.reports.safety import build_safety_alerts
+from backend.reports.pk import build_illustrative_pk
 
 LABELS = {"cardiovascular": "Heart & circulation", "renal": "Kidneys", "hepatic": "Liver", "respiratory": "Lungs & breathing"}
 
@@ -85,24 +88,7 @@ def build_report(writer, run_id, cursor=None):
     last_time = max((event["simulation_time"] for event in data["events"]), default=0)
     horizon = max(intake.horizon_seconds, last_time, 10.0)
 
-    # Pharmacokinetic profiles for simulated plasma concentration curves
-    PK_DEFAULTS = {
-        "ibuprofen": {"ka": 0.0035, "ke": 0.00035, "vd": 10.0, "t_half_s": 1980, "unit": "mg/L", "therapeutic_min": 15.0, "therapeutic_max": 50.0},
-        "morphine": {"ka": 0.0060, "ke": 0.00030, "vd": 250.0, "t_half_s": 2310, "unit": "mcg/L", "therapeutic_min": 20.0, "therapeutic_max": 80.0},
-        "acetaminophen": {"ka": 0.0045, "ke": 0.00028, "vd": 65.0, "t_half_s": 2475, "unit": "mg/L", "therapeutic_min": 10.0, "therapeutic_max": 25.0},
-        "naproxen": {"ka": 0.0025, "ke": 0.00010, "vd": 12.0, "t_half_s": 6930, "unit": "mg/L", "therapeutic_min": 30.0, "therapeutic_max": 90.0},
-        "lisinopril": {"ka": 0.0018, "ke": 0.00015, "vd": 120.0, "t_half_s": 4620, "unit": "mcg/L", "therapeutic_min": 10.0, "therapeutic_max": 40.0},
-        "losartan": {"ka": 0.0030, "ke": 0.00035, "vd": 34.0, "t_half_s": 1980, "unit": "mcg/L", "therapeutic_min": 50.0, "therapeutic_max": 250.0},
-        "furosemide": {"ka": 0.0045, "ke": 0.00045, "vd": 15.0, "t_half_s": 1540, "unit": "mg/L", "therapeutic_min": 1.0, "therapeutic_max": 5.0},
-        "fentanyl": {"ka": 0.0090, "ke": 0.00055, "vd": 300.0, "t_half_s": 1260, "unit": "mcg/L", "therapeutic_min": 1.0, "therapeutic_max": 4.0},
-        "naloxone": {"ka": 0.0150, "ke": 0.00085, "vd": 180.0, "t_half_s": 815, "unit": "mcg/L", "therapeutic_min": 5.0, "therapeutic_max": 25.0},
-        "metformin": {"ka": 0.0022, "ke": 0.00025, "vd": 60.0, "t_half_s": 2770, "unit": "mg/L", "therapeutic_min": 1.0, "therapeutic_max": 4.0},
-        "amlodipine": {"ka": 0.0012, "ke": 0.00005, "vd": 1400.0, "t_half_s": 13860, "unit": "mcg/L", "therapeutic_min": 3.0, "therapeutic_max": 15.0},
-        "saline": {"ka": 0.0120, "ke": 0.00040, "vd": 5000.0, "t_half_s": 1730, "unit": "mL (plasma volume)", "therapeutic_min": 250.0, "therapeutic_max": 1000.0},
-    }
-
     series = []
-    pk_series = []
     for identifier in dict.fromkeys(m["drug_id"] for m in medications):
         events = [event for event in administrations if event["ingredient_id"] == identifier]
         knots = sorted({0.0, last_time, *(s["time"] for s in snapshots),
@@ -129,65 +115,9 @@ def build_report(writer, run_id, cursor=None):
                        "unit": "mL" if identifier == "saline" else "mg", "points": points,
                        "provenance": "Arithmetic from recorded administrations; not pharmacokinetics"})
 
-        # Calculate Pharmacokinetic (PK) Curve
-        pk_info = PK_DEFAULTS.get(identifier, {"ka": 0.003, "ke": 0.0003, "vd": 50.0, "t_half_s": 2310, "unit": "mg/L", "therapeutic_min": 5.0, "therapeutic_max": 25.0})
-        ka, ke, vd = pk_info["ka"], pk_info["ke"], pk_info["vd"]
-        sample_count = 60
-        time_step = horizon / max(sample_count - 1, 1)
-        pk_points = []
-        c_max = 0.0
-        t_max = 0.0
-
-        for step_i in range(sample_count):
-            t_curr = min(horizon, step_i * time_step)
-            conc_sum = 0.0
-            for ev in events:
-                t_ev = ev["simulation_time"]
-                if t_curr < t_ev:
-                    continue
-                dose = ev["dose"]
-                dur = ev.get("duration", 0)
-                is_iv = ev.get("route") in ("intravenous", "injection")
-                delta_t = t_curr - t_ev
-
-                if dur > 0 and is_iv:
-                    # IV Infusion
-                    r_rate = dose / dur
-                    if delta_t <= dur:
-                        c_ev = (r_rate / (ke * vd)) * (1.0 - math.exp(-ke * delta_t))
-                    else:
-                        c_peak = (r_rate / (ke * vd)) * (1.0 - math.exp(-ke * dur))
-                        c_ev = c_peak * math.exp(-ke * (delta_t - dur))
-                elif is_iv and dur == 0:
-                    # IV Bolus
-                    c_ev = (dose / vd) * math.exp(-ke * delta_t)
-                else:
-                    # Extravascular / Oral 1-compartment Bateman
-                    if abs(ka - ke) < 1e-6:
-                        ka_adj = ke * 1.01
-                    else:
-                        ka_adj = ka
-                    factor = (dose * ka_adj) / (vd * (ka_adj - ke))
-                    c_ev = max(0.0, factor * (math.exp(-ke * delta_t) - math.exp(-ka_adj * delta_t)))
-                conc_sum += c_ev
-
-            if conc_sum > c_max:
-                c_max = conc_sum
-                t_max = t_curr
-            pk_points.append({"time": round(t_curr, 1), "value": round(conc_sum, 3), "concentration": round(conc_sum, 3)})
-
-        pk_series.append({
-            "drug_id": identifier,
-            "name": drugs[identifier]["name"],
-            "unit": pk_info["unit"],
-            "c_max": round(c_max, 2),
-            "t_max": round(t_max, 1),
-            "t_half_seconds": pk_info["t_half_s"],
-            "therapeutic_min": pk_info["therapeutic_min"],
-            "therapeutic_max": pk_info["therapeutic_max"],
-            "points": pk_points,
-            "provenance": "Simulated one-compartment pharmacokinetic plasma concentration curve",
-        })
+    # No production parameter set has passed source and model review yet.
+    # The ledger remains available; illustrative concentration is fail-closed.
+    pk_series = build_illustrative_pk(administrations, drugs, horizon, last_time)
 
     report = {"schema_version": "1.0.0", "run_id": run_id, "cursor": cursor,
         "intake": intake.model_dump(mode="json"), "assessment_basis_pinned": bool(basis), "administrations": administrations,
@@ -198,6 +128,8 @@ def build_report(writer, run_id, cursor=None):
         "measurements": measurements, "organs": organs, "interactions": interactions, "snapshots": snapshots,
         "findings_timeline": findings_timeline, "administration_series": series, "pk_series": pk_series,
         "visual_responses": build_visual_responses(intake, conditions, drugs, administrations, findings_timeline),
+        "organ_coverage": build_organ_coverage(drugs, rules, {}),
+        "safety_alerts": build_safety_alerts(intake, administrations, drugs),
         "horizon_seconds": intake.horizon_seconds, "last_time": last_time,
         "scope": checks, "engine": {"name": run["config"]["engine_name"], "version": run["config"]["engine_version"]},
         "catalogue_version": checks["catalogue_version"], "limitations": checks["limitations"],

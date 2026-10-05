@@ -18,6 +18,14 @@ class OrganDomain(str, Enum):
     HEPATIC = "hepatic"
     METABOLIC = "metabolic"
 
+class QuantityDomain(str, Enum):
+    CARDIOVASCULAR = "cardiovascular"
+    RENAL = "renal"
+    RESPIRATORY = "respiratory"
+    HEPATIC = "hepatic"
+    METABOLIC = "metabolic"
+    ADMINISTRATION = "administration"
+
 class StrictCapability(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
@@ -25,7 +33,7 @@ class MetricCapability(StrictCapability):
     name: str
     display_name: str
     unit: str
-    domain: OrganDomain
+    domain: QuantityDomain
     capability: CapabilityLevel
     description: str
     notes: Optional[str] = None

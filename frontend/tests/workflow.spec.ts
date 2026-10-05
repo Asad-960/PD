@@ -31,6 +31,8 @@ async function completeCase(page: Page, name = "Amina Khan", adjust?: (page: Pag
   if (adjust) await adjust(page);
   await page.getByRole("button", { name: "Review assessment", exact: true }).click();
   await expect(page.getByRole("heading", { name: "Review the assessment", exact: true })).toBeVisible();
+  await expect(page.getByText("Reviewed caution rules: Kidneys", { exact: true })).toBeVisible();
+  await expect(page.getByText("Reviewed caution rules: Liver, Lungs & breathing", { exact: true })).toBeVisible();
   await page.getByRole("checkbox", { name: /Run the evidence assessment/ }).check();
   await page.getByRole("button", { name: "Run assessment", exact: true }).click();
   await expect(page.getByRole("heading", { name: name || "Patient assessment", exact: true })).toBeVisible();
@@ -54,6 +56,24 @@ test("complete intake, scene, seeking, graphs, report and PDF", async ({ page })
   const second = await page.locator("canvas").screenshot();
   fs.writeFileSync("../artifacts/rebuild/canvas-moving.png", second);
   expect(first.equals(second)).toBeFalsy();
+  const frameIntervals = await page.evaluate(() => new Promise<number[]>(resolve => {
+    const intervals: number[] = [];
+    let previous = 0;
+    const started = performance.now();
+    function sample(now: number) {
+      if (previous) intervals.push(now - previous);
+      previous = now;
+      if (now - started < 1500) requestAnimationFrame(sample);
+      else resolve(intervals);
+    }
+    requestAnimationFrame(sample);
+  }));
+  const ordered = [...frameIntervals].sort((a, b) => a - b);
+  const median = ordered[Math.floor(ordered.length / 2)];
+  fs.writeFileSync("../artifacts/implementation-frame-timing-2026-10-05.json",
+    JSON.stringify({ samples: frameIntervals.length, median_ms: median,
+      p95_ms: ordered[Math.floor(ordered.length * .95)], estimated_median_fps: 1000 / median }, null, 2));
+  expect(1000 / median).toBeGreaterThanOrEqual(30);
   await page.getByRole("tab", { name: "Assessment report", exact: true }).click();
   await expect(page.getByText("Systolic blood pressure", { exact: true })).toBeVisible();
   await expect(page.locator(".lab-report").getByText("400 mg", { exact: true })).toBeVisible();
@@ -66,6 +86,24 @@ test("complete intake, scene, seeking, graphs, report and PDF", async ({ page })
   await page.getByRole("tab", { name: "Graphs", exact: true }).click();
   await expect(page.locator(".graphs-view .recharts-surface")).toHaveCount(2);
   expect(errors).toEqual([]);
+});
+
+test("organ cues follow finding time and distinguish association from review", async ({ page }) => {
+  await completeCase(page, "Organ Timeline", async page => {
+    await page.getByLabel("Start time 1", { exact: true }).fill("0");
+  });
+  const timeline = page.getByLabel("Simulation time", { exact: true });
+  await timeline.fill("0");
+  await page.getByRole("button", { name: "Inspect Kidneys", exact: true }).click();
+  await expect(page.locator(".organ-inspection").getByText(/Administration association shown/)).toBeVisible();
+  await expect(page.locator(".organ-inspection").getByText(/Reviewed caution shown/)).toHaveCount(0);
+  await timeline.fill("5");
+  await expect(page.locator(".organ-inspection").getByText(/Reviewed caution shown/)).toBeVisible();
+  await expect(page.locator(".organ-inspection").getByText("Review required", { exact: true })).toBeVisible();
+  await timeline.fill("0");
+  await expect(page.locator(".organ-inspection").getByText(/Reviewed caution shown/)).toHaveCount(0);
+  await page.getByRole("button", { name: "Inspect Heart & circulation", exact: true }).click();
+  await expect(page.locator(".organ-inspection").getByText(/Catalogue association only/)).toBeVisible();
 });
 
 test("mobile workflow, body framing and no horizontal overflow", async ({ page }) => {
@@ -82,6 +120,15 @@ test("mobile workflow, body framing and no horizontal overflow", async ({ page }
   await page.screenshot({ path: "../artifacts/rebuild/mobile-report.png", fullPage: true });
 });
 
+test("reduced motion retains organ caution as readable text", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await completeCase(page, "Reduced Motion");
+  await page.getByLabel("Simulation time", { exact: true }).fill("100");
+  await page.getByRole("button", { name: "Inspect Kidneys", exact: true }).click();
+  await expect(page.locator(".organ-inspection").getByText(/Reviewed caution shown/)).toBeVisible();
+  await expect(page.locator("canvas")).toBeVisible();
+});
+
 test("repeated administrations display only applied events at the selected time", async ({ page }) => {
   await completeCase(page, "Repeat Schedule", async page => {
     await page.getByLabel("Administrations 1", { exact: true }).fill("2");
@@ -94,6 +141,8 @@ test("repeated administrations display only applied events at the selected time"
   await page.getByLabel("Simulation time", { exact: true }).fill("50");
   await expect(page.locator(".active-exposures > div")).toHaveCount(3);
   await expect(page.locator(".active-exposures").getByText("At 40s", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "Inspect Kidneys", exact: true }).click();
+  await expect(page.locator(".organ-inspection").getByText(/Reviewed caution shown/)).toHaveCount(2);
   await page.setViewportSize({ width: 1920, height: 1080 });
   await page.locator("canvas").screenshot({ path: "../artifacts/rebuild/canvas-wide.png" });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBeTruthy();
