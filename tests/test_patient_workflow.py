@@ -53,6 +53,9 @@ def test_preflight_rejects_prediction_and_lists_actual_coverage(tmp_path):
         assert result["can_run_evidence"]
         assert not result["can_run_numerical"]
         assert result["patient_prediction"] is False
+        ibuprofen = result["medication_coverage"][0]
+        assert ibuprofen["associated_organs"] == ["renal", "cardiovascular", "hepatic"]
+        assert ibuprofen["reviewed_rule_organs"] == ["renal"]
         response = client.post("/api/runs", json={"intake": intake(), "assessment_mode": "numerical"})
         assert response.status_code == 422
 
@@ -96,7 +99,8 @@ def test_report_and_pdf_preserve_facts_and_never_invent_normal_labs(tmp_path):
         assert any(f["coverage"] == "evidence_only" for f in report["organs"]["renal"]["findings"])
         assert report["visual_responses"]["renal"]["pattern"] == "structural_change"
         assert report["visual_responses"]["renal"]["safety_signal"] == "review_required"
-        assert report["visual_responses"]["renal"]["cues"][0]["kind"] == "source_linked_caution"
+        assert [cue["kind"] for cue in report["visual_responses"]["renal"]["cues"]] == [
+            "exposure_only", "source_linked_caution"]
         assert report["visual_responses"]["cardiovascular"]["safety_signal"] == "no_flag_in_limited_checks"
         assert all(q["name"].startswith("administered_") for s in report["snapshots"] for q in s["quantities"])
         pdf = client.get(f"/api/runs/{run_id}/report.pdf?cursor={report['cursor']}")
@@ -217,6 +221,8 @@ def test_report_records_exact_repeats_and_cursor_isolation(tmp_path):
         first_applied = next(e for e in service.writer.get_events_after(run_id, -1, 500) if e.event_type == "INTERVENTION_APPLIED")
         partial = build_report(service.writer, run_id, first_applied.sequence - 1)
         assert partial["administrations"] == []
+        assert all(not response["cues"] for response in partial["visual_responses"].values())
+        assert partial["pk_series"] == []
         assert not partial["is_final"]
         assert partial["administration_series"][0]["points"][-1]["value"] == 0
         assert build_report(service.writer, run_id, partial["cursor"]) == partial

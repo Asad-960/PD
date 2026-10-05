@@ -258,10 +258,22 @@ export default function BodyScene(props: Props) {
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     const start = performance.now();
+    let lastFrame = start;
+    const cueColors = {
+      caution: new THREE.Color(0xef4444),
+      selectedRenal: new THREE.Color(0xa855f7),
+      selected: new THREE.Color(0x10b981),
+      condition: new THREE.Color(0xd97706),
+      exposure: new THREE.Color(0x06b6d4),
+      quiet: new THREE.Color(0x000000),
+    };
 
     function animate() {
       const props = current.current;
-      const elapsed = (performance.now() - start) / 1000;
+      const now = performance.now();
+      const elapsed = (now - start) / 1000;
+      const blend = reduced.matches ? 1 : 1 - Math.exp(-Math.min(now - lastFrame, 50) / 180);
+      lastFrame = now;
       const motion = props.playing && !reduced.matches;
 
       for (const organ of ORGANS) {
@@ -307,26 +319,27 @@ export default function BodyScene(props: Props) {
             targetOpacity = 0.65;
           }
 
-          material.opacity = targetOpacity;
-          material.depthWrite = targetOpacity > 0.5;
+          material.opacity = THREE.MathUtils.lerp(material.opacity, targetOpacity, blend);
+          material.depthWrite = material.opacity > 0.5;
 
-          // Glowing clinical state emissions
+          // Ease visual cues; this colour is an evidence/association signal, not organ function.
+          let targetColor = cueColors.quiet;
+          let targetIntensity = 0;
           if (activeCaution) {
-            material.emissive.set(0xef4444);
-            material.emissiveIntensity = 0.45 + (motion ? Math.max(0, phase) * 0.45 : 0);
+            targetColor = cueColors.caution;
+            targetIntensity = 0.45 + (motion ? Math.max(0, phase) * 0.45 : 0);
           } else if (selected) {
-            material.emissive.set(organ === "renal" ? 0xa855f7 : 0x10b981);
-            material.emissiveIntensity = 0.35 + (motion ? Math.max(0, phase) * 0.25 : 0);
+            targetColor = organ === "renal" ? cueColors.selectedRenal : cueColors.selected;
+            targetIntensity = 0.35 + (motion ? Math.max(0, phase) * 0.25 : 0);
           } else if (condition) {
-            material.emissive.set(0xd97706);
-            material.emissiveIntensity = 0.16;
+            targetColor = cueColors.condition;
+            targetIntensity = 0.16;
           } else if (activeExposure) {
-            material.emissive.set(0x06b6d4);
-            material.emissiveIntensity = 0.12;
-          } else {
-            material.emissive.set(0x000000);
-            material.emissiveIntensity = 0;
+            targetColor = cueColors.exposure;
+            targetIntensity = 0.12;
           }
+          material.emissive.lerp(targetColor, blend);
+          material.emissiveIntensity = THREE.MathUtils.lerp(material.emissiveIntensity, targetIntensity, blend);
 
           material.roughness = response?.pattern === "fibrotic_texture" ? 0.90 : material.roughness;
         }

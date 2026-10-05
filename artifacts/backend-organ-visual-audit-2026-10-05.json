@@ -1,0 +1,648 @@
+{
+  "catalogue_count": 12,
+  "reviewed_rule_count": 4,
+  "matrix": {
+    "ibuprofen": {
+      "target_organs": [
+        "renal",
+        "cardiovascular",
+        "hepatic"
+      ],
+      "evidence_available": true,
+      "reviewed_rule_organs": [
+        "renal"
+      ]
+    },
+    "morphine": {
+      "target_organs": [
+        "hepatic",
+        "respiratory",
+        "renal"
+      ],
+      "evidence_available": true,
+      "reviewed_rule_organs": [
+        "hepatic",
+        "respiratory"
+      ]
+    },
+    "acetaminophen": {
+      "target_organs": [
+        "hepatic"
+      ],
+      "evidence_available": false,
+      "reviewed_rule_organs": []
+    },
+    "naproxen": {
+      "target_organs": [
+        "renal",
+        "cardiovascular"
+      ],
+      "evidence_available": false,
+      "reviewed_rule_organs": []
+    },
+    "lisinopril": {
+      "target_organs": [
+        "cardiovascular",
+        "renal"
+      ],
+      "evidence_available": false,
+      "reviewed_rule_organs": []
+    },
+    "losartan": {
+      "target_organs": [
+        "cardiovascular",
+        "renal"
+      ],
+      "evidence_available": false,
+      "reviewed_rule_organs": []
+    },
+    "furosemide": {
+      "target_organs": [
+        "renal",
+        "cardiovascular"
+      ],
+      "evidence_available": false,
+      "reviewed_rule_organs": []
+    },
+    "fentanyl": {
+      "target_organs": [
+        "hepatic",
+        "respiratory"
+      ],
+      "evidence_available": false,
+      "reviewed_rule_organs": []
+    },
+    "naloxone": {
+      "target_organs": [
+        "respiratory"
+      ],
+      "evidence_available": false,
+      "reviewed_rule_organs": []
+    },
+    "metformin": {
+      "target_organs": [
+        "renal",
+        "hepatic"
+      ],
+      "evidence_available": false,
+      "reviewed_rule_organs": []
+    },
+    "amlodipine": {
+      "target_organs": [
+        "cardiovascular"
+      ],
+      "evidence_available": false,
+      "reviewed_rule_organs": []
+    },
+    "saline": {
+      "target_organs": [
+        "cardiovascular",
+        "renal",
+        "respiratory"
+      ],
+      "evidence_available": true,
+      "reviewed_rule_organs": [
+        "cardiovascular"
+      ]
+    }
+  },
+  "ibuprofen_ckd": {
+    "cues": {
+      "cardiovascular": [
+        {
+          "drug_id": "ibuprofen",
+          "drug_name": "Ibuprofen",
+          "event_id": "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0",
+          "kind": "exposure_only",
+          "rule_ids": [],
+          "time": 0.0
+        }
+      ],
+      "hepatic": [
+        {
+          "drug_id": "ibuprofen",
+          "drug_name": "Ibuprofen",
+          "event_id": "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0",
+          "kind": "exposure_only",
+          "rule_ids": [],
+          "time": 0.0
+        }
+      ],
+      "renal": [
+        {
+          "drug_id": "ibuprofen",
+          "drug_name": "Ibuprofen",
+          "event_id": "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0",
+          "kind": "source_linked_caution",
+          "rule_ids": [
+            "RULE_NSAID_RENAL_HEMODYNAMIC"
+          ],
+          "time": 0.0
+        }
+      ],
+      "respiratory": []
+    },
+    "findings": [
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 1.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 2.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 3.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 4.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 5.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 6.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 7.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 8.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 9.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 10.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 11.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 12.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 13.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 14.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 15.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 16.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 17.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 18.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 19.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 20.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 21.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 22.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 23.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 24.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 25.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 26.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 27.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 28.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 29.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 30.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 31.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 32.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 33.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 34.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 35.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 36.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 37.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 38.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 39.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 40.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 41.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 42.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 43.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 44.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 45.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 46.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 47.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 48.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 49.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 50.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 51.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 52.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 53.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 54.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 55.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 56.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 57.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 58.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 59.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      },
+      {
+        "organ": "renal",
+        "rule_id": "RULE_NSAID_RENAL_HEMODYNAMIC",
+        "time": 60.0,
+        "causal_event_ids": [
+          "run_e67391afdb5b457ca9b5e1231a6835ee_med_0_0"
+        ]
+      }
+    ],
+    "last_time": 60.0
+  },
+  "amlodipine": {
+    "cues": {
+      "cardiovascular": [
+        {
+          "drug_id": "amlodipine",
+          "drug_name": "Amlodipine",
+          "event_id": "run_245880696d3741a0983a68eb84ce978c_med_0_0",
+          "kind": "exposure_only",
+          "rule_ids": [],
+          "time": 0.0
+        }
+      ],
+      "hepatic": [],
+      "renal": [],
+      "respiratory": []
+    },
+    "findings": [],
+    "last_time": 60.0
+  }
+}

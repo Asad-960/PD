@@ -260,7 +260,7 @@ export default function MedicationFields({ values, catalogue, onChange, horizon,
                   <strong>{drug.rule_scope}</strong>
                   {drug.target_organs?.length > 0 && (
                     <span className="target-organs-hint">
-                      Primary systems: {drug.target_organs.join(", ")}
+                      Catalogue organ associations (not predicted effects): {drug.target_organs.join(", ")}
                     </span>
                   )}
                 </div>

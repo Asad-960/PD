@@ -47,11 +47,25 @@ def build_visual_responses(intake, conditions, drugs, administrations, findings_
             drug = drugs[action["ingredient_id"]]
             if organ not in drug["target_organs"]:
                 continue
-            related = [item for item in cautions if action["event_id"] in item.get("causal_event_ids", [])]
             cues.append({"time": action["simulation_time"], "event_id": action["event_id"],
                          "drug_id": action["ingredient_id"], "drug_name": drug["name"],
-                         "kind": "source_linked_caution" if related else "exposure_only",
-                         "rule_ids": sorted({item["rule_id"] for item in related if item.get("rule_id")})})
+                         "kind": "exposure_only", "rule_id": None, "rule_ids": [],
+                         "finding_id": None})
+            first_by_rule = {}
+            for finding in cautions:
+                rule_id = finding.get("rule_id")
+                if (not rule_id or action["event_id"] not in finding.get("causal_event_ids", [])
+                        or finding["simulation_time"] < action["simulation_time"]):
+                    continue
+                if rule_id not in first_by_rule or finding["simulation_time"] < first_by_rule[rule_id]["simulation_time"]:
+                    first_by_rule[rule_id] = finding
+            for rule_id, finding in first_by_rule.items():
+                cues.append({"time": finding["simulation_time"], "event_id": action["event_id"],
+                             "drug_id": action["ingredient_id"], "drug_name": drug["name"],
+                             "kind": "source_linked_caution", "rule_id": rule_id,
+                             "rule_ids": [rule_id], "finding_id": finding["finding_id"]})
+        cues.sort(key=lambda cue: (cue["time"], cue["kind"] != "exposure_only",
+                                   cue["event_id"], cue["rule_id"] or ""))
         response[organ] = {"pattern": pattern, "pattern_label": label,
             "condition_mechanisms": [{"condition_id": item.condition_id,
                 "condition_name": conditions[item.condition_id]["name"],
